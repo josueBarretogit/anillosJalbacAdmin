@@ -16,7 +16,7 @@ let dialog = ref(false)
       src="https://www.ifshe.com/cdn/shop/products/personalised-ring-promise-ring-3d-2-name-ring-with-2-birthstones-rose-gold_f1b11e76-444d-4bd9-8aa3-7be9a65d187e_720x.jpg?v=1660544987"
       cover></v-img>
 
-    <v-row no-gutters >
+    <v-row no-gutters>
 
       <v-col cols="12" sm="6">
         <v-card-title class="titulo">Peso</v-card-title>
@@ -38,7 +38,7 @@ let dialog = ref(false)
 
     <v-card-actions>
       <v-btn rounded="xl" color="blue">Editar</v-btn>
-      <form-eliminar/>
+      <form-eliminar />
 
     </v-card-actions>
 
@@ -46,7 +46,6 @@ let dialog = ref(false)
 </template>
 
 <style scoped>
-
 .subtitlo {
   color: grey;
 

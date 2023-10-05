@@ -1,9 +1,10 @@
 // Composables
 import { createRouter, createWebHistory } from 'vue-router'
+import login from './../views/login.vue'
 
 const routes = [
   {
-    path: '/',
+    path: '/home',
     component: () => import('@/layouts/default/Default.vue'),
     children: [
       {
@@ -16,6 +17,10 @@ const routes = [
       },
     ],
   },
+  {
+    path: '/usuario',
+    component: () => import('@/layouts/LoginLayout.vue'),
+  }
 ]
 
 const router = createRouter({

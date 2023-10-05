@@ -1,9 +1,8 @@
 <script setup>
 import { ref } from 'vue';
-
-
 let dialog = ref(false)
 </script>
+
 <template>
   <v-dialog transition="dialog-top-transition" v-model="dialog" width="auto">
 

@@ -61,6 +61,7 @@ async function updatePage(index: number) {
 
           </v-col>
         </v-row>
+
         <div class="text-center">
           <v-container>
             <v-row justify="center">
