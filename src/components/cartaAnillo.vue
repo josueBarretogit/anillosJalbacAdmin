@@ -6,7 +6,6 @@ import { ref } from 'vue'
 defineProps<{
   anillo: Anillo | undefined
 }>()
-let dialog = ref(false)
 </script>
 
 <template>
