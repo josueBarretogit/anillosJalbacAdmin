@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import carta from './../components/cartaAnillo.vue'
-import MainAppBar from '../components/MainAppBar.vue'
 import { ref } from 'vue'
 import { onMounted } from 'vue'
 import { getAnillos } from './../services/anilloApi'
@@ -37,44 +36,36 @@ async function updatePage(index: number) {
 </script>
 
 <template>
-  <v-app id="inspire">
-    <MainAppBar />
-    <v-main>
-      <template v-if="isLoading === true" class="d-flex justify-center align-center">
-        <v-progress-circular :size="50" color="primary" indeterminate></v-progress-circular>
-      </template>
-      <v-container v-else>
-        <v-row>
-          <v-sheet v-if="anillosinPage.length == 0">
-            <h1>No hay datos</h1>
-          </v-sheet>
-          <v-col v-else v-for="anillo in anillosinPage" cols="4" class="d-flex justify-center">
+  <template v-if="isLoading === true" class="d-flex justify-center align-center">
+    <v-progress-circular :size="50" color="primary" indeterminate></v-progress-circular>
+  </template>
+  <v-container v-else>
+    <v-row>
+      <v-sheet v-if="anillosinPage.length == 0">
+        <h1>No hay datos</h1>
+      </v-sheet>
+      <v-col v-else v-for="anillo in anillosinPage" cols="4" class="d-flex justify-center">
 
-            <carta v-bind:anillo="anillo" />
+        <carta v-bind:anillo="anillo" />
 
+      </v-col>
+    </v-row>
+
+    <div class="text-center">
+      <v-container>
+        <v-row justify="center">
+          <v-col cols="8">
+            <v-container class="max-width">
+              <v-pagination color="blue" prev-icon="mdi-menu-left" class="my-4" :length="numPages"
+                @update:model-value="updatePage" :total-visible="2"></v-pagination>
+
+            </v-container>
           </v-col>
         </v-row>
-
-        <router-view></router-view>
-        <div class="text-center">
-          <v-container>
-            <v-row justify="center">
-              <v-col cols="8">
-                <v-container class="max-width">
-                  <v-pagination color="blue" prev-icon="mdi-menu-left" class="my-4" :length="numPages"
-                    @update:model-value="updatePage" :total-visible="2"></v-pagination>
-
-                </v-container>
-              </v-col>
-            </v-row>
-          </v-container>
-        </div>
-
-
-
       </v-container>
-    </v-main>
-  </v-app>
+    </div>
+
+  </v-container>
 </template>
 
 <style scoped>

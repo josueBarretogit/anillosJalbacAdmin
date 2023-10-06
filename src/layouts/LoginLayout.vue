@@ -1,32 +1,32 @@
 
-<script setup>
+<script lang="ts" setup>
 import { ref } from 'vue'
 import { useField, useForm } from 'vee-validate'
 
 const { handleSubmit, handleReset } = useForm({
 
   validationSchema: {
-    name(value) {
+    name(value: string) {
       if (value?.length >= 2) return true
 
       return 'Name needs to be at least 2 characters.'
     },
-    phone(value) {
+    phone(value: string) {
       if (value?.length > 9 && /[0-9-]+/.test(value)) return true
 
       return 'Phone number needs to be at least 9 digits.'
     },
-    email(value) {
+    email(value: string) {
       if (/^[a-z.-]+@[a-z.-]+\.[a-z]+$/i.test(value)) return true
 
       return 'Must be a valid e-mail.'
     },
-    select(value) {
+    select(value: string) {
       if (value) return true
 
       return 'Select an item.'
     },
-    checkbox(value) {
+    checkbox(value: string) {
       if (value === '1') return true
 
       return 'Must be checked.'
