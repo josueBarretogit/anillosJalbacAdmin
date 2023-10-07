@@ -1,15 +1,12 @@
 <script setup>
-import { ref } from 'vue';
-let dialog = ref(false)
+import { ref } from "vue";
+let dialog = ref(false);
 </script>
 
 <template>
   <v-dialog transition="dialog-top-transition" v-model="dialog" width="auto">
-
     <template v-slot:activator="{ props }">
-      <v-btn color="red" v-bind="props" rounded="xl">
-        Eliminar
-      </v-btn>
+      <v-btn color="red" v-bind="props" rounded="xl"> Eliminar </v-btn>
     </template>
 
     <v-card>
@@ -23,25 +20,52 @@ let dialog = ref(false)
               <v-text-field label="Legal first name*" required></v-text-field>
             </v-col>
             <v-col cols="12" sm="6" md="4">
-              <v-text-field label="Legal middle name" hint="example of helper text only on focus"></v-text-field>
+              <v-text-field
+                label="Legal middle name"
+                hint="example of helper text only on focus"
+              ></v-text-field>
             </v-col>
             <v-col cols="12" sm="6" md="4">
-              <v-text-field label="Legal last name*" hint="example of persistent helper text" persistent-hint
-                required></v-text-field>
+              <v-text-field
+                label="Legal last name*"
+                hint="example of persistent helper text"
+                persistent-hint
+                required
+              ></v-text-field>
             </v-col>
             <v-col cols="12">
               <v-text-field label="Email*" required></v-text-field>
             </v-col>
             <v-col cols="12">
-              <v-text-field label="Password*" type="password" required></v-text-field>
+              <v-text-field
+                label="Password*"
+                type="password"
+                required
+              ></v-text-field>
             </v-col>
             <v-col cols="12" sm="6">
-              <v-select :items="['0-17', '18-29', '30-54', '54+']" label="Age*" required></v-select>
+              <v-select
+                :items="['0-17', '18-29', '30-54', '54+']"
+                label="Age*"
+                required
+              ></v-select>
             </v-col>
             <v-col cols="12" sm="6">
               <v-autocomplete
-                :items="['Skiing', 'Ice hockey', 'Soccer', 'Basketball', 'Hockey', 'Reading', 'Writing', 'Coding', 'Basejump']"
-                label="Interests" multiple></v-autocomplete>
+                :items="[
+                  'Skiing',
+                  'Ice hockey',
+                  'Soccer',
+                  'Basketball',
+                  'Hockey',
+                  'Reading',
+                  'Writing',
+                  'Coding',
+                  'Basejump',
+                ]"
+                label="Interests"
+                multiple
+              ></v-autocomplete>
             </v-col>
           </v-row>
         </v-container>
@@ -57,6 +81,5 @@ let dialog = ref(false)
         </v-btn>
       </v-card-actions>
     </v-card>
-
   </v-dialog>
 </template>

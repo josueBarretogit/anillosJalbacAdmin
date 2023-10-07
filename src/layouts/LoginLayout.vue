@@ -1,80 +1,69 @@
-
 <script lang="ts" setup>
-import { ref } from 'vue'
-import { useField, useForm } from 'vee-validate'
+import { ref } from "vue";
+import { useField, useForm } from "vee-validate";
 
-const { handleSubmit, handleReset } = useForm({
-
+const { handleSubmit } = useForm({
   validationSchema: {
     name(value: string) {
-      if (value?.length >= 2) return true
+      if (value?.length >= 2) return true;
 
-      return 'Name needs to be at least 2 characters.'
+      return "Name needs to be at least 2 characters.";
     },
     phone(value: string) {
-      if (value?.length > 9 && /[0-9-]+/.test(value)) return true
+      if (value?.length > 9 && /[0-9-]+/.test(value)) return true;
 
-      return 'Phone number needs to be at least 9 digits.'
+      return "Phone number needs to be at least 9 digits.";
     },
     email(value: string) {
-      if (/^[a-z.-]+@[a-z.-]+\.[a-z]+$/i.test(value)) return true
+      if (/^[a-z.-]+@[a-z.-]+\.[a-z]+$/i.test(value)) return true;
 
-      return 'Must be a valid e-mail.'
+      return "Must be a valid e-mail.";
     },
     select(value: string) {
-      if (value) return true
+      if (value) return true;
 
-      return 'Select an item.'
+      return "Select an item.";
     },
     checkbox(value: string) {
-      if (value === '1') return true
+      if (value === "1") return true;
 
-      return 'Must be checked.'
+      return "Must be checked.";
     },
   },
-})
+});
 
-const name = useField('name')
-const phone = useField('phone')
-const email = useField('email')
-const select = useField('select')
-const checkbox = useField('checkbox')
+const name = useField("name");
+const phone = useField("phone");
 
-const items = ref([
-  'Item 1',
-  'Item 2',
-  'Item 3',
-  'Item 4',
-])
-
-const submit = handleSubmit(values => {
-  alert(JSON.stringify(values, null, 2))
-})
-
+const submit = handleSubmit((values) => {
+  alert(JSON.stringify(values, null, 2));
+});
 </script>
 
 <template>
-  <form @submit.prevent="submit">
-    <v-text-field v-model="name.value.value" :counter="10" :error-messages="name.errorMessage.value"
-      label="Name"></v-text-field>
+  <div class="d-flex justify-center h-100 align-center">
+    <form @submit.prevent="submit" class="w-50">
+      <v-text-field
+        class="mb-3"
+        color="blue"
+        variant="outlined"
+        v-model="name.value.value"
+        :counter="10"
+        :error-messages="name.errorMessage.value"
+        label="Correo"
+      ></v-text-field>
 
-    <v-text-field v-model="phone.value.value" :counter="7" :error-messages="phone.errorMessage.value"
-      label="Phone Number"></v-text-field>
+      <v-text-field
+        class="mb-3"
+        color="blue"
+        variant="outlined"
+        v-model="phone.value.value"
+        :counter="7"
+        :error-messages="phone.errorMessage.value"
+        label="contraseña"
+      ></v-text-field>
 
-    <v-text-field v-model="email.value.value" :error-messages="email.errorMessage.value" label="E-mail"></v-text-field>
-
-    <v-select v-model="select.value.value" :items="items" :error-messages="select.errorMessage.value"
-      label="Select"></v-select>
-
-    <v-checkbox v-model="checkbox.value.value" :error-messages="checkbox.errorMessage.value" value="1" label="Option"
-      type="checkbox"></v-checkbox>
-
-    <v-btn class="me-4" type="submit">
-      submit
-    </v-btn>
-
-    <v-btn @click="handleReset">
-      clear
-    </v-btn>
-  </form>
+      <v-btn type="submit" size="large"> Iniciar sesión </v-btn>
+    </form>
+  </div>
 </template>

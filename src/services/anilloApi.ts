@@ -1,66 +1,69 @@
+import type { Anillo } from "@/interfaces/interfaces";
+import axios, { isCancel, AxiosError } from "axios";
 
-import type { Anillo } from '@/interfaces/interfaces';
-import axios, { isCancel, AxiosError } from 'axios';
+let anillos: Anillo[];
 
-let anillos: Anillo[]
-
-async function getAnillo(id: number, isLoading: boolean): Promise<Anillo | undefined> {
+async function getAnillo(
+  id: number,
+  isLoading: boolean,
+): Promise<Anillo | undefined> {
   try {
-    const response = await axios.post('http://localhost:4000/api/anillos/getone', {
-      id: id,
-    })
-    anillos = response.data
+    const response = await axios.post(
+      "http://localhost:4000/api/anillos/getone",
+      {
+        id: id,
+      },
+    );
+    anillos = response.data;
 
-    return response.data
+    return response.data;
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
 }
 
 async function getAnillos(): Promise<Anillo[] | undefined> {
-
   try {
-    const response = await axios.get('http://localhost:4000/api/anillos/')
-    anillos = response.data
-    console.log(anillos)
+    const response = await axios.get("http://localhost:4000/api/anillos/");
+    anillos = response.data;
+    console.log(anillos);
 
-    return response.data
+    return response.data;
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
 }
 async function deleteAnillo(id: number): Promise<Anillo | undefined> {
-
   try {
-    const response = await axios.post('http://localhost:4000/api/anillos/delete')
-    anillos = response.data
-    console.log(anillos)
+    const response = await axios.post(
+      "http://localhost:4000/api/anillos/delete",
+    );
+    anillos = response.data;
+    console.log(anillos);
 
-    return response.data
+    return response.data;
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
 }
 
 async function logIn(correo: string, contrasena: string): Promise<any> {
-
   try {
-    const response = await axios.post('http://localhost:4000/api/usuarios/login', {
-      correo,
-      contrasena
-    })
+    const response = await axios.post(
+      "http://localhost:4000/api/usuarios/login",
+      {
+        correo,
+        contrasena,
+      },
+    );
 
-    const userLogged = response.data
+    const userLogged = response.data;
 
-    console.log(userLogged)
+    console.log(userLogged);
 
-    return response.data
-
+    return response.data;
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
 }
-export {
-  getAnillos,
-  anillos
-}
+export { getAnillos, anillos };
