@@ -17,7 +17,7 @@ const showAdminButtons = ref(false);
     </v-btn>
 
     <v-btn v-else size="large" color="blue" prepend-icon="mdi-pen-plus">
-      Crear Anillo
+      Login
     </v-btn>
   </v-app-bar>
 </template>

@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { ref, reactive } from "vue";
 import { useField, useForm } from "vee-validate";
+import { logIn } from "./../services/anilloApi";
 
 const { handleSubmit } = useForm({
   validationSchema: {
@@ -19,8 +20,9 @@ const { handleSubmit } = useForm({
 const correo = useField("correo");
 const contrasena = useField("contrasena");
 
-const submit = handleSubmit((values) => {
-  alert(JSON.stringify(values, null, 2));
+const submit = handleSubmit(async (values) => {
+  await logIn(values.correo, values.contrasena);
+  console.log(values);
 });
 </script>
 

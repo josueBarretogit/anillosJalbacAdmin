@@ -1,5 +1,5 @@
 import type { Anillo } from "@/interfaces/interfaces";
-import axios, { isCancel, AxiosError } from "axios";
+import axios from "axios";
 
 let anillos: Anillo[];
 
@@ -55,6 +55,13 @@ async function logIn(correo: string, contrasena: string): Promise<any> {
         correo,
         contrasena,
       },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+        },
+        withCredentials: true,
+      },
     );
 
     const userLogged = response.data;
@@ -66,4 +73,4 @@ async function logIn(correo: string, contrasena: string): Promise<any> {
     console.log(error);
   }
 }
-export { getAnillos, anillos };
+export { getAnillos, anillos, logIn };
