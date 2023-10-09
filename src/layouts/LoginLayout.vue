@@ -1,39 +1,23 @@
 <script lang="ts" setup>
-import { ref } from "vue";
+import { ref, reactive } from "vue";
 import { useField, useForm } from "vee-validate";
 
 const { handleSubmit } = useForm({
   validationSchema: {
-    name(value: string) {
-      if (value?.length >= 2) return true;
-
-      return "Name needs to be at least 2 characters.";
-    },
-    phone(value: string) {
-      if (value?.length > 9 && /[0-9-]+/.test(value)) return true;
-
-      return "Phone number needs to be at least 9 digits.";
-    },
-    email(value: string) {
+    correo(value: string) {
       if (/^[a-z.-]+@[a-z.-]+\.[a-z]+$/i.test(value)) return true;
-
-      return "Must be a valid e-mail.";
+      return "El correo no es valido";
     },
-    select(value: string) {
-      if (value) return true;
 
-      return "Select an item.";
-    },
-    checkbox(value: string) {
-      if (value === "1") return true;
-
-      return "Must be checked.";
+    contrasena(value: string) {
+      if (value?.length >= 7) return true;
+      return "La contraseña tiene que ser al menos 7 caracteres";
     },
   },
 });
 
-const name = useField("name");
-const phone = useField("phone");
+const correo = useField("correo");
+const contrasena = useField("contrasena");
 
 const submit = handleSubmit((values) => {
   alert(JSON.stringify(values, null, 2));
@@ -41,15 +25,18 @@ const submit = handleSubmit((values) => {
 </script>
 
 <template>
-  <div class="d-flex justify-center h-100 align-center">
-    <form @submit.prevent="submit" class="w-50">
+  <div class="d-flex flex-column h-100 align-center">
+    <div class="d-flex flex-grow-1">
+      <h1 class="flex-grow-1 align-self-center">Login</h1>
+    </div>
+    <form @submit.prevent="submit" class="w-25 flex-grow-1">
       <v-text-field
         class="mb-3"
         color="blue"
         variant="outlined"
-        v-model="name.value.value"
+        v-model="correo.value.value"
         :counter="10"
-        :error-messages="name.errorMessage.value"
+        :error-messages="correo.errorMessage.value"
         label="Correo"
       ></v-text-field>
 
@@ -57,9 +44,9 @@ const submit = handleSubmit((values) => {
         class="mb-3"
         color="blue"
         variant="outlined"
-        v-model="phone.value.value"
+        v-model="contrasena.value.value"
         :counter="7"
-        :error-messages="phone.errorMessage.value"
+        :error-messages="contrasena.errorMessage.value"
         label="contraseña"
       ></v-text-field>
 
