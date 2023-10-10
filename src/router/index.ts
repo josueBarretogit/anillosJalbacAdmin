@@ -1,18 +1,17 @@
 // Composables
 import { createRouter, createWebHistory } from "vue-router";
-import login from "./../views/login.vue";
-import FormLayout from "./../layouts/LoginLayout.vue";
-import AnillosView from "./../views/AnillosView.vue";
 
 const routes = [
   {
-    path: "",
-    component: AnillosView,
-  },
-
-  {
-    path: "/usuario",
-    component: FormLayout,
+    path: "/",
+    component: () => import("@/layouts/default/DefaultLayout.vue"),
+    children: [
+      {
+        path: "",
+        name: "Home",
+        component: () => import("@/views/LoginView.vue"),
+      },
+    ],
   },
 ];
 
