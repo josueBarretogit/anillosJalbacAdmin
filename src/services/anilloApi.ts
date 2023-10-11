@@ -1,4 +1,4 @@
-import type { Anillo } from "@/interfaces/interfaces";
+import type { Anillo, Login } from "@/interfaces/interfaces";
 import axios from "axios";
 
 let anillos: Anillo[];
@@ -47,7 +47,10 @@ async function deleteAnillo(id: number): Promise<Anillo | undefined> {
   }
 }
 
-async function logIn(correo: string, contrasena: string): Promise<any> {
+async function logIn(
+  correo: string,
+  contrasena: string,
+): Promise<Login | undefined> {
   try {
     const response = await axios.post(
       "http://localhost:4000/api/usuarios/login",

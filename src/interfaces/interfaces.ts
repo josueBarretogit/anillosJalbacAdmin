@@ -18,3 +18,9 @@ export interface Dije {
   pesoPlata: string;
 }
 
+export interface Login {
+  isLogged: boolean;
+  idUsuario: number | string;
+  correo: string;
+  accessToken: string;
+}
