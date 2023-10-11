@@ -2,6 +2,7 @@
 import { ref, reactive } from "vue";
 import { useField, useForm } from "vee-validate";
 import { logIn } from "./../services/anilloApi";
+import router from "@/router";
 
 const { handleSubmit } = useForm({
   validationSchema: {
@@ -21,8 +22,8 @@ const correo = useField("correo");
 const contrasena = useField("contrasena");
 
 const submit = handleSubmit(async (values) => {
-  await logIn(values.correo, values.contrasena);
-  console.log(values);
+  const dataLogin = await logIn(values.correo, values.contrasena);
+  router.push({ name: "viewAnillos", params: dataLogin });
 });
 </script>
 
@@ -52,7 +53,9 @@ const submit = handleSubmit(async (values) => {
         label="contraseña"
       ></v-text-field>
 
-      <v-btn type="submit" size="large"> Iniciar sesión </v-btn>
+      <div class="d-flex justify-center">
+        <v-btn type="submit" size="large" color="blue"> Iniciar sesión </v-btn>
+      </div>
     </form>
   </div>
 </template>

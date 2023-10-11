@@ -64,10 +64,6 @@ async function logIn(correo: string, contrasena: string): Promise<any> {
       },
     );
 
-    const userLogged = response.data;
-
-    console.log(userLogged);
-
     return response.data;
   } catch (error) {
     console.log(error);
