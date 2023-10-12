@@ -4,6 +4,7 @@ import { useField, useForm } from "vee-validate";
 import { logIn } from "./../services/anilloApi";
 import { Login } from "./../interfaces/interfaces";
 import { useRouter } from "vue-router";
+import { loggedState } from "@/variables/store";
 
 const router = useRouter();
 const { handleSubmit } = useForm({
@@ -22,7 +23,7 @@ const { handleSubmit } = useForm({
 
 const correo = useField("correo");
 const contrasena = useField("contrasena");
-
+const alert = ref(false);
 const submit = handleSubmit(async (values) => {
   const dataLogin: Login | undefined = await logIn(
     values.correo,
@@ -30,22 +31,25 @@ const submit = handleSubmit(async (values) => {
   );
 
   if (dataLogin?.isLogged) {
+    loggedState.updateLogInState();
     router.push({
       name: "viewAnillos",
       params: { correo: dataLogin.correo, id: dataLogin.idUsuario },
     });
+  } else if (!dataLogin?.isLogged) {
+    alert.value = true;
   }
 });
 </script>
 
 <template>
-  <div class="d-flex flex-column h-100 align-center">
-    <div class="d-flex flex-grow-1">
-      <h1 class="flex-grow-1 align-self-center">Login</h1>
+  <div class="ma-4 d-flex flex-column h-100 align-center justify-center">
+    <div class="ma-4 d-flex">
+      <h1 class="ma-4 align-self-center">Login</h1>
     </div>
-    <form @submit.prevent="submit" class="w-25 flex-grow-1">
+    <form @submit.prevent="submit" class="w-25 ma-4">
       <v-text-field
-        class="mb-3"
+        class="ma-4 mb-3"
         color="blue"
         variant="outlined"
         v-model="correo.value.value"
@@ -55,7 +59,7 @@ const submit = handleSubmit(async (values) => {
       ></v-text-field>
 
       <v-text-field
-        class="mb-3"
+        class="ma-4 mb-3"
         color="blue"
         variant="outlined"
         v-model="contrasena.value.value"
@@ -64,9 +68,20 @@ const submit = handleSubmit(async (values) => {
         label="contraseña"
       ></v-text-field>
 
-      <div class="d-flex justify-center">
+      <div class="ma-4 d-flex justify-center">
         <v-btn type="submit" size="large" color="blue"> Iniciar sesión </v-btn>
       </div>
+
+      <v-alert
+        type="error"
+        v-model="alert"
+        variant="tonal"
+        closable
+        close-label="Cerrar"
+        title="Error"
+        border="top"
+        >El usuario no esta registrado o la contraseña es incorrecta</v-alert
+      >
     </form>
   </div>
 </template>
