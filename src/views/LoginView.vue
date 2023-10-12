@@ -36,7 +36,8 @@ const submit = handleSubmit(async (values) => {
 
   isLoading.value = false;
   if (dataLogin?.isLogged) {
-    loggedState.updateLogInState();
+    loggedState.setToTrue();
+    localStorage.setItem("accessToken", dataLogin.accessToken);
     router.push({
       name: "viewAnillos",
       params: { correo: dataLogin.correo, id: dataLogin.idUsuario },
@@ -79,7 +80,7 @@ const submit = handleSubmit(async (values) => {
         <v-btn type="submit" size="large" color="blue"> Iniciar sesión </v-btn>
       </div>
 
-      <div v-if="isLoading" class="d-flex justify-center">
+      <div v-if="isLoading" class="ma-4 d-flex justify-center">
         <v-progress-circular
           :size="50"
           indeterminate

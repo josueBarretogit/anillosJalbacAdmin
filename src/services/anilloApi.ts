@@ -46,7 +46,6 @@ async function deleteAnillo(id: number): Promise<Anillo | undefined> {
     console.log(error);
   }
 }
-
 async function logIn(
   correo: string,
   contrasena: string,
@@ -74,4 +73,24 @@ async function logIn(
     return err.response?.data as Login;
   }
 }
-export { getAnillos, anillos, logIn };
+async function logOut(): Promise<{ response: string } | undefined> {
+  try {
+    const response = await axios.post(
+      "http://localhost:4000/api/usuarios/logout",
+
+      {
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+        },
+        withCredentials: true,
+      },
+    );
+    return response.data;
+  } catch (error: any) {
+    const err = error as AxiosError;
+    return err.response?.data as { response: string };
+  }
+}
+
+export { getAnillos, anillos, logIn, logOut };

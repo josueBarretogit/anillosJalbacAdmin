@@ -15,6 +15,9 @@ const routes = [
       {
         path: "/viewAnillos",
         name: "viewAnillos",
+        meta: {
+          isLogged: false,
+        },
         component: () =>
           import(/* webpackChunkName: "home" */ "@/views/AnillosView.vue"),
       },
@@ -27,4 +30,11 @@ const router = createRouter({
   routes,
 });
 
+router.beforeEach(async (to, from, next) => {
+  const token = localStorage.getItem("accessToken");
+  if (!token && to.name !== "Home") {
+    return { name: "Home" };
+  }
+  next();
+});
 export default router;

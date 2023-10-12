@@ -2,7 +2,12 @@ import { reactive } from "vue";
 
 export const loggedState = reactive({
   isLogged: false,
-  updateLogInState() {
-    this.isLogged = !this.isLogged;
+
+  setToTrue() {
+    this.isLogged = true;
+  },
+
+  setToFalse() {
+    this.isLogged = false;
   },
 });
