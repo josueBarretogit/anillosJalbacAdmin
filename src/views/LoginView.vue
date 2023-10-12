@@ -23,13 +23,18 @@ const { handleSubmit } = useForm({
 
 const correo = useField("correo");
 const contrasena = useField("contrasena");
-const alert = ref(false);
+const showAlert = ref(false);
+const isLoading = ref(false);
+const razonError = ref("");
+
 const submit = handleSubmit(async (values) => {
+  isLoading.value = true;
   const dataLogin: Login | undefined = await logIn(
     values.correo,
     values.contrasena,
   );
 
+  isLoading.value = false;
   if (dataLogin?.isLogged) {
     loggedState.updateLogInState();
     router.push({
@@ -37,7 +42,9 @@ const submit = handleSubmit(async (values) => {
       params: { correo: dataLogin.correo, id: dataLogin.idUsuario },
     });
   } else if (!dataLogin?.isLogged) {
-    alert.value = true;
+    console.log(dataLogin);
+    showAlert.value = true;
+    razonError.value = dataLogin?.response as string;
   }
 });
 </script>
@@ -72,16 +79,25 @@ const submit = handleSubmit(async (values) => {
         <v-btn type="submit" size="large" color="blue"> Iniciar sesión </v-btn>
       </div>
 
+      <div v-if="isLoading" class="d-flex justify-center">
+        <v-progress-circular
+          :size="50"
+          indeterminate
+          color="blue"
+        ></v-progress-circular>
+      </div>
+
       <v-alert
         type="error"
-        v-model="alert"
+        v-model="showAlert"
         variant="tonal"
         closable
         close-label="Cerrar"
         title="Error"
         border="top"
-        >El usuario no esta registrado o la contraseña es incorrecta</v-alert
       >
+        {{ razonError }}
+      </v-alert>
     </form>
   </div>
 </template>

@@ -34,6 +34,24 @@ async function updatePage(index: number) {
 </script>
 
 <template>
+  <div class="text-center">
+    <v-container>
+      <v-row justify="center">
+        <v-col cols="8">
+          <v-container class="max-width">
+            <v-pagination
+              color="blue"
+              prev-icon="mdi-menu-left"
+              class="my-4"
+              :length="numPages"
+              @update:model-value="updatePage"
+              :total-visible="5"
+            ></v-pagination>
+          </v-container>
+        </v-col>
+      </v-row>
+    </v-container>
+  </div>
   <template
     v-if="isLoading === true"
     class="d-flex justify-center align-center"
@@ -57,25 +75,6 @@ async function updatePage(index: number) {
         <carta v-bind:anillo="anillo" />
       </v-col>
     </v-row>
-
-    <div class="text-center">
-      <v-container>
-        <v-row justify="center">
-          <v-col cols="8">
-            <v-container class="max-width">
-              <v-pagination
-                color="blue"
-                prev-icon="mdi-menu-left"
-                class="my-4"
-                :length="numPages"
-                @update:model-value="updatePage"
-                :total-visible="5"
-              ></v-pagination>
-            </v-container>
-          </v-col>
-        </v-row>
-      </v-container>
-    </div>
   </v-container>
 </template>
 

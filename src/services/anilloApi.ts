@@ -1,5 +1,5 @@
 import type { Anillo, Login } from "@/interfaces/interfaces";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 
 let anillos: Anillo[];
 
@@ -68,8 +68,10 @@ async function logIn(
     );
 
     return response.data;
-  } catch (error) {
+  } catch (error: any) {
     console.log(error);
+    const err = error as AxiosError;
+    return err.response?.data as Login;
   }
 }
 export { getAnillos, anillos, logIn };

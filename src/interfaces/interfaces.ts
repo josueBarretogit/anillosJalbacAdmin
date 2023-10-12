@@ -23,4 +23,5 @@ export interface Login {
   idUsuario: number | string;
   correo: string;
   accessToken: string;
+  response: string;
 }
