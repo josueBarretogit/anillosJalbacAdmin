@@ -25,3 +25,8 @@ export interface Login {
   accessToken: string;
   response: string;
 }
+
+export interface TokenDecoded {
+  correo: string;
+  idUsuario: number;
+}

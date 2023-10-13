@@ -11,7 +11,7 @@ defineProps<{
     <v-img v-bind:src="`http://localhost:4000/${anillo?.foto}`" cover></v-img>
 
     <v-row no-gutters>
-      <v-col cols="12" sm="6">
+      <v-col sm="6">
         <v-card-title class="titulo">Peso oro</v-card-title>
         <v-card-title class="titulo">Peso plata</v-card-title>
         <v-card-title class="titulo">Tipo</v-card-title>
@@ -20,7 +20,7 @@ defineProps<{
         <v-card-title class="titulo">Referencia</v-card-title>
       </v-col>
 
-      <v-col cols="12" sm="6">
+      <v-col sm="6">
         <v-card-title class="subtitlo">{{ anillo?.pesoOro }}</v-card-title>
         <v-card-title class="subtitlo">{{ anillo?.pesoPlata }}</v-card-title>
         <v-card-title class="subtitlo">{{ anillo?.categoria }}</v-card-title>

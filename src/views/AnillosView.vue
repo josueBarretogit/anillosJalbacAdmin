@@ -56,14 +56,16 @@ async function updatePage(index: number) {
     v-if="isLoading === true"
     class="d-flex justify-center align-center"
   >
-    <v-progress-circular
-      :size="50"
-      color="primary"
-      indeterminate
-    ></v-progress-circular>
+    <div class="d-flex justify-center">
+      <v-progress-circular
+        :size="50"
+        color="blue"
+        indeterminate
+      ></v-progress-circular>
+    </div>
   </template>
-  <v-container v-else>
-    <v-row>
+  <v-container v-else class="">
+    <v-row class="ml-auto mr-auto">
       <v-sheet v-if="anillosinPage.length == 0">
         <h1>No hay datos</h1>
       </v-sheet>
@@ -72,7 +74,7 @@ async function updatePage(index: number) {
         v-for="anillo in anillosinPage"
         class="d-flex justify-center flex-wrap w-100"
       >
-        <carta v-bind:anillo="anillo" />
+        <carta class="" v-bind:anillo="anillo" />
       </v-col>
     </v-row>
   </v-container>

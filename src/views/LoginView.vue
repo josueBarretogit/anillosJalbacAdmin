@@ -2,11 +2,23 @@
 import { ref, reactive } from "vue";
 import { useField, useForm } from "vee-validate";
 import { logIn } from "./../services/anilloApi";
-import { Login } from "./../interfaces/interfaces";
+import { Login, TokenDecoded } from "./../interfaces/interfaces";
 import { useRouter } from "vue-router";
 import { loggedState } from "@/variables/store";
+import jwt_decode from "jwt-decode";
+const token = localStorage.getItem("accessToken");
 
 const router = useRouter();
+
+if (token) {
+  const decoded: TokenDecoded = jwt_decode(token);
+  loggedState.setToTrue();
+  router.push({
+    name: "viewAnillos",
+    params: { ...decoded },
+  });
+}
+
 const { handleSubmit } = useForm({
   validationSchema: {
     correo(value: string) {
