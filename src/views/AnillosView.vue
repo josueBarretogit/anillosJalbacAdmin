@@ -3,13 +3,25 @@ import carta from "./../components/cartaAnillo.vue";
 import { ref } from "vue";
 import { onMounted } from "vue";
 import { getAnillos } from "./../services/anilloApi";
+import { loggedState } from "@/variables/store";
+import { useRouter } from "vue-router";
 
 let isLoading = ref(true);
 let anillosinPage = ref();
 let page = ref(1);
-let totalItems = ref(6);
+let totalItems = ref(8);
 let numPages = ref(1);
 
+const router = useRouter();
+const token = localStorage.getItem("accessToken");
+
+if (!token) {
+  router.push({
+    name: "Home",
+  });
+}
+
+loggedState.setToTrue();
 onMounted(async () => {
   const ListAnillos = await getAnillos();
   let anillosCopy = ListAnillos;
@@ -65,16 +77,18 @@ async function updatePage(index: number) {
     </div>
   </template>
   <v-container v-else class="">
-    <v-row class="ml-auto mr-auto">
+    <v-row>
       <v-sheet v-if="anillosinPage.length == 0">
         <h1>No hay datos</h1>
       </v-sheet>
       <v-col
         v-else
         v-for="anillo in anillosinPage"
-        class="d-flex justify-center flex-wrap w-100"
+        class="d-flex justify-center flex-wrap"
       >
+        <v-spacer></v-spacer>
         <carta class="" v-bind:anillo="anillo" />
+        <v-spacer></v-spacer>
       </v-col>
     </v-row>
   </v-container>

@@ -75,7 +75,7 @@ async function logIn(
 }
 async function logOut(): Promise<{ response: string } | undefined> {
   try {
-    const response = await axios.post(
+    const response = await axios.get(
       "http://localhost:4000/api/usuarios/logout",
 
       {

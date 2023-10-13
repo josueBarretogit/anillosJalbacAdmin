@@ -1,9 +1,19 @@
 <script setup lang="ts">
 import { ref } from "vue";
+import { useRouter } from "vue-router";
 
+const router = useRouter();
 async function cerrarSesion() {
   const response = await logOut();
   console.log(response);
+  if (response) {
+    localStorage.removeItem("accessToken");
+    loggedState.setToFalse();
+
+    router.push({
+      name: "Home",
+    });
+  }
 }
 import { logOut } from "./../../services/anilloApi";
 import { loggedState } from "./../../variables/store";

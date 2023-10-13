@@ -12,7 +12,6 @@ const router = useRouter();
 
 if (token) {
   const decoded: TokenDecoded = jwt_decode(token);
-  loggedState.setToTrue();
   router.push({
     name: "viewAnillos",
     params: { ...decoded },
