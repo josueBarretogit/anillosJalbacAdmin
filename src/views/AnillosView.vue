@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import carta from "./../components/cartaAnillo.vue";
 import { ref } from "vue";
-import { onMounted } from "vue";
+import { onMounted, watch } from "vue";
 import { getAnillos } from "./../services/anilloApi";
 import { loggedState } from "@/variables/store";
 import { useRouter } from "vue-router";
-
+import Cookies from "js-cookie";
 let isLoading = ref(true);
 let anillosinPage = ref();
 let page = ref(1);
@@ -13,14 +13,18 @@ let totalItems = ref(6);
 let numPages = ref(1);
 
 const router = useRouter();
-const token = localStorage.getItem("accessToken");
+const cookie = ref(Cookies.get("refreshToken"));
 
-if (!token) {
-  loggedState.setToFalse();
-  router.push({
-    name: "Home",
-  });
-}
+watch(cookie, () => {
+  console.log("no cookie");
+  if (!cookie.value) {
+    window.location.reload();
+    loggedState.setToFalse();
+    router.push({
+      name: "Home",
+    });
+  }
+});
 
 loggedState.setToTrue();
 onMounted(async () => {
@@ -44,6 +48,13 @@ async function updatePage(index: number) {
     page.value * totalItems.value,
   );
 }
+
+setTimeout(
+  () => {
+    window.location.reload();
+  },
+  1000 * 60 * 60 * 24,
+);
 </script>
 
 <template>

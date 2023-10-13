@@ -32,8 +32,10 @@ const router = createRouter({
 });
 
 router.beforeEach(async (to, from) => {
+  const cookie = Cookies.get("refreshToken");
   const token = localStorage.getItem("accessToken");
-  if (!token && to.name !== "Home") {
+  console.log(cookie);
+  if (!cookie && to.name !== "Home") {
     return { name: "Home" };
   }
 });
