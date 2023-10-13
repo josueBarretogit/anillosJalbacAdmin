@@ -1,4 +1,5 @@
 // Composables
+import Cookies from "js-cookie";
 import { createRouter, createWebHistory } from "vue-router";
 
 const routes = [

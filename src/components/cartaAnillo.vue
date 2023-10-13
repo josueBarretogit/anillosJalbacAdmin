@@ -7,7 +7,7 @@ defineProps<{
 </script>
 
 <template>
-  <v-card width="400" color="grey-darken-4">
+  <v-card width="421" color="grey-darken-4">
     <v-img v-bind:src="`http://localhost:4000/${anillo?.foto}`" cover></v-img>
 
     <v-row no-gutters>

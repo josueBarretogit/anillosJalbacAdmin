@@ -10,8 +10,10 @@
   },
   "dependencies": {
     "@mdi/font": "7.0.96",
+    "@types/js-cookie": "^3.0.4",
     "axios": "^1.5.1",
     "core-js": "^3.29.0",
+    "js-cookie": "^3.0.5",
     "jwt-decode": "^3.1.2",
     "roboto-fontface": "*",
     "vee-validate": "^4.11.7",

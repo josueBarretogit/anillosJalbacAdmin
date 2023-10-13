@@ -9,13 +9,14 @@ import { useRouter } from "vue-router";
 let isLoading = ref(true);
 let anillosinPage = ref();
 let page = ref(1);
-let totalItems = ref(8);
+let totalItems = ref(6);
 let numPages = ref(1);
 
 const router = useRouter();
 const token = localStorage.getItem("accessToken");
 
 if (!token) {
+  loggedState.setToFalse();
   router.push({
     name: "Home",
   });
@@ -77,7 +78,7 @@ async function updatePage(index: number) {
     </div>
   </template>
   <v-container v-else class="">
-    <v-row>
+    <v-row class="d-flex justify-center">
       <v-sheet v-if="anillosinPage.length == 0">
         <h1>No hay datos</h1>
       </v-sheet>
@@ -86,9 +87,7 @@ async function updatePage(index: number) {
         v-for="anillo in anillosinPage"
         class="d-flex justify-center flex-wrap"
       >
-        <v-spacer></v-spacer>
-        <carta class="" v-bind:anillo="anillo" />
-        <v-spacer></v-spacer>
+        <carta class="ml-5 mr-5" v-bind:anillo="anillo" />
       </v-col>
     </v-row>
   </v-container>

@@ -10,14 +10,6 @@ const token = localStorage.getItem("accessToken");
 
 const router = useRouter();
 
-if (token) {
-  const decoded: TokenDecoded = jwt_decode(token);
-  router.push({
-    name: "viewAnillos",
-    params: { ...decoded },
-  });
-}
-
 const { handleSubmit } = useForm({
   validationSchema: {
     correo(value: string) {

@@ -2,6 +2,9 @@
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 
+import { logOut } from "./../../services/anilloApi";
+import { loggedState } from "./../../variables/store";
+
 const router = useRouter();
 async function cerrarSesion() {
   const response = await logOut();
@@ -15,8 +18,6 @@ async function cerrarSesion() {
     });
   }
 }
-import { logOut } from "./../../services/anilloApi";
-import { loggedState } from "./../../variables/store";
 </script>
 
 <template>
