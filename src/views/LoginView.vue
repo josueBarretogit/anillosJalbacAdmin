@@ -29,6 +29,7 @@ const razonError = ref("");
 
 const submit = handleSubmit(async (values) => {
   isLoading.value = true;
+  showAlert.value = false;
   const dataLogin: Login | undefined = await logIn(
     values.correo,
     values.contrasena,
@@ -51,13 +52,16 @@ const submit = handleSubmit(async (values) => {
 </script>
 
 <template>
-  <div class="ma-4 d-flex flex-column h-100 align-center justify-center">
+  <div
+    class="d-flex flex-column h-100 align-center justify-center"
+    id="mainContainer"
+  >
     <div class="ma-4 d-flex">
       <h1 class="ma-4 align-self-center">Login</h1>
     </div>
-    <form @submit.prevent="submit" class="w-25 ma-4">
+    <form @submit.prevent="submit" class="ma-4" style="min-width: 350px">
       <v-text-field
-        class="ma-4 mb-3"
+        class="ma-4"
         color="blue"
         variant="outlined"
         v-model="correo.value.value"
@@ -67,7 +71,7 @@ const submit = handleSubmit(async (values) => {
       ></v-text-field>
 
       <v-text-field
-        class="ma-4 mb-3"
+        class="ma-4"
         color="blue"
         variant="outlined"
         v-model="contrasena.value.value"
@@ -88,17 +92,20 @@ const submit = handleSubmit(async (values) => {
         ></v-progress-circular>
       </div>
 
-      <v-alert
-        type="error"
-        v-model="showAlert"
-        variant="tonal"
-        closable
-        close-label="Cerrar"
-        title="Error"
-        border="top"
-      >
-        {{ razonError }}
-      </v-alert>
+      <div class="d-flex justify-center">
+        <v-alert
+          style="max-width: 320px"
+          type="error"
+          v-model="showAlert"
+          variant="tonal"
+          closable
+          close-label="Cerrar"
+          title="Error"
+          border="top"
+        >
+          {{ razonError }}
+        </v-alert>
+      </div>
     </form>
   </div>
 </template>
