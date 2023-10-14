@@ -79,40 +79,51 @@ const submit = handleSubmit((values) => {
       </v-btn>
     </template>
 
-    <v-card class="">
+    <v-card>
       <v-card-text>
         <v-container>
           <form @submit.prevent="submit" class="d-flex flex-wrap">
-            <v-text-field
-              class="w-50 ma-1"
-              v-model="name.value.value"
-              :counter="10"
-              :error-messages="name.errorMessage.value"
-              label="Name"
-            ></v-text-field>
-            <v-text-field
-              class="w-50 ma-1"
-              v-model="phone.value.value"
-              :counter="7"
-              :error-messages="phone.errorMessage.value"
-              label="Phone Number"
-            ></v-text-field>
+            <div style="width: 400px" class="d-flex justify-center">
+              <v-text-field
+                class="ml-4 mr-4"
+                v-model="name.value.value"
+                :counter="10"
+                :error-messages="name.errorMessage.value"
+                label="Name"
+              ></v-text-field>
+              <v-text-field
+                class="ml-4 mr-4"
+                v-model="phone.value.value"
+                :counter="7"
+                :error-messages="phone.errorMessage.value"
+                label="Phone Number"
+              ></v-text-field>
+            </div>
 
-            <v-text-field
-              class="w-50 ma-1"
-              v-model="email.value.value"
-              :error-messages="email.errorMessage.value"
-              label="E-mail"
-            ></v-text-field>
+            <div style="width: 400px" class="d-flex justify-center">
+              <v-text-field
+                class="ml-4 mr-4"
+                v-model="name.value.value"
+                :counter="10"
+                :error-messages="name.errorMessage.value"
+                label="Name"
+              ></v-text-field>
+              <v-text-field
+                class="ml-4 mr-4"
+                v-model="phone.value.value"
+                :counter="7"
+                :error-messages="phone.errorMessage.value"
+                label="Phone Number"
+              ></v-text-field>
+            </div>
 
             <v-btn class="me-4" type="submit" color="blue">
               Crear anillo
             </v-btn>
-          </form></v-container
-        >
+          </form>
+        </v-container>
       </v-card-text>
       <v-card-actions>
-        <v-spacer></v-spacer>
         <v-btn color="blue-darken-1" variant="text" @click="dialog = false">
           Cancelar
         </v-btn>
