@@ -1,9 +1,12 @@
 <script lang="ts" setup>
-import { ref } from "vue";
+import { ref, reactive, computed } from "vue";
+
 import type { Anillo } from "./../interfaces/interfaces";
 import { deleteAnillo, getAnillos } from "./../services/anilloApi";
 import { AxiosError } from "axios";
+import { useDisplay } from "vuetify";
 
+const { name, mobile, smAndUp } = useDisplay();
 const dialog = ref(false);
 
 const dialog2 = ref(false);
@@ -27,10 +30,10 @@ import { useField, useForm } from "vee-validate";
 
 const { handleSubmit, handleReset } = useForm({
   validationSchema: {
-    name(value) {
+    nameFORM(value) {
       if (value?.length >= 2) return true;
 
-      return "Name needs to be at least 2 characters.";
+      return "nameFORM needs to be at least 2 characters.";
     },
     phone(value) {
       if (value?.length > 9 && /[0-9-]+/.test(value)) return true;
@@ -54,7 +57,7 @@ const { handleSubmit, handleReset } = useForm({
     },
   },
 });
-const name = useField("name");
+const nameFORM = useField("nameFORM");
 const phone = useField("phone");
 const email = useField("email");
 const select = useField("select");
@@ -63,10 +66,26 @@ const checkbox = useField("checkbox");
 const submit = handleSubmit((values) => {
   alert(JSON.stringify(values, null, 2));
 });
+const widthSize = computed(() => {
+  // nameFORM is reactive and
+  // must use .value
+  switch (name.value) {
+    case "xs":
+      return 300;
+    case "sm":
+      return 800;
+    case "md":
+      return 1000;
+    case "lg":
+      return 12000;
+  }
+
+  return undefined;
+});
 </script>
 
 <template>
-  <v-dialog v-model="dialog" persistent width="auto" scrim="false">
+  <v-dialog v-model="dialog" persistent width="auto">
     <template v-slot:activator="{ props }">
       <v-btn
         color="blue"
@@ -79,7 +98,7 @@ const submit = handleSubmit((values) => {
       </v-btn>
     </template>
 
-    <v-card width="600" sm="400">
+    <v-card :width="smAndUp ? 650 : 320">
       <v-card-text>
         <form @submit.prevent="submit">
           <v-container>
@@ -89,10 +108,10 @@ const submit = handleSubmit((values) => {
                   color="blue"
                   variant="outlined"
                   class="ml-4 mr-4"
-                  v-model="name.value.value"
+                  v-model="nameFORM.value.value"
                   :counter="10"
-                  :error-messages="name.errorMessage.value"
-                  label="Name"
+                  :error-messages="nameFORM.errorMessage.value"
+                  label="nameFORM"
                 ></v-text-field>
               </v-col>
               <v-col cols="12" sm="6">
@@ -113,10 +132,10 @@ const submit = handleSubmit((values) => {
                   color="blue"
                   variant="outlined"
                   class="ml-4 mr-4"
-                  v-model="name.value.value"
+                  v-model="nameFORM.value.value"
                   :counter="10"
-                  :error-messages="name.errorMessage.value"
-                  label="Name"
+                  :error-messages="nameFORM.errorMessage.value"
+                  label="nameFORM"
                 ></v-text-field>
               </v-col>
               <v-col cols="12" sm="6">
@@ -137,10 +156,10 @@ const submit = handleSubmit((values) => {
                   color="blue"
                   variant="outlined"
                   class="ml-4 mr-4"
-                  v-model="name.value.value"
+                  v-model="nameFORM.value.value"
                   :counter="10"
-                  :error-messages="name.errorMessage.value"
-                  label="Name"
+                  :error-messages="nameFORM.errorMessage.value"
+                  label="nameFORM"
                 ></v-text-field>
               </v-col>
               <v-col cols="12" sm="6">
@@ -161,9 +180,9 @@ const submit = handleSubmit((values) => {
                   color="blue"
                   variant="outlined"
                   class="ml-4 mr-4"
-                  v-model="name.value.value"
+                  v-model="nameFORM.value.value"
                   :counter="10"
-                  :error-messages="name.errorMessage.value"
+                  :error-messages="nameFORM.errorMessage.value"
                   label="File"
                 ></v-text-field>
               </v-col>
