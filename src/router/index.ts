@@ -36,6 +36,7 @@ router.beforeEach(async (to, from) => {
   const token = localStorage.getItem("accessToken");
   console.log(cookie);
   if (!cookie && to.name !== "Home") {
+    console.log(cookie);
     return { name: "Home" };
   }
 });

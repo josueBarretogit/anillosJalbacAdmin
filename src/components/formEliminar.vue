@@ -1,6 +1,18 @@
-<script setup>
+<script lang="ts" setup>
 import { ref } from "vue";
+import type { Anillo } from "@/interfaces/interfaces";
+import { deleteAnillo } from "./../services/anilloApi";
+
 let dialog = ref(false);
+defineProps<{
+  idAnillo: number;
+  token: string;
+}>();
+
+async function eliminarAnillo(id: number, token: string) {
+  const response: Anillo | undefined = await deleteAnillo(id, token);
+  console.log(response);
+}
 </script>
 
 <template>
@@ -27,7 +39,11 @@ let dialog = ref(false);
         <v-btn color="blue-darken-1" variant="text" @click="dialog = false">
           Cancelar
         </v-btn>
-        <v-btn color="blue-darken-1" variant="text" @click="dialog = false">
+        <v-btn
+          color="blue-darken-1"
+          variant="text"
+          @click="eliminarAnillo(idAnillo, token)"
+        >
           Eliminar
         </v-btn>
       </v-card-actions>

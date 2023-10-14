@@ -33,10 +33,26 @@ async function getAnillos(): Promise<Anillo[] | undefined> {
     console.log(error);
   }
 }
-async function deleteAnillo(id: number): Promise<Anillo | undefined> {
+async function deleteAnillo(
+  id: number,
+  token: string,
+): Promise<Anillo | undefined> {
   try {
     const response = await axios.post(
       "http://localhost:4000/api/anillos/delete",
+      {
+        id: id,
+      },
+
+      {
+        headers: {
+          "content-type": "application/json",
+          "access-control-allow-origin": "*",
+          Authorization: `Bearer ${token}`,
+        },
+
+        withCredentials: true,
+      },
     );
     anillos = response.data;
     console.log(anillos);
@@ -93,4 +109,4 @@ async function logOut(): Promise<{ response: string } | undefined> {
   }
 }
 
-export { getAnillos, anillos, logIn, logOut };
+export { getAnillos, anillos, logIn, logOut, deleteAnillo };

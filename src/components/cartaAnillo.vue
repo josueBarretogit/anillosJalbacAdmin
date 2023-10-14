@@ -1,8 +1,12 @@
 <script setup lang="ts">
 import type { Anillo } from "@/interfaces/interfaces";
 import FormEliminar from "./formEliminar.vue";
+
+import { loggedState } from "@/variables/store";
+
+const token = localStorage.getItem("accessToken");
 defineProps<{
-  anillo: Anillo | undefined;
+  anillo: Anillo;
 }>();
 </script>
 
@@ -32,7 +36,7 @@ defineProps<{
 
     <v-card-actions>
       <v-btn rounded="xl" color="blue">Editar</v-btn>
-      <form-eliminar />
+      <FormEliminar v-bind:idAnillo="anillo?.id" token="token" />
     </v-card-actions>
   </v-card>
 </template>
