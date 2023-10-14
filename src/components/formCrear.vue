@@ -66,7 +66,7 @@ const submit = handleSubmit((values) => {
 </script>
 
 <template>
-  <v-dialog v-model="dialog" persistent width="auto">
+  <v-dialog v-model="dialog" persistent width="auto" scrim="false">
     <template v-slot:activator="{ props }">
       <v-btn
         color="blue"
@@ -79,49 +79,100 @@ const submit = handleSubmit((values) => {
       </v-btn>
     </template>
 
-    <v-card>
+    <v-card width="600" sm="400">
       <v-card-text>
-        <v-container>
-          <form @submit.prevent="submit" class="d-flex flex-wrap">
-            <div style="width: 400px" class="d-flex justify-center">
-              <v-text-field
-                class="ml-4 mr-4"
-                v-model="name.value.value"
-                :counter="10"
-                :error-messages="name.errorMessage.value"
-                label="Name"
-              ></v-text-field>
-              <v-text-field
-                class="ml-4 mr-4"
-                v-model="phone.value.value"
-                :counter="7"
-                :error-messages="phone.errorMessage.value"
-                label="Phone Number"
-              ></v-text-field>
-            </div>
-
-            <div style="width: 400px" class="d-flex justify-center">
-              <v-text-field
-                class="ml-4 mr-4"
-                v-model="name.value.value"
-                :counter="10"
-                :error-messages="name.errorMessage.value"
-                label="Name"
-              ></v-text-field>
-              <v-text-field
-                class="ml-4 mr-4"
-                v-model="phone.value.value"
-                :counter="7"
-                :error-messages="phone.errorMessage.value"
-                label="Phone Number"
-              ></v-text-field>
-            </div>
-
+        <form @submit.prevent="submit">
+          <v-container>
+            <v-row no-gutters>
+              <v-col cols="12" sm="6">
+                <v-text-field
+                  color="blue"
+                  variant="outlined"
+                  class="ml-4 mr-4"
+                  v-model="name.value.value"
+                  :counter="10"
+                  :error-messages="name.errorMessage.value"
+                  label="Name"
+                ></v-text-field>
+              </v-col>
+              <v-col cols="12" sm="6">
+                <v-text-field
+                  color="blue"
+                  variant="outlined"
+                  class="ml-4 mr-4"
+                  v-model="phone.value.value"
+                  :counter="7"
+                  :error-messages="phone.errorMessage.value"
+                  label="Phone Number"
+                ></v-text-field>
+              </v-col>
+            </v-row>
+            <v-row no-gutters>
+              <v-col cols="12" sm="6">
+                <v-text-field
+                  color="blue"
+                  variant="outlined"
+                  class="ml-4 mr-4"
+                  v-model="name.value.value"
+                  :counter="10"
+                  :error-messages="name.errorMessage.value"
+                  label="Name"
+                ></v-text-field>
+              </v-col>
+              <v-col cols="12" sm="6">
+                <v-text-field
+                  color="blue"
+                  variant="outlined"
+                  class="ml-4 mr-4"
+                  v-model="phone.value.value"
+                  :counter="7"
+                  :error-messages="phone.errorMessage.value"
+                  label="Phone Number"
+                ></v-text-field>
+              </v-col>
+            </v-row>
+            <v-row no-gutters>
+              <v-col cols="12" sm="6">
+                <v-text-field
+                  color="blue"
+                  variant="outlined"
+                  class="ml-4 mr-4"
+                  v-model="name.value.value"
+                  :counter="10"
+                  :error-messages="name.errorMessage.value"
+                  label="Name"
+                ></v-text-field>
+              </v-col>
+              <v-col cols="12" sm="6">
+                <v-text-field
+                  color="blue"
+                  variant="outlined"
+                  class="ml-4 mr-4"
+                  v-model="phone.value.value"
+                  :counter="7"
+                  :error-messages="phone.errorMessage.value"
+                  label="Phone Number"
+                ></v-text-field>
+              </v-col>
+            </v-row>
+            <v-row no-gutters justify="center">
+              <v-col cols="12" sm="6">
+                <v-text-field
+                  color="blue"
+                  variant="outlined"
+                  class="ml-4 mr-4"
+                  v-model="name.value.value"
+                  :counter="10"
+                  :error-messages="name.errorMessage.value"
+                  label="File"
+                ></v-text-field>
+              </v-col>
+            </v-row>
             <v-btn class="me-4" type="submit" color="blue">
               Crear anillo
             </v-btn>
-          </form>
-        </v-container>
+          </v-container>
+        </form>
       </v-card-text>
       <v-card-actions>
         <v-btn color="blue-darken-1" variant="text" @click="dialog = false">
