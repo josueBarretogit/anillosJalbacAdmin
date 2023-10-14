@@ -2,24 +2,25 @@
 import Cookies from "js-cookie";
 import { loggedState } from "@/variables/store";
 import { createRouter, createWebHistory } from "vue-router";
+import viewAnillos from "@/views/AnillosView.vue";
+import defaultLayout from "@/layouts/default/DefaultLayout.vue";
+import loginView from "@/views/LoginView.vue";
 
 const routes = [
   {
     path: "/",
-    component: () => import("@/layouts/default/DefaultLayout.vue"),
+    component: defaultLayout,
     children: [
       {
         path: "",
         name: "Home",
-        component: () =>
-          import(/* webpackChunkName: "home" */ "@/views/LoginView.vue"),
+        component: loginView,
       },
       {
         path: "/viewAnillos",
         name: "viewAnillos",
 
-        component: () =>
-          import(/* webpackChunkName: "home" */ "@/views/AnillosView.vue"),
+        component: viewAnillos,
       },
     ],
   },

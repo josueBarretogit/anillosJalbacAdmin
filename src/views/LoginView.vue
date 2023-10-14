@@ -41,6 +41,8 @@ const submit = handleSubmit(async (values) => {
   isLoading.value = false;
   if (dataLogin?.isLogged) {
     loggedState.setToTrue();
+
+    loggedState.setToken(token);
     localStorage.setItem("accessToken", dataLogin.accessToken);
     router.push({
       name: "viewAnillos",

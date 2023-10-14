@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { useRouter } from "vue-router";
-
+import FormCrear from "./../../components/formCrear.vue";
 import { logOut } from "./../../services/anilloApi";
 import { loggedState } from "./../../variables/store";
 
@@ -25,14 +25,7 @@ async function cerrarSesion() {
   <v-app-bar color="grey-darken-4">
     <v-app-bar-title>Jalbac Admin</v-app-bar-title>
 
-    <v-btn
-      v-if="loggedState.isLogged"
-      size="large"
-      color="blue"
-      prepend-icon="mdi-pen-plus"
-    >
-      Agregar Anillo
-    </v-btn>
+    <FormCrear v-if="loggedState.isLogged" />
     <v-btn
       v-if="loggedState.isLogged"
       size="large"

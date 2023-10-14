@@ -12,9 +12,6 @@ let page = ref(1);
 let totalItems = ref(6);
 let numPages = ref(1);
 
-const cookie = Cookies.get("refreshToken");
-console.log(cookie);
-
 loggedState.setToTrue();
 onMounted(async () => {
   const ListAnillos = await getAnillos();
