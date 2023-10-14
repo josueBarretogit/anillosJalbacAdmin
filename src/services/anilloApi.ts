@@ -36,30 +36,30 @@ async function getAnillos(): Promise<Anillo[] | undefined> {
 async function deleteAnillo(
   id: number,
   token: string,
-): Promise<Anillo | undefined> {
+): Promise<Anillo | AxiosError> {
   try {
-    const response = await axios.post(
-      "http://localhost:4000/api/anillos/delete",
-      {
-        id: id,
-      },
-
+    const response = await axios.delete(
+      "http://localhost:4000/api/anillos/eliminarAnillo",
       {
         headers: {
-          "content-type": "application/json",
-          "access-control-allow-origin": "*",
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
           Authorization: `Bearer ${token}`,
         },
-
         withCredentials: true,
+        data: {
+          id: id,
+        },
       },
     );
+
     anillos = response.data;
-    console.log(anillos);
 
     return response.data;
   } catch (error) {
     console.log(error);
+    const err = error as AxiosError;
+    return err;
   }
 }
 async function logIn(

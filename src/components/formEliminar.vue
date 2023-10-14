@@ -1,9 +1,10 @@
 <script lang="ts" setup>
 import { ref } from "vue";
 import type { Anillo } from "@/interfaces/interfaces";
-import { deleteAnillo } from "./../services/anilloApi";
+import { deleteAnillo, getAnillos } from "./../services/anilloApi";
 
-let dialog = ref(false);
+const dialog = ref(false);
+const dialog2 = ref(false);
 defineProps<{
   idAnillo: number;
   token: string;
@@ -11,7 +12,11 @@ defineProps<{
 
 async function eliminarAnillo(id: number, token: string) {
   const response: Anillo | undefined = await deleteAnillo(id, token);
+  console.log(id);
   console.log(response);
+  if (response) {
+    await getAnillos();
+  }
 }
 </script>
 
@@ -45,6 +50,17 @@ async function eliminarAnillo(id: number, token: string) {
           @click="eliminarAnillo(idAnillo, token)"
         >
           Eliminar
+        </v-btn>
+      </v-card-actions>
+    </v-card>
+  </v-dialog>
+  <v-dialog v-model="dialog2" width="auto">
+    <v-card>
+      <v-card-title> Dialog 2 </v-card-title>
+      <v-card-text> Anillo eliminado</v-card-text>
+      <v-card-actions>
+        <v-btn color="primary" variant="text" @click="dialog2 = false">
+          Close
         </v-btn>
       </v-card-actions>
     </v-card>
