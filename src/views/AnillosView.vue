@@ -12,17 +12,8 @@ let page = ref(1);
 let totalItems = ref(6);
 let numPages = ref(1);
 
-const router = useRouter();
 const cookie = Cookies.get("refreshToken");
 console.log(cookie);
-
-if (!cookie) {
-  window.location.reload();
-  loggedState.setToFalse();
-  router.push({
-    name: "Home",
-  });
-}
 
 loggedState.setToTrue();
 onMounted(async () => {

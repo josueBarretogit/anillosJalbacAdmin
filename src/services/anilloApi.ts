@@ -89,7 +89,9 @@ async function logIn(
     return err.response?.data as Login;
   }
 }
-async function logOut(): Promise<{ response: string } | undefined> {
+async function logOut(
+  token: string | null,
+): Promise<{ response: string } | undefined> {
   try {
     const response = await axios.get(
       "http://localhost:4000/api/usuarios/logout",
@@ -98,6 +100,7 @@ async function logOut(): Promise<{ response: string } | undefined> {
         headers: {
           "Content-Type": "application/json",
           "Access-Control-Allow-Origin": "*",
+          Authorization: `Bearer ${token}`,
         },
         withCredentials: true,
       },

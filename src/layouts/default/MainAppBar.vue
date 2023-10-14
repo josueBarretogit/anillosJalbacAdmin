@@ -5,9 +5,10 @@ import { useRouter } from "vue-router";
 import { logOut } from "./../../services/anilloApi";
 import { loggedState } from "./../../variables/store";
 
+const token = localStorage.getItem("accessToken");
 const router = useRouter();
 async function cerrarSesion() {
-  const response = await logOut();
+  const response = await logOut(token);
   console.log(response);
   if (response) {
     localStorage.removeItem("accessToken");

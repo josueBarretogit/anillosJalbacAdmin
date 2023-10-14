@@ -1,5 +1,6 @@
 // Composables
 import Cookies from "js-cookie";
+import { loggedState } from "@/variables/store";
 import { createRouter, createWebHistory } from "vue-router";
 
 const routes = [
@@ -16,9 +17,7 @@ const routes = [
       {
         path: "/viewAnillos",
         name: "viewAnillos",
-        meta: {
-          isLogged: false,
-        },
+
         component: () =>
           import(/* webpackChunkName: "home" */ "@/views/AnillosView.vue"),
       },
@@ -31,11 +30,16 @@ const router = createRouter({
   routes,
 });
 
-router.beforeEach(async (to, from) => {
+router.beforeEach((to, from) => {
   const cookie = Cookies.get("refreshToken");
   const token = localStorage.getItem("accessToken");
   console.log(cookie);
-  if (!cookie && to.name !== "Home") {
+  if (cookie && to.name !== "viewAnillos") {
+    loggedState.setToken(token);
+    loggedState.setCookie(cookie);
+    return { name: "viewAnillos" };
+  }
+  if (!loggedState.cookie && to.name !== "Home") {
     console.log(cookie);
     return { name: "Home" };
   }

@@ -2,6 +2,7 @@
 import { ref } from "vue";
 import type { Anillo } from "@/interfaces/interfaces";
 import { deleteAnillo, getAnillos } from "./../services/anilloApi";
+import { AxiosError } from "axios";
 
 const dialog = ref(false);
 const dialog2 = ref(false);
@@ -10,11 +11,17 @@ defineProps<{
   token: string;
 }>();
 
+function cerrarFormulario() {
+  dialog2.value = false;
+  dialog.value = false;
+}
+
 async function eliminarAnillo(id: number, token: string) {
-  const response: Anillo | undefined = await deleteAnillo(id, token);
+  const response: Anillo | AxiosError = await deleteAnillo(id, token);
   console.log(id);
   console.log(response);
   if (response) {
+    dialog2.value = true;
     await getAnillos();
   }
 }
@@ -56,11 +63,11 @@ async function eliminarAnillo(id: number, token: string) {
   </v-dialog>
   <v-dialog v-model="dialog2" width="auto">
     <v-card>
-      <v-card-title> Dialog 2 </v-card-title>
-      <v-card-text> Anillo eliminado</v-card-text>
+      <v-card-title>Operacion exitosa </v-card-title>
+      <v-card-text> Anillo eliminado correctamente</v-card-text>
       <v-card-actions>
-        <v-btn color="primary" variant="text" @click="dialog2 = false">
-          Close
+        <v-btn color="blue" variant="text" @click="cerrarFormulario">
+          Cerrar
         </v-btn>
       </v-card-actions>
     </v-card>

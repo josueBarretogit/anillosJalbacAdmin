@@ -5,8 +5,14 @@ export const loggedState = reactive({
 
   token: "",
 
-  setToken(token: string) {
+  setToken(token: any) {
     this.token = token;
+  },
+
+  cookie: "",
+
+  setCookie(cookie: any) {
+    this.cookie = cookie;
   },
 
   setToTrue() {
