@@ -1,12 +1,9 @@
 <script lang="ts" setup>
 import { ref, reactive, computed } from "vue";
-
-import type { Anillo } from "./../interfaces/interfaces";
-import { deleteAnillo, getAnillos } from "./../services/anilloApi";
-import { AxiosError } from "axios";
+import { createAnillo } from "./../services/anilloApi";
 import { useDisplay } from "vuetify";
 
-const { name, mobile, smAndUp } = useDisplay();
+const { smAndUp } = useDisplay();
 const dialog = ref(false);
 
 const dialog2 = ref(false);
@@ -16,15 +13,7 @@ function cerrarFormulario() {
   dialog.value = false;
 }
 
-async function eliminarAnillo(id: number, token: string) {
-  const response: Anillo | AxiosError = await deleteAnillo(id, token);
-  console.log(id);
-  console.log(response);
-  if (response) {
-    dialog2.value = true;
-    await getAnillos();
-  }
-}
+const token = localStorage.getItem("accessToken");
 
 import { useField, useForm } from "vee-validate";
 
@@ -83,8 +72,18 @@ const talla = useField("talla");
 const referencia = useField("referencia");
 const imagen = useField<File[]>("imagen");
 
-const submit = handleSubmit((values) => {
-  alert(JSON.stringify(values, null, 2));
+const submit = handleSubmit(async (values) => {
+  const valuesForm = new FormData();
+  valuesForm.append("nombre", values.nombre);
+  valuesForm.append("pesoOro", values.pesoOro);
+  valuesForm.append("pesoPlata", values.pesoPlata);
+  valuesForm.append("categoria", values.categoria);
+  valuesForm.append("talla", values.talla);
+  valuesForm.append("referencia", values.referencia);
+  valuesForm.append("image", values.imagen[0]);
+
+  const response = await createAnillo(valuesForm, token as string);
+  console.log(response);
 });
 </script>
 
