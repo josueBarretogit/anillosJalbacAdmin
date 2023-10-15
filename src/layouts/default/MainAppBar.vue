@@ -30,7 +30,7 @@ async function cerrarSesion() {
       v-if="loggedState.isLogged"
       size="large"
       color="blue"
-      prepend-icon="mdi-pen-plus"
+      prepend-icon="mdi-logout"
       @click="cerrarSesion"
     >
       Cerrar sesion

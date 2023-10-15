@@ -30,57 +30,61 @@ import { useField, useForm } from "vee-validate";
 
 const { handleSubmit, handleReset } = useForm({
   validationSchema: {
-    nameFORM(value) {
-      if (value?.length >= 2) return true;
-
-      return "nameFORM needs to be at least 2 characters.";
+    nombre(value: string) {
+      if (!value) {
+        return "Este campo es obligatorio";
+      }
+      return true;
     },
-    phone(value) {
-      if (value?.length > 9 && /[0-9-]+/.test(value)) return true;
-
-      return "Phone number needs to be at least 9 digits.";
+    pesoOro(value: string) {
+      if (!value) {
+        return "Este campo es obligatorio";
+      }
+      return true;
     },
-    email(value) {
-      if (/^[a-z.-]+@[a-z.-]+\.[a-z]+$/i.test(value)) return true;
-
-      return "Must be a valid e-mail.";
+    pesoPlata(value: string) {
+      if (!value) {
+        return "Este campo es obligatorio";
+      }
+      return true;
     },
-    select(value) {
-      if (value) return true;
-
-      return "Select an item.";
+    categoria(value: string) {
+      if (!value) {
+        return "Este campo es obligatorio";
+      }
+      return true;
     },
-    checkbox(value) {
-      if (value === "1") return true;
-
-      return "Must be checked.";
+    talla(value: string) {
+      if (!value) {
+        return "Este campo es obligatorio";
+      }
+      return true;
+    },
+    referencia(value: string) {
+      if (!value) {
+        return "Este campo es obligatorio";
+      }
+      return true;
+    },
+    imagen(value: File[]) {
+      if (!value) {
+        return "Este campo es obligatorio";
+      }
+      return true;
     },
   },
 });
-const nameFORM = useField("nameFORM");
-const phone = useField("phone");
-const email = useField("email");
-const select = useField("select");
-const checkbox = useField("checkbox");
+
+const nombre = useField("nombre");
+const pesoOro = useField("pesoOro");
+const pesoPlata = useField("pesoPlata");
+const categoria = useField("categoria");
+const talla = useField("talla");
+const referencia = useField("referencia");
+const imagen = useField<File[]>("imagen");
 
 const submit = handleSubmit((values) => {
   alert(JSON.stringify(values, null, 2));
-});
-const widthSize = computed(() => {
-  // nameFORM is reactive and
-  // must use .value
-  switch (name.value) {
-    case "xs":
-      return 300;
-    case "sm":
-      return 800;
-    case "md":
-      return 1000;
-    case "lg":
-      return 12000;
-  }
-
-  return undefined;
 });
 </script>
 
@@ -102,16 +106,15 @@ const widthSize = computed(() => {
       <v-card-text>
         <form @submit.prevent="submit">
           <v-container>
-            <v-row no-gutters>
+            <v-row no-gutters class="mt-3 mb-3">
               <v-col cols="12" sm="6">
                 <v-text-field
                   color="blue"
                   variant="outlined"
                   class="ml-4 mr-4"
-                  v-model="nameFORM.value.value"
-                  :counter="10"
-                  :error-messages="nameFORM.errorMessage.value"
-                  label="nameFORM"
+                  v-model="nombre.value.value"
+                  :error-messages="nombre.errorMessage.value"
+                  label="nombre"
                 ></v-text-field>
               </v-col>
               <v-col cols="12" sm="6">
@@ -119,47 +122,21 @@ const widthSize = computed(() => {
                   color="blue"
                   variant="outlined"
                   class="ml-4 mr-4"
-                  v-model="phone.value.value"
-                  :counter="7"
-                  :error-messages="phone.errorMessage.value"
-                  label="Phone Number"
-                ></v-text-field>
-              </v-col>
-            </v-row>
-            <v-row no-gutters>
-              <v-col cols="12" sm="6">
-                <v-text-field
-                  color="blue"
-                  variant="outlined"
-                  class="ml-4 mr-4"
-                  v-model="nameFORM.value.value"
-                  :counter="10"
-                  :error-messages="nameFORM.errorMessage.value"
-                  label="nameFORM"
-                ></v-text-field>
-              </v-col>
-              <v-col cols="12" sm="6">
-                <v-text-field
-                  color="blue"
-                  variant="outlined"
-                  class="ml-4 mr-4"
-                  v-model="phone.value.value"
-                  :counter="7"
-                  :error-messages="phone.errorMessage.value"
-                  label="Phone Number"
+                  v-model="categoria.value.value"
+                  :error-messages="categoria.errorMessage.value"
+                  label="Categoria"
                 ></v-text-field>
               </v-col>
             </v-row>
-            <v-row no-gutters>
+            <v-row no-gutters class="mt-3 mb-3">
               <v-col cols="12" sm="6">
                 <v-text-field
                   color="blue"
                   variant="outlined"
                   class="ml-4 mr-4"
-                  v-model="nameFORM.value.value"
-                  :counter="10"
-                  :error-messages="nameFORM.errorMessage.value"
-                  label="nameFORM"
+                  v-model="pesoOro.value.value"
+                  :error-messages="pesoOro.errorMessage.value"
+                  label="Peso oro"
                 ></v-text-field>
               </v-col>
               <v-col cols="12" sm="6">
@@ -167,33 +144,57 @@ const widthSize = computed(() => {
                   color="blue"
                   variant="outlined"
                   class="ml-4 mr-4"
-                  v-model="phone.value.value"
-                  :counter="7"
-                  :error-messages="phone.errorMessage.value"
-                  label="Phone Number"
-                ></v-text-field>
-              </v-col>
-            </v-row>
-            <v-row no-gutters justify="center">
-              <v-col cols="12" sm="6">
-                <v-text-field
-                  color="blue"
-                  variant="outlined"
-                  class="ml-4 mr-4"
-                  v-model="nameFORM.value.value"
-                  :counter="10"
-                  :error-messages="nameFORM.errorMessage.value"
-                  label="File"
+                  v-model="pesoPlata.value.value"
+                  :error-messages="pesoPlata.errorMessage.value"
+                  label="Peso plata"
                 ></v-text-field>
               </v-col>
             </v-row>
-            <v-btn class="me-4" type="submit" color="blue">
-              Crear anillo
-            </v-btn>
+            <v-row no-gutters class="mt-3 mb-3">
+              <v-col cols="12" sm="6">
+                <v-text-field
+                  color="blue"
+                  variant="outlined"
+                  class="ml-4 mr-4"
+                  v-model="referencia.value.value"
+                  :error-messages="referencia.errorMessage.value"
+                  label="Referencia"
+                ></v-text-field>
+              </v-col>
+              <v-col cols="12" sm="6">
+                <v-text-field
+                  color="blue"
+                  variant="outlined"
+                  class="ml-4 mr-4"
+                  v-model="talla.value.value"
+                  :error-messages="talla.errorMessage.value"
+                  label="Talla"
+                ></v-text-field>
+              </v-col>
+            </v-row>
+            <v-row no-gutters justify="center" class="mt-3 mb-3">
+              <v-col cols="12" sm="6">
+                <v-file-input
+                  accept="image/*"
+                  class="ml-4 mr-4"
+                  clearable
+                  label="Imagen"
+                  color="blue"
+                  variant="outlined"
+                  v-model="imagen.value.value"
+                  :error-messages="imagen.errorMessage.value"
+                ></v-file-input>
+              </v-col>
+            </v-row>
+            <div class="d-flex justify-center">
+              <v-btn class="me-4" type="submit" color="blue">
+                Crear anillo
+              </v-btn>
+            </div>
           </v-container>
         </form>
       </v-card-text>
-      <v-card-actions>
+      <v-card-actions class="d-flex justify-end">
         <v-btn color="blue-darken-1" variant="text" @click="dialog = false">
           Cancelar
         </v-btn>
