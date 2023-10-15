@@ -4,16 +4,16 @@ import type { Anillo } from "@/interfaces/interfaces";
 import { deleteAnillo, getAnillos } from "./../services/anilloApi";
 import { AxiosError } from "axios";
 
-const dialog = ref(false);
-const dialog2 = ref(false);
+const dialogEliminar = ref(false);
+const dialogEliminar2 = ref(false);
 defineProps<{
   idAnillo: number;
   token: string;
 }>();
 
-function cerrarFormulario() {
-  dialog2.value = false;
-  dialog.value = false;
+function cerrarFormularioEliminar() {
+  dialogEliminar2.value = false;
+  dialogEliminar.value = false;
 }
 
 async function eliminarAnillo(id: number, token: string) {
@@ -21,14 +21,14 @@ async function eliminarAnillo(id: number, token: string) {
   console.log(id);
   console.log(response);
   if (response) {
-    dialog2.value = true;
-    await getAnillos();
+    dialogEliminar2.value = true;
+    console.log(dialogEliminar2.value);
   }
 }
 </script>
 
 <template>
-  <v-dialog v-model="dialog" width="auto">
+  <v-dialog v-model="dialogEliminar" width="auto">
     <template v-slot:activator="{ props }">
       <v-btn color="red" v-bind="props" rounded="xl"> Eliminar </v-btn>
     </template>
@@ -48,7 +48,11 @@ async function eliminarAnillo(id: number, token: string) {
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn color="blue-darken-1" variant="text" @click="dialog = false">
+        <v-btn
+          color="blue-darken-1"
+          variant="text"
+          @click="dialogEliminar = false"
+        >
           Cancelar
         </v-btn>
         <v-btn
@@ -61,12 +65,12 @@ async function eliminarAnillo(id: number, token: string) {
       </v-card-actions>
     </v-card>
   </v-dialog>
-  <v-dialog v-model="dialog2" width="auto">
+  <v-dialog v-model="dialogEliminar2" width="auto">
     <v-card>
       <v-card-title>Operacion exitosa </v-card-title>
       <v-card-text> Anillo eliminado correctamente</v-card-text>
       <v-card-actions>
-        <v-btn color="blue" variant="text" @click="cerrarFormulario">
+        <v-btn color="blue" variant="text" @click="cerrarFormularioEliminar">
           Cerrar
         </v-btn>
       </v-card-actions>

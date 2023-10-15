@@ -6,6 +6,7 @@ import { getAnillos } from "./../services/anilloApi";
 import { loggedState } from "@/variables/store";
 import { useRouter } from "vue-router";
 import Cookies from "js-cookie";
+
 let isLoading = ref(true);
 let anillosinPage = ref();
 let page = ref(1);
@@ -13,6 +14,7 @@ let totalItems = ref(6);
 let numPages = ref(1);
 
 loggedState.setToTrue();
+
 onMounted(async () => {
   const ListAnillos = await getAnillos();
   let anillosCopy = ListAnillos;

@@ -8,7 +8,7 @@ const dialog = ref(false);
 
 const dialog2 = ref(false);
 
-function cerrarFormulario() {
+function cerrarFormularioCrear() {
   dialog2.value = false;
   dialog.value = false;
 }
@@ -84,6 +84,9 @@ const submit = handleSubmit(async (values) => {
 
   const response = await createAnillo(valuesForm, token as string);
   console.log(response);
+  if (response) {
+    dialog2.value = true;
+  }
 });
 </script>
 
@@ -203,9 +206,9 @@ const submit = handleSubmit(async (values) => {
   <v-dialog v-model="dialog2" width="auto">
     <v-card>
       <v-card-title>Operacion exitosa </v-card-title>
-      <v-card-text> Anillo eliminado correctamente</v-card-text>
+      <v-card-text> Anillo creado correctamente</v-card-text>
       <v-card-actions>
-        <v-btn color="blue" variant="text" @click="cerrarFormulario">
+        <v-btn color="blue" variant="text" @click="cerrarFormularioCrear">
           Cerrar
         </v-btn>
       </v-card-actions>

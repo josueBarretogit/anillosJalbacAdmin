@@ -12,7 +12,7 @@ const routes = [
     component: defaultLayout,
     children: [
       {
-        path: "",
+        path: "/login",
         name: "Home",
         component: loginView,
       },
@@ -21,6 +21,10 @@ const routes = [
         name: "viewAnillos",
 
         component: viewAnillos,
+
+        meta: {
+          requiresAuth: true,
+        },
       },
     ],
   },
@@ -31,18 +35,11 @@ const router = createRouter({
   routes,
 });
 
-router.beforeEach((to, from) => {
-  const cookie = Cookies.get("refreshToken");
+router.beforeEach(async (to, from) => {
   const token = localStorage.getItem("accessToken");
-  console.log(cookie);
-  if (cookie && to.name !== "viewAnillos") {
-    loggedState.setToken(token);
-    loggedState.setCookie(cookie);
-    return { name: "viewAnillos" };
-  }
-  if (!loggedState.cookie && to.name !== "Home") {
-    console.log(cookie);
+  if (!token && to.name != "Home") {
     return { name: "Home" };
   }
 });
+
 export default router;
