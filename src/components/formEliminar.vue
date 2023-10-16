@@ -13,18 +13,16 @@ defineProps<{
 }>();
 
 function cerrarFormularioEliminar() {
+  creacionAnillos.setIsCreated(creacionAnillos.isCreated + 1);
   dialogEliminar2.value = false;
+
   dialogEliminar.value = false;
 }
 
 async function eliminarAnillo(id: number, token: string) {
   const response: Anillo | AxiosError = await deleteAnillo(id, token);
-  console.log(id);
-  console.log(response);
   if (response) {
     dialogEliminar2.value = true;
-
-    creacionAnillos.setIsCreated(creacionAnillos.isCreated + 1);
   }
 }
 </script>

@@ -6,7 +6,6 @@ import { getAnillos } from "./../services/anilloApi";
 import { loggedState, creacionAnillos } from "@/variables/store";
 import { useRouter } from "vue-router";
 import Cookies from "js-cookie";
-import { nextTick } from "process";
 
 let isLoading = ref(true);
 let anillosDataTable = ref();
@@ -18,30 +17,16 @@ loggedState.setToTrue();
 
 const ListAnillos = await getAnillos();
 
-let anillosCopy = ListAnillos;
-
-anillosDataTable.value = anillosCopy?.slice(0, page.value * totalItems.value);
-
-numPages.value = Math.ceil(
-  (ListAnillos?.length as number) / totalItems.value,
-) as number;
-
-const colKey = ref(0);
-
-const forceRender = () => {
-  colKey.value = colKey.value + 1;
-  console.log(colKey.value);
-};
-
 watch(
   () => creacionAnillos.isCreated,
   async () => {
     isLoading.value = true;
-    let anillosCopy = await getAnillos();
+    anillosCopy = await getAnillos();
     isLoading.value = false;
+    page.value = 1;
 
     anillosDataTable.value = anillosCopy?.slice(
-      0,
+      (page.value - 1) * totalItems.value,
       page.value * totalItems.value,
     );
 
@@ -53,15 +38,33 @@ watch(
   },
 );
 
+let anillosCopy = ListAnillos;
+
+anillosDataTable.value = anillosCopy?.slice(0, page.value * totalItems.value);
+
+numPages.value = Math.ceil(
+  (anillosCopy?.length as number) / totalItems.value,
+) as number;
+
+const colKey = ref(0);
+
+const forceRender = () => {
+  colKey.value = colKey.value + 1;
+};
+
 isLoading.value = false;
 
 async function updatePage(index: number) {
-  let anillosCopy = ListAnillos;
+  console.log(anillosCopy);
   page.value = index;
   anillosDataTable.value = anillosCopy?.slice(
     (page.value - 1) * totalItems.value,
     page.value * totalItems.value,
   );
+
+  numPages.value = Math.ceil(
+    (anillosCopy?.length as number) / totalItems.value,
+  ) as number;
 }
 
 setTimeout(
@@ -79,12 +82,14 @@ setTimeout(
         <v-col cols="8">
           <v-container class="max-width">
             <v-pagination
+              rounded="circle"
               :key="colKey"
               color="blue"
               prev-icon="mdi-menu-left"
               class="my-4"
               :length="numPages"
               @update:model-value="updatePage"
+              v-model="page"
               :total-visible="5"
             ></v-pagination>
           </v-container>
@@ -102,7 +107,6 @@ setTimeout(
         v-else
         v-for="anillo in anillosDataTable"
         class="d-flex justify-center flex-wrap"
-        :key="colKey"
       >
         <carta class="ml-5 mr-5" v-bind:anillo="anillo" :key="anillo.id" />
       </v-col>

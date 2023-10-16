@@ -50,7 +50,6 @@ async function getAnillos(): Promise<Anillo[] | undefined> {
   try {
     const response = await axios.get("http://localhost:4000/api/anillos/");
     anillos = response.data;
-    console.log(anillos);
 
     return response.data;
   } catch (error) {
