@@ -3,35 +3,42 @@ import carta from "./../components/cartaAnillo.vue";
 import { ref } from "vue";
 import { onMounted, watch } from "vue";
 import { getAnillos } from "./../services/anilloApi";
-import { loggedState } from "@/variables/store";
+import { loggedState, creacionAnillos } from "@/variables/store";
 import { useRouter } from "vue-router";
 import Cookies from "js-cookie";
 
 let isLoading = ref(true);
-let anillosinPage = ref();
+let anillosDataTable = ref();
 let page = ref(1);
 let totalItems = ref(6);
 let numPages = ref(1);
 
 loggedState.setToTrue();
 
-onMounted(async () => {
-  const ListAnillos = await getAnillos();
-  let anillosCopy = ListAnillos;
-  anillosinPage.value = anillosCopy?.slice(0, page.value * totalItems.value);
+const ListAnillos = await getAnillos();
 
-  numPages.value = Math.ceil(
-    (ListAnillos?.length as number) / totalItems.value,
-  ) as number;
+let anillosCopy = ListAnillos;
 
-  isLoading.value = false;
-});
+anillosDataTable.value = anillosCopy?.slice(0, page.value * totalItems.value);
+
+numPages.value = Math.ceil(
+  (ListAnillos?.length as number) / totalItems.value,
+) as number;
+
+watch(
+  () => creacionAnillos.isCreated,
+  async () => {
+    anillosDataTable.value = await getAnillos();
+    console.log("created");
+  },
+);
+
+isLoading.value = false;
 
 async function updatePage(index: number) {
-  const ListAnillos = await getAnillos();
   let anillosCopy = ListAnillos;
   page.value = index;
-  anillosinPage.value = anillosCopy?.slice(
+  anillosDataTable.value = anillosCopy?.slice(
     (page.value - 1) * totalItems.value,
     page.value * totalItems.value,
   );
@@ -64,26 +71,15 @@ setTimeout(
       </v-row>
     </v-container>
   </div>
-  <template
-    v-if="isLoading === true"
-    class="d-flex justify-center align-center"
-  >
-    <div class="d-flex justify-center">
-      <v-progress-circular
-        :size="50"
-        color="blue"
-        indeterminate
-      ></v-progress-circular>
-    </div>
-  </template>
-  <v-container v-else class="">
+
+  <v-container class="">
     <v-row class="d-flex justify-center">
-      <v-sheet v-if="anillosinPage.length == 0">
+      <v-sheet v-if="anillosDataTable.length == 0">
         <h1>No hay datos</h1>
       </v-sheet>
       <v-col
         v-else
-        v-for="anillo in anillosinPage"
+        v-for="anillo in anillosDataTable"
         class="d-flex justify-center flex-wrap"
       >
         <carta class="ml-5 mr-5" v-bind:anillo="anillo" />

@@ -1,4 +1,4 @@
-import { reactive } from "vue";
+import { reactive, ref } from "vue";
 
 export const loggedState = reactive({
   isLogged: false,
@@ -21,5 +21,13 @@ export const loggedState = reactive({
 
   setToFalse() {
     this.isLogged = false;
+  },
+});
+
+export const creacionAnillos = reactive({
+  isCreated: 0,
+
+  setIsCreated(created: number) {
+    this.isCreated = created;
   },
 });

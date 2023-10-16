@@ -2,7 +2,7 @@
 import { ref, reactive, computed } from "vue";
 import { createAnillo } from "./../services/anilloApi";
 import { useDisplay } from "vuetify";
-
+import { creacionAnillos } from "./../variables/store";
 const { smAndUp } = useDisplay();
 const dialog = ref(false);
 
@@ -86,6 +86,7 @@ const submit = handleSubmit(async (values) => {
   console.log(response);
   if (response) {
     dialog2.value = true;
+    creacionAnillos.setIsCreated(creacionAnillos.isCreated + 1);
   }
 });
 </script>
