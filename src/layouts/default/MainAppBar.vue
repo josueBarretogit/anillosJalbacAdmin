@@ -19,8 +19,6 @@ async function cerrarSesion() {
     });
   }
 }
-const tab = ref(tabs.tabs);
-tab.value = "solitarios";
 </script>
 
 <template>
@@ -28,11 +26,15 @@ tab.value = "solitarios";
     <v-sheet class="ma-2 pa-2 flex-grow-0">
       <v-app-bar-title>Jalbac Admin</v-app-bar-title>
     </v-sheet>
-    <v-sheet class="ma-2 pa-2 flex-grow-1 d-flex justify-center">
-      <v-tabs v-model="tab" color="blue" fixed-tabs>
+
+    <v-sheet
+      v-if="loggedState.isLogged"
+      class="ma-2 pa-2 flex-grow-1 d-flex justify-center"
+    >
+      <v-tabs v-model="tabs.tabs" color="blue" fixed-tabs>
         <v-tab value="anillos">Anillos</v-tab>
         <v-tab value="solitarios">Solitarios</v-tab>
-        <v-tab value="Dijes">Dijes</v-tab>
+        <v-tab value="dijes">Dijes</v-tab>
       </v-tabs>
     </v-sheet>
 

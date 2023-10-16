@@ -4,8 +4,7 @@ import { ref } from "vue";
 import { onMounted, watch } from "vue";
 import { getAnillos } from "./../services/anilloApi";
 import { loggedState, creacionAnillos, tabs } from "@/variables/store";
-import { useRouter } from "vue-router";
-import Cookies from "js-cookie";
+import solitariosView from "./solitariosView.vue";
 
 let isLoading = ref(true);
 let anillosDataTable = ref();
@@ -16,27 +15,6 @@ let numPages = ref(1);
 loggedState.setToTrue();
 
 const ListAnillos = await getAnillos();
-
-watch(
-  () => creacionAnillos.isCreated,
-  async () => {
-    isLoading.value = true;
-    anillosCopy = await getAnillos();
-    isLoading.value = false;
-    page.value = 1;
-
-    anillosDataTable.value = anillosCopy?.slice(
-      (page.value - 1) * totalItems.value,
-      page.value * totalItems.value,
-    );
-
-    numPages.value = Math.ceil(
-      (anillosCopy?.length as number) / totalItems.value,
-    ) as number;
-
-    forceRender();
-  },
-);
 
 let anillosCopy = ListAnillos;
 
@@ -73,8 +51,27 @@ setTimeout(
   },
   1000 * 60 * 60 * 24,
 );
-const tab = ref(tabs.tabs);
-tab.value = "solitarios";
+
+watch(
+  () => creacionAnillos.isCreated,
+  async () => {
+    isLoading.value = true;
+    anillosCopy = await getAnillos();
+    isLoading.value = false;
+    page.value = 1;
+
+    anillosDataTable.value = anillosCopy?.slice(
+      (page.value - 1) * totalItems.value,
+      page.value * totalItems.value,
+    );
+
+    numPages.value = Math.ceil(
+      (anillosCopy?.length as number) / totalItems.value,
+    ) as number;
+
+    forceRender();
+  },
+);
 </script>
 <template>
   <div class="text-center">
@@ -99,7 +96,7 @@ tab.value = "solitarios";
     </v-container>
   </div>
 
-  <v-window v-model="tab">
+  <v-window v-model="tabs.tabs">
     <v-window-item value="anillos">
       <v-container class="">
         <v-row class="d-flex justify-center">
@@ -118,6 +115,10 @@ tab.value = "solitarios";
     </v-window-item>
 
     <v-window-item value="solitarios">
+      <solitariosView />
+    </v-window-item>
+
+    <v-window-item value="dijes">
       <h1>ventana solitarios</h1>
     </v-window-item>
   </v-window>

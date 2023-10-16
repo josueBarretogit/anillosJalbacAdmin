@@ -177,7 +177,7 @@ const submit = handleSubmit(async (values) => {
               </v-col>
             </v-row>
             <v-row no-gutters justify="center" class="mt-3 mb-3">
-              <v-col cols="12" sm="6">
+              <v-col>
                 <v-file-input
                   accept="image/*"
                   class="ml-4 mr-4"
