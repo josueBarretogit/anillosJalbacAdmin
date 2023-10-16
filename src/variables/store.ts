@@ -29,5 +29,6 @@ export const creacionAnillos = reactive({
 
   setIsCreated(created: number) {
     this.isCreated = created;
+    console.log(this.isCreated);
   },
 });

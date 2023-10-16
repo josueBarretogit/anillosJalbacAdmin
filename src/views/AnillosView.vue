@@ -6,6 +6,7 @@ import { getAnillos } from "./../services/anilloApi";
 import { loggedState, creacionAnillos } from "@/variables/store";
 import { useRouter } from "vue-router";
 import Cookies from "js-cookie";
+import { nextTick } from "process";
 
 let isLoading = ref(true);
 let anillosDataTable = ref();
@@ -25,11 +26,30 @@ numPages.value = Math.ceil(
   (ListAnillos?.length as number) / totalItems.value,
 ) as number;
 
+const colKey = ref(0);
+
+const forceRender = () => {
+  colKey.value = colKey.value + 1;
+  console.log(colKey.value);
+};
+
 watch(
   () => creacionAnillos.isCreated,
   async () => {
-    anillosDataTable.value = await getAnillos();
-    console.log("created");
+    isLoading.value = true;
+    let anillosCopy = await getAnillos();
+    isLoading.value = false;
+
+    anillosDataTable.value = anillosCopy?.slice(
+      0,
+      page.value * totalItems.value,
+    );
+
+    numPages.value = Math.ceil(
+      (anillosCopy?.length as number) / totalItems.value,
+    ) as number;
+
+    forceRender();
   },
 );
 
@@ -59,6 +79,7 @@ setTimeout(
         <v-col cols="8">
           <v-container class="max-width">
             <v-pagination
+              :key="colKey"
               color="blue"
               prev-icon="mdi-menu-left"
               class="my-4"
@@ -81,8 +102,9 @@ setTimeout(
         v-else
         v-for="anillo in anillosDataTable"
         class="d-flex justify-center flex-wrap"
+        :key="colKey"
       >
-        <carta class="ml-5 mr-5" v-bind:anillo="anillo" />
+        <carta class="ml-5 mr-5" v-bind:anillo="anillo" :key="anillo.id" />
       </v-col>
     </v-row>
   </v-container>

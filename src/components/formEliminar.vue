@@ -4,6 +4,7 @@ import type { Anillo } from "@/interfaces/interfaces";
 import { deleteAnillo, getAnillos } from "./../services/anilloApi";
 import { AxiosError } from "axios";
 
+import { creacionAnillos } from "@/variables/store";
 const dialogEliminar = ref(false);
 const dialogEliminar2 = ref(false);
 defineProps<{
@@ -22,7 +23,8 @@ async function eliminarAnillo(id: number, token: string) {
   console.log(response);
   if (response) {
     dialogEliminar2.value = true;
-    console.log(dialogEliminar2.value);
+
+    creacionAnillos.setIsCreated(creacionAnillos.isCreated + 1);
   }
 }
 </script>

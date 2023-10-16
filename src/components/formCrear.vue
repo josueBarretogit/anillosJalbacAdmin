@@ -87,6 +87,7 @@ const submit = handleSubmit(async (values) => {
   if (response) {
     dialog2.value = true;
     creacionAnillos.setIsCreated(creacionAnillos.isCreated + 1);
+    handleReset();
   }
 });
 </script>
