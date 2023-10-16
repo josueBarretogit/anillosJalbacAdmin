@@ -32,3 +32,11 @@ export const creacionAnillos = reactive({
     console.log(this.isCreated);
   },
 });
+
+export const tabs = reactive({
+  tabs: "",
+
+  setTabs(tab: string) {
+    this.tabs = tab;
+  },
+});

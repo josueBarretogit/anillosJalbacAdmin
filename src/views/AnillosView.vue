@@ -3,7 +3,7 @@ import carta from "./../components/cartaAnillo.vue";
 import { ref } from "vue";
 import { onMounted, watch } from "vue";
 import { getAnillos } from "./../services/anilloApi";
-import { loggedState, creacionAnillos } from "@/variables/store";
+import { loggedState, creacionAnillos, tabs } from "@/variables/store";
 import { useRouter } from "vue-router";
 import Cookies from "js-cookie";
 
@@ -73,8 +73,9 @@ setTimeout(
   },
   1000 * 60 * 60 * 24,
 );
+const tab = ref(tabs.tabs);
+tab.value = "solitarios";
 </script>
-
 <template>
   <div class="text-center">
     <v-container>
@@ -98,24 +99,26 @@ setTimeout(
     </v-container>
   </div>
 
-  <v-container class="">
-    <v-row class="d-flex justify-center">
-      <v-sheet v-if="anillosDataTable.length == 0">
-        <h1>No hay datos</h1>
-      </v-sheet>
-      <v-col
-        v-else
-        v-for="anillo in anillosDataTable"
-        class="d-flex justify-center flex-wrap"
-      >
-        <carta class="ml-5 mr-5" v-bind:anillo="anillo" :key="anillo.id" />
-      </v-col>
-    </v-row>
-  </v-container>
-</template>
+  <v-window v-model="tab">
+    <v-window-item value="anillos">
+      <v-container class="">
+        <v-row class="d-flex justify-center">
+          <v-sheet v-if="anillosDataTable.length == 0">
+            <h1>No hay datos</h1>
+          </v-sheet>
+          <v-col
+            v-else
+            v-for="anillo in anillosDataTable"
+            class="d-flex justify-center flex-wrap"
+          >
+            <carta class="ml-5 mr-5" v-bind:anillo="anillo" :key="anillo.id" />
+          </v-col>
+        </v-row>
+      </v-container>
+    </v-window-item>
 
-<style scoped>
-#inspire {
-  background-color: rgb(0, 0, 0);
-}
-</style>
+    <v-window-item value="solitarios">
+      <h1>ventana solitarios</h1>
+    </v-window-item>
+  </v-window>
+</template>
