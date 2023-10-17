@@ -1,8 +1,6 @@
 // Composables
-import Cookies from "js-cookie";
-import { loggedState } from "@/variables/store";
 import { createRouter, createWebHistory } from "vue-router";
-import viewAnillos from "@/views/AnillosView.vue";
+import viewNombres from "@/views/nombresView.vue";
 import defaultLayout from "@/layouts/default/DefaultLayout.vue";
 import loginView from "@/views/LoginView.vue";
 
@@ -17,10 +15,10 @@ const routes = [
         component: loginView,
       },
       {
-        path: "/viewAnillos",
-        name: "viewAnillos",
+        path: "/viewNombres",
+        name: "viewNombres",
 
-        component: viewAnillos,
+        component: viewNombres,
 
         meta: {
           requiresAuth: true,

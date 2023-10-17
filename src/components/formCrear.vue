@@ -16,12 +16,8 @@ const dialog = ref(false);
 
 const dialog2 = ref(false);
 
-function cerrarFormularioCrear() {
-  dialog2.value = false;
-  dialog.value = false;
-}
-
 function cerrarFormularioCancelar() {
+  dialog2.value = false;
   dialog.value = false;
   handleReset();
 }

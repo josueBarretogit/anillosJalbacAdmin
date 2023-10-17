@@ -1,77 +1,14 @@
 <script setup lang="ts">
 import carta from "./../components/cartaAnillo.vue";
-import { ref } from "vue";
-import { onMounted, watch } from "vue";
-import { getAnillos } from "./../services/anilloApi";
-import { loggedState, creacionAnillos, tabs } from "@/variables/store";
+import { tabs } from "@/variables/store";
 import solitariosView from "./solitariosView.vue";
-
-let isLoading = ref(true);
-let anillosDataTable = ref();
-let page = ref(1);
-let totalItems = ref(6);
-let numPages = ref(1);
-
-loggedState.setToTrue();
-
-const ListAnillos = await getAnillos();
-
-let anillosCopy = ListAnillos;
-
-anillosDataTable.value = anillosCopy?.slice(0, page.value * totalItems.value);
-
-numPages.value = Math.ceil(
-  (anillosCopy?.length as number) / totalItems.value,
-) as number;
-
-const colKey = ref(0);
-
-const forceRender = () => {
-  colKey.value = colKey.value + 1;
-};
-
-isLoading.value = false;
-
-async function updatePage(index: number) {
-  console.log(anillosCopy);
-  page.value = index;
-  anillosDataTable.value = anillosCopy?.slice(
-    (page.value - 1) * totalItems.value,
-    page.value * totalItems.value,
-  );
-
-  numPages.value = Math.ceil(
-    (anillosCopy?.length as number) / totalItems.value,
-  ) as number;
-}
-
-setTimeout(
-  () => {
-    window.location.reload();
-  },
-  1000 * 60 * 60 * 24,
-);
-
-watch(
-  () => creacionAnillos.isCreated,
-  async () => {
-    isLoading.value = true;
-    anillosCopy = await getAnillos();
-    isLoading.value = false;
-    page.value = 1;
-
-    anillosDataTable.value = anillosCopy?.slice(
-      (page.value - 1) * totalItems.value,
-      page.value * totalItems.value,
-    );
-
-    numPages.value = Math.ceil(
-      (anillosCopy?.length as number) / totalItems.value,
-    ) as number;
-
-    forceRender();
-  },
-);
+import {
+  anillosDataTable,
+  colKey,
+  numPages,
+  page,
+  updatePage,
+} from "./nombresService";
 </script>
 <template>
   <v-window v-model="tabs.tabs">

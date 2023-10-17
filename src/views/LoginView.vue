@@ -45,7 +45,7 @@ const submit = handleSubmit(async (values) => {
     loggedState.setToken(token);
     localStorage.setItem("accessToken", dataLogin.accessToken);
     router.push({
-      name: "viewAnillos",
+      name: "viewNombres",
       params: { correo: dataLogin.correo, id: dataLogin.idUsuario },
     });
   } else if (!dataLogin?.isLogged) {
