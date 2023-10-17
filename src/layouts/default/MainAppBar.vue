@@ -39,7 +39,7 @@ async function cerrarSesion() {
     </v-sheet>
 
     <v-sheet class="ma-2 pa-2">
-      <FormCrear v-if="loggedState.isLogged" />
+      <FormCrear v-if="loggedState.isLogged" tipo="nombre" />
 
       <v-btn
         v-if="loggedState.isLogged"

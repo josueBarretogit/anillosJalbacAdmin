@@ -3,17 +3,18 @@ import { ref } from "vue";
 import type { Anillo } from "@/interfaces/interfaces";
 import { deleteAnillo, getAnillos } from "./../services/anilloApi";
 import { AxiosError } from "axios";
+import DialogMensajeRequest from "./../components/dialogMensajeRequest.vue";
 
-import { creacionAnillos } from "@/variables/store";
 const dialogEliminar = ref(false);
 const dialogEliminar2 = ref(false);
+
 defineProps<{
-  idAnillo: number;
+  id: number;
   token: string;
+  tipo: string;
 }>();
 
 function cerrarFormularioEliminar() {
-  creacionAnillos.setIsCreated(creacionAnillos.isCreated + 1);
   dialogEliminar2.value = false;
 
   dialogEliminar.value = false;
@@ -28,9 +29,11 @@ async function eliminarAnillo(id: number, token: string) {
 </script>
 
 <template>
-  <v-dialog v-model="dialogEliminar" width="auto">
+  <v-dialog v-model="dialogEliminar" width="auto" scrim="true">
     <template v-slot:activator="{ props }">
-      <v-btn color="red" v-bind="props" rounded="xl"> Eliminar </v-btn>
+      <v-btn color="red" v-bind="props" rounded="xl" size="large">
+        Eliminar
+      </v-btn>
     </template>
 
     <v-card>
@@ -58,22 +61,16 @@ async function eliminarAnillo(id: number, token: string) {
         <v-btn
           color="blue-darken-1"
           variant="text"
-          @click="eliminarAnillo(idAnillo, token)"
+          @click="eliminarAnillo(id, token)"
         >
           Eliminar
         </v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
-  <v-dialog v-model="dialogEliminar2" width="auto">
-    <v-card>
-      <v-card-title>Operacion exitosa </v-card-title>
-      <v-card-text> Anillo eliminado correctamente</v-card-text>
-      <v-card-actions>
-        <v-btn color="blue" variant="text" @click="cerrarFormularioEliminar">
-          Cerrar
-        </v-btn>
-      </v-card-actions>
-    </v-card>
-  </v-dialog>
+  <DialogMensajeRequest
+    v-if="dialogEliminar2"
+    :dialog-request2="dialogEliminar2"
+    :mensaje="`${tipo} eliminado exitosamente`"
+  />
 </template>

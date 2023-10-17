@@ -1,17 +1,9 @@
 <script lang="ts" setup>
-import { ref } from "vue";
+import { ref, reactive, computed } from "vue";
 import { createAnillo } from "./../services/anilloApi";
 import { useDisplay } from "vuetify";
 import { creacionAnillos } from "./../variables/store";
-
-import DialogMensajeRequest from "./../components/dialogMensajeRequest.vue";
-
 const { smAndUp } = useDisplay();
-
-defineProps<{
-  tipo: string;
-}>();
-
 const dialog = ref(false);
 
 const dialog2 = ref(false);
@@ -19,11 +11,6 @@ const dialog2 = ref(false);
 function cerrarFormularioCrear() {
   dialog2.value = false;
   dialog.value = false;
-}
-
-function cerrarFormularioCancelar() {
-  dialog.value = false;
-  handleReset();
 }
 
 const token = localStorage.getItem("accessToken");
@@ -108,14 +95,8 @@ const submit = handleSubmit(async (values) => {
 <template>
   <v-dialog v-model="dialog" persistent width="auto">
     <template v-slot:activator="{ props }">
-      <v-btn
-        color="blue"
-        v-bind="props"
-        prepend-icon="mdi-pen-plus"
-        rounded="xl"
-        size="large"
-      >
-        Crear anillo
+      <v-btn color="blue" v-bind="props" rounded="xl" size="large">
+        Editar anillo
       </v-btn>
     </template>
 
@@ -195,7 +176,6 @@ const submit = handleSubmit(async (values) => {
                   accept="image/*"
                   class="ml-4 mr-4"
                   clearable
-                  show-size
                   label="Imagen"
                   color="blue"
                   variant="outlined"
@@ -213,20 +193,21 @@ const submit = handleSubmit(async (values) => {
         </form>
       </v-card-text>
       <v-card-actions class="d-flex justify-end">
-        <v-btn
-          color="blue-darken-1"
-          variant="text"
-          @click="cerrarFormularioCancelar"
-        >
+        <v-btn color="blue-darken-1" variant="text" @click="dialog = false">
           Cancelar
         </v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
-
-  <DialogMensajeRequest
-    v-if="dialog2"
-    :dialog-request2="dialog2"
-    :mensaje="`${tipo} creado exitosamente`"
-  />
+  <v-dialog v-model="dialog2" width="auto">
+    <v-card>
+      <v-card-title>Operacion exitosa </v-card-title>
+      <v-card-text> Anillo creado correctamente</v-card-text>
+      <v-card-actions>
+        <v-btn color="blue" variant="text" @click="cerrarFormularioCrear">
+          Cerrar
+        </v-btn>
+      </v-card-actions>
+    </v-card>
+  </v-dialog>
 </template>

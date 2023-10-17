@@ -1,12 +1,11 @@
 <script setup lang="ts">
 import type { Anillo } from "@/interfaces/interfaces";
 import FormEliminar from "./formEliminar.vue";
+import FormEditar from "./formEditar.vue";
 
-import { loggedState } from "@/variables/store";
-
-const token = localStorage.getItem("accessToken");
 defineProps<{
   anillo: Anillo;
+  tipo: string;
 }>();
 </script>
 
@@ -35,8 +34,8 @@ defineProps<{
     </v-row>
 
     <v-card-actions>
-      <v-btn rounded="xl" color="blue">Editar</v-btn>
-      <FormEliminar v-bind:idAnillo="anillo?.id" token="token" />
+      <FormEditar />
+      <FormEliminar v-bind:id="anillo?.id" token="token" :tipo="tipo" />
     </v-card-actions>
   </v-card>
 </template>
