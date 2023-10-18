@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import carta from "./../components/cartaAnillo.vue";
+
 import { tabs } from "@/variables/store";
 import solitariosView from "./solitariosView.vue";
 import {
@@ -8,8 +9,9 @@ import {
   numPages,
   page,
   updatePage,
-} from "./nombresService";
+} from "./scriptViews/nombreScript";
 </script>
+
 <template>
   <v-window v-model="tabs.tabs">
     <v-window-item value="anillos">

@@ -107,7 +107,7 @@ const submit = handleSubmit(async (values) => {
       <v-btn
         color="blue"
         v-bind="props"
-        prepend-icon="mdi-pen-plus"
+        prepend-icon="mdi-plus"
         rounded="xl"
         size="large"
       >

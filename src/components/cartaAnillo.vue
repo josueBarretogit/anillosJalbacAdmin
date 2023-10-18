@@ -33,7 +33,7 @@ defineProps<{
       </v-col>
     </v-row>
 
-    <v-card-actions>
+    <v-card-actions class="d-flex flex-wrap">
       <FormEditar />
       <FormEliminar v-bind:id="anillo?.id" token="token" :tipo="tipo" />
     </v-card-actions>

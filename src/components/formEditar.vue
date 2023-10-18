@@ -95,7 +95,13 @@ const submit = handleSubmit(async (values) => {
 <template>
   <v-dialog v-model="dialog" persistent width="auto">
     <template v-slot:activator="{ props }">
-      <v-btn color="blue" v-bind="props" rounded="xl" size="large">
+      <v-btn
+        prepend-icon="mdi-pencil"
+        color="blue"
+        v-bind="props"
+        rounded="xl"
+        size="large"
+      >
         Editar anillo
       </v-btn>
     </template>
@@ -186,7 +192,7 @@ const submit = handleSubmit(async (values) => {
             </v-row>
             <div class="d-flex justify-center">
               <v-btn class="me-4" type="submit" color="blue">
-                Crear anillo
+                Editar anillo
               </v-btn>
             </div>
           </v-container>

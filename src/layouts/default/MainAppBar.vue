@@ -32,8 +32,8 @@ async function cerrarSesion() {
       class="ma-2 pa-2 flex-grow-1 d-flex justify-center"
     >
       <v-tabs v-model="tabs.tabs" color="blue" fixed-tabs>
+        <v-tab value="">Anillos</v-tab>
         <v-tab value="anillos">Anillos</v-tab>
-        <v-tab value="solitarios">Solitarios</v-tab>
         <v-tab value="dijes">Dijes</v-tab>
       </v-tabs>
     </v-sheet>

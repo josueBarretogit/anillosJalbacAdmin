@@ -31,7 +31,13 @@ async function eliminarAnillo(id: number, token: string) {
 <template>
   <v-dialog v-model="dialogEliminar" width="auto" scrim="true">
     <template v-slot:activator="{ props }">
-      <v-btn color="red" v-bind="props" rounded="xl" size="large">
+      <v-btn
+        prepend-icon="mdi-delete"
+        color="red"
+        v-bind="props"
+        rounded="xl"
+        size="large"
+      >
         Eliminar
       </v-btn>
     </template>
