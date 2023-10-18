@@ -1,9 +1,8 @@
 <script lang="ts" setup>
-import { inject } from "vue";
-
-const submit = inject("submit");
+import { useLogin } from "./../customHooks/useLogin";
+const { submit, correo, contrasena, showAlert, isLoading, razonError } =
+  useLogin();
 </script>
-
 <template>
   <div
     class="d-flex flex-column h-100 align-center justify-center"

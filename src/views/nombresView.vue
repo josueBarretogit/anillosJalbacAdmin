@@ -1,15 +1,10 @@
 <script setup lang="ts">
 import carta from "./../components/cartaAnillo.vue";
-
 import { tabs } from "@/variables/store";
 import solitariosView from "./solitariosView.vue";
-import {
-  anillosDataTable,
-  colKey,
-  numPages,
-  page,
-  updatePage,
-} from "./scriptViews/nombreScript";
+import { useDataNombres } from "./../customHooks/useDataNombres";
+const { anillosDataTable, colKey, numPages, page, updatePage } =
+  await useDataNombres();
 </script>
 
 <template>
@@ -38,7 +33,7 @@ import {
       </div>
       <v-container class="">
         <v-row class="d-flex justify-center">
-          <v-sheet v-if="anillosDataTable.length == 0">
+          <v-sheet v-if="anillosDataTable?.length == 0">
             <h1>No hay datos</h1>
           </v-sheet>
           <v-col
