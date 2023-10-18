@@ -1,11 +1,12 @@
 <script lang="ts" setup>
-import { ref } from "vue";
-import { createAnillo } from "./../services/anilloApi";
-import { useDisplay } from "vuetify";
-import { creacionAnillos } from "./../variables/store";
 import { useFormCrear } from "./../customHooks/useFormCrear";
 
 import DialogMensajeRequest from "./../components/dialogMensajeRequest.vue";
+
+defineProps<{
+  tipo: string;
+}>();
+
 const {
   nombre,
   pesoOro,
@@ -17,6 +18,8 @@ const {
   submit,
   dialog,
   dialog2,
+  smAndUp,
+  cerrarFormularioCancelar,
 } = useFormCrear();
 </script>
 

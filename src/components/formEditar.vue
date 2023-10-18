@@ -1,95 +1,27 @@
 <script lang="ts" setup>
-import { ref, reactive, computed } from "vue";
-import { createAnillo } from "./../services/anilloApi";
-import { useDisplay } from "vuetify";
-import { creacionAnillos } from "./../variables/store";
-const { smAndUp } = useDisplay();
-const dialog = ref(false);
+import { useFormEditar } from "./../customHooks/useFormEditar";
 
-const dialog2 = ref(false);
+import DialogMensajeRequest from "./../components/dialogMensajeRequest.vue";
+import { Anillo } from "@/interfaces/interfaces";
 
-function cerrarFormularioCrear() {
-  dialog2.value = false;
-  dialog.value = false;
-}
+const props = defineProps<{
+  tipo: string;
+  anillo: Anillo;
+}>();
 
-const token = localStorage.getItem("accessToken");
-
-import { useField, useForm } from "vee-validate";
-
-const { handleSubmit, handleReset } = useForm({
-  validationSchema: {
-    nombre(value: string) {
-      if (!value) {
-        return "Este campo es obligatorio";
-      }
-      return true;
-    },
-    pesoOro(value: string) {
-      if (!value) {
-        return "Este campo es obligatorio";
-      }
-      return true;
-    },
-    pesoPlata(value: string) {
-      if (!value) {
-        return "Este campo es obligatorio";
-      }
-      return true;
-    },
-    categoria(value: string) {
-      if (!value) {
-        return "Este campo es obligatorio";
-      }
-      return true;
-    },
-    talla(value: string) {
-      if (!value) {
-        return "Este campo es obligatorio";
-      }
-      return true;
-    },
-    referencia(value: string) {
-      if (!value) {
-        return "Este campo es obligatorio";
-      }
-      return true;
-    },
-    imagen(value: File[]) {
-      if (!value) {
-        return "Este campo es obligatorio";
-      }
-      return true;
-    },
-  },
-});
-
-const nombre = useField("nombre");
-const pesoOro = useField("pesoOro");
-const pesoPlata = useField("pesoPlata");
-const categoria = useField("categoria");
-const talla = useField("talla");
-const referencia = useField("referencia");
-const imagen = useField<File[]>("imagen");
-
-const submit = handleSubmit(async (values) => {
-  const valuesForm = new FormData();
-  valuesForm.append("nombre", values.nombre);
-  valuesForm.append("pesoOro", values.pesoOro);
-  valuesForm.append("pesoPlata", values.pesoPlata);
-  valuesForm.append("categoria", values.categoria);
-  valuesForm.append("talla", values.talla);
-  valuesForm.append("referencia", values.referencia);
-  valuesForm.append("image", values.imagen[0]);
-
-  const response = await createAnillo(valuesForm, token as string);
-  console.log(response);
-  if (response) {
-    dialog2.value = true;
-    creacionAnillos.setIsCreated(creacionAnillos.isCreated + 1);
-    handleReset();
-  }
-});
+const {
+  nombre,
+  pesoOro,
+  pesoPlata,
+  categoria,
+  talla,
+  referencia,
+  submit,
+  dialog,
+  dialog2,
+  smAndUp,
+  cerrarFormularioCancelar,
+} = useFormEditar(props.anillo);
 </script>
 
 <template>
@@ -176,20 +108,7 @@ const submit = handleSubmit(async (values) => {
                 ></v-text-field>
               </v-col>
             </v-row>
-            <v-row no-gutters justify="center" class="mt-3 mb-3">
-              <v-col>
-                <v-file-input
-                  accept="image/*"
-                  class="ml-4 mr-4"
-                  clearable
-                  label="Imagen"
-                  color="blue"
-                  variant="outlined"
-                  v-model="imagen.value.value"
-                  :error-messages="imagen.errorMessage.value"
-                ></v-file-input>
-              </v-col>
-            </v-row>
+
             <div class="d-flex justify-center">
               <v-btn class="me-4" type="submit" color="blue">
                 Editar anillo
@@ -205,15 +124,9 @@ const submit = handleSubmit(async (values) => {
       </v-card-actions>
     </v-card>
   </v-dialog>
-  <v-dialog v-model="dialog2" width="auto">
-    <v-card>
-      <v-card-title>Operacion exitosa </v-card-title>
-      <v-card-text> Anillo creado correctamente</v-card-text>
-      <v-card-actions>
-        <v-btn color="blue" variant="text" @click="cerrarFormularioCrear">
-          Cerrar
-        </v-btn>
-      </v-card-actions>
-    </v-card>
-  </v-dialog>
+  <DialogMensajeRequest
+    v-if="dialog2"
+    :dialog-request2="dialog2"
+    :mensaje="`${props.tipo} creado exitosamente`"
+  />
 </template>

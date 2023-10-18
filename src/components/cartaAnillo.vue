@@ -34,7 +34,7 @@ defineProps<{
     </v-row>
 
     <v-card-actions class="d-flex flex-wrap">
-      <FormEditar />
+      <FormEditar :anillo="anillo" :tipo="tipo" />
       <FormEliminar v-bind:id="anillo?.id" token="token" :tipo="tipo" />
     </v-card-actions>
   </v-card>

@@ -27,6 +27,30 @@ async function createAnillo(
   }
 }
 
+async function editarAnillo(
+  data: FormData,
+  token: string,
+): Promise<Anillo | AxiosError> {
+  try {
+    const response = await axios.patch(
+      "http://localhost:4000/api/anillos/editar",
+      data,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          "Access-Control-Allow-Origin": "*",
+          Authorization: `Bearer ${token}`,
+        },
+        withCredentials: true,
+      },
+    );
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    const err = error as AxiosError;
+    return err;
+  }
+}
 async function getAnillo(
   id: number,
   isLoading: boolean,
@@ -135,4 +159,12 @@ async function logOut(
   }
 }
 
-export { getAnillos, anillos, logIn, logOut, deleteAnillo, createAnillo };
+export {
+  getAnillos,
+  anillos,
+  logIn,
+  logOut,
+  deleteAnillo,
+  createAnillo,
+  editarAnillo,
+};

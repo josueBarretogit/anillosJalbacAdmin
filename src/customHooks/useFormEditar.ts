@@ -1,10 +1,10 @@
-import { createAnillo } from "@/services/anilloApi";
+import { editarAnillo } from "@/services/anilloApi";
 import { creacionAnillos } from "@/variables/store";
 import { useField, useForm } from "vee-validate";
 import { ref } from "vue";
 import { useDisplay } from "vuetify/lib/framework.mjs";
 
-export function useFormCrear() {
+export function useFormEditar(joya: any) {
   const { smAndUp } = useDisplay();
 
   const dialog = ref(false);
@@ -57,34 +57,37 @@ export function useFormCrear() {
         }
         return true;
       },
-      imagen(value: File[]) {
-        if (!value) {
-          return "Este campo es obligatorio";
-        }
-        return true;
-      },
     },
   });
 
+  const id = useField("id");
   const nombre = useField("nombre");
   const pesoOro = useField("pesoOro");
   const pesoPlata = useField("pesoPlata");
   const categoria = useField("categoria");
   const talla = useField("talla");
   const referencia = useField("referencia");
-  const imagen = useField<File[]>("imagen");
+  //const imagen = useField<File[]>("imagen");
+
+  id.value.value = joya.id;
+  nombre.value.value = joya.nombre;
+  pesoOro.value.value = joya.pesoOro;
+  pesoPlata.value.value = joya.pesoPlata;
+  categoria.value.value = joya.categoria;
+  talla.value.value = joya.talla;
+  referencia.value.value = joya.referencia;
 
   const submit = handleSubmit(async (values) => {
     const valuesForm = new FormData();
+    valuesForm.append("id", id.value.value as string);
     valuesForm.append("nombre", values.nombre);
     valuesForm.append("pesoOro", values.pesoOro);
     valuesForm.append("pesoPlata", values.pesoPlata);
     valuesForm.append("categoria", values.categoria);
     valuesForm.append("talla", values.talla);
     valuesForm.append("referencia", values.referencia);
-    valuesForm.append("image", values.imagen[0]);
 
-    const response = await createAnillo(valuesForm, token as string);
+    const response = await editarAnillo(valuesForm, token as string);
     console.log(response);
     if (response) {
       dialog2.value = true;
@@ -99,7 +102,6 @@ export function useFormCrear() {
     categoria,
     talla,
     referencia,
-    imagen,
     submit,
     dialog,
     dialog2,
