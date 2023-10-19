@@ -1,5 +1,6 @@
 import { createAnillo } from "@/services/anilloApi";
 import { creacionAnillos } from "@/variables/store";
+import { AxiosError } from "axios";
 import { useField, useForm } from "vee-validate";
 import { ref } from "vue";
 import { useDisplay } from "vuetify/lib/framework.mjs";
@@ -11,6 +12,7 @@ export function useFormCrear() {
 
   const dialog2 = ref(false);
 
+  const isLoading = ref(false);
   function cerrarFormularioCancelar() {
     dialog2.value = false;
     dialog.value = false;
@@ -84,9 +86,12 @@ export function useFormCrear() {
     valuesForm.append("referencia", values.referencia);
     valuesForm.append("image", values.imagen[0]);
 
+    isLoading.value = true;
     const response = await createAnillo(valuesForm, token as string);
+
+    isLoading.value = false;
     console.log(response);
-    if (response) {
+    if (!(response instanceof AxiosError)) {
       dialog2.value = true;
       creacionAnillos.setIsCreated(creacionAnillos.isCreated + 1);
       handleReset();
@@ -104,6 +109,7 @@ export function useFormCrear() {
     dialog,
     dialog2,
     smAndUp,
+    isLoading,
     cerrarFormularioCancelar,
   };
 }

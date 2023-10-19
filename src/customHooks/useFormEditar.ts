@@ -1,5 +1,6 @@
 import { editarAnillo } from "@/services/anilloApi";
 import { creacionAnillos } from "@/variables/store";
+import { AxiosError } from "axios";
 import { useField, useForm } from "vee-validate";
 import { ref } from "vue";
 import { useDisplay } from "vuetify/lib/framework.mjs";
@@ -11,10 +12,10 @@ export function useFormEditar(joya: any) {
 
   const dialog2 = ref(false);
 
+  const isLoading = ref(false);
   function cerrarFormularioCancelar() {
     dialog2.value = false;
     dialog.value = false;
-    handleReset();
   }
 
   const token = localStorage.getItem("accessToken");
@@ -67,7 +68,6 @@ export function useFormEditar(joya: any) {
   const categoria = useField("categoria");
   const talla = useField("talla");
   const referencia = useField("referencia");
-  //const imagen = useField<File[]>("imagen");
 
   id.value.value = joya.id;
   nombre.value.value = joya.nombre;
@@ -78,8 +78,8 @@ export function useFormEditar(joya: any) {
   referencia.value.value = joya.referencia;
 
   const submit = handleSubmit(async (values) => {
+    console.log(values);
     const valuesForm = new FormData();
-    valuesForm.append("id", id.value.value as string);
     valuesForm.append("nombre", values.nombre);
     valuesForm.append("pesoOro", values.pesoOro);
     valuesForm.append("pesoPlata", values.pesoPlata);
@@ -87,12 +87,19 @@ export function useFormEditar(joya: any) {
     valuesForm.append("talla", values.talla);
     valuesForm.append("referencia", values.referencia);
 
-    const response = await editarAnillo(valuesForm, token as string);
-    console.log(response);
-    if (response) {
+    isLoading.value = true;
+    const response = await editarAnillo(
+      valuesForm,
+      id.value.value as string,
+      token as string,
+    );
+
+    isLoading.value = false;
+    if (!(response instanceof AxiosError)) {
       dialog2.value = true;
       creacionAnillos.setIsCreated(creacionAnillos.isCreated + 1);
-      handleReset();
+    } else {
+      console.log(response);
     }
   });
   return {
@@ -107,5 +114,6 @@ export function useFormEditar(joya: any) {
     dialog2,
     smAndUp,
     cerrarFormularioCancelar,
+    isLoading,
   };
 }

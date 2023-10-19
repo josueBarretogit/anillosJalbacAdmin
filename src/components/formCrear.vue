@@ -20,6 +20,7 @@ const {
   dialog2,
   smAndUp,
   cerrarFormularioCancelar,
+  isLoading,
 } = useFormCrear();
 </script>
 
@@ -128,6 +129,13 @@ const {
               </v-btn>
             </div>
           </v-container>
+          <div v-if="isLoading" class="ma-4 d-flex justify-center">
+            <v-progress-circular
+              :size="50"
+              indeterminate
+              color="blue"
+            ></v-progress-circular>
+          </div>
         </form>
       </v-card-text>
       <v-card-actions class="d-flex justify-end">

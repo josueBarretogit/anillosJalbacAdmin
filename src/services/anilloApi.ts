@@ -29,11 +29,13 @@ async function createAnillo(
 
 async function editarAnillo(
   data: FormData,
+  id: string,
   token: string,
 ): Promise<Anillo | AxiosError> {
   try {
-    const response = await axios.patch(
-      "http://localhost:4000/api/anillos/editar",
+    data.forEach((values) => console.log(values));
+    const response = await axios.put(
+      `http://localhost:4000/api/anillos/editar/${id}`,
       data,
       {
         headers: {

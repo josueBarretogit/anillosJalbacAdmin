@@ -21,6 +21,7 @@ const {
   dialog2,
   smAndUp,
   cerrarFormularioCancelar,
+  isLoading,
 } = useFormEditar(props.anillo);
 </script>
 
@@ -108,7 +109,13 @@ const {
                 ></v-text-field>
               </v-col>
             </v-row>
-
+            <div v-if="isLoading" class="ma-4 d-flex justify-center">
+              <v-progress-circular
+                :size="50"
+                indeterminate
+                color="blue"
+              ></v-progress-circular>
+            </div>
             <div class="d-flex justify-center">
               <v-btn class="me-4" type="submit" color="blue">
                 Editar anillo
@@ -118,8 +125,12 @@ const {
         </form>
       </v-card-text>
       <v-card-actions class="d-flex justify-end">
-        <v-btn color="blue-darken-1" variant="text" @click="dialog = false">
-          Cancelar
+        <v-btn
+          color="blue-darken-1"
+          variant="text"
+          @click="cerrarFormularioCancelar"
+        >
+          Cerrar
         </v-btn>
       </v-card-actions>
     </v-card>
@@ -127,6 +138,6 @@ const {
   <DialogMensajeRequest
     v-if="dialog2"
     :dialog-request2="dialog2"
-    :mensaje="`${props.tipo} creado exitosamente`"
+    :mensaje="`${props.tipo} editado exitosamente`"
   />
 </template>
