@@ -35,7 +35,7 @@ defineProps<{
             scrim="#036358"
             class="align-center justify-center"
           >
-            <form-cambiar-imagen />
+            <form-cambiar-imagen :image-name="anillo?.foto" />
           </v-overlay>
         </v-img>
       </template>
