@@ -2,6 +2,7 @@
 import type { Anillo } from "@/interfaces/interfaces";
 import FormEliminar from "./formEliminar.vue";
 import FormEditar from "./formEditar.vue";
+import FormCambiarImagen from "./../components/formCambiarImagen.vue";
 
 defineProps<{
   anillo: Anillo;
@@ -11,7 +12,34 @@ defineProps<{
 
 <template>
   <v-card width="421" color="grey-darken-4">
-    <v-img v-bind:src="`http://localhost:4000/${anillo?.foto}`" cover></v-img>
+    <v-hover>
+      <template v-slot:default="{ isHovering, props }">
+        <v-img
+          v-bind="props"
+          v-bind:lazy-src="`http://localhost:4000/${anillo?.foto}`"
+          :height="400"
+          cover
+          :src="`http://localhost:4000/${anillo?.foto}`"
+        >
+          <template v-slot:placeholder>
+            <div class="d-flex align-center justify-center fill-height">
+              <v-progress-circular
+                color="blue"
+                indeterminate
+              ></v-progress-circular>
+            </div>
+          </template>
+          <v-overlay
+            :model-value="isHovering"
+            contained
+            scrim="#036358"
+            class="align-center justify-center"
+          >
+            <form-cambiar-imagen />
+          </v-overlay>
+        </v-img>
+      </template>
+    </v-hover>
 
     <v-row no-gutters>
       <v-col sm="6">

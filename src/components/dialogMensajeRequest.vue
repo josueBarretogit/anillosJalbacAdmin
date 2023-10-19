@@ -15,7 +15,7 @@ function cerrarDialog() {
 </script>
 
 <template>
-  <v-dialog v-model="dialog" width="auto">
+  <v-dialog v-model="dialog" width="auto" scrim="#000000">
     <v-card>
       <v-card-text
         ><v-alert

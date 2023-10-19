@@ -26,7 +26,7 @@ const {
 </script>
 
 <template>
-  <v-dialog v-model="dialog" persistent width="auto">
+  <v-dialog v-model="dialog" persistent width="auto" scrim="#000000">
     <template v-slot:activator="{ props }">
       <v-btn
         prepend-icon="mdi-pencil"

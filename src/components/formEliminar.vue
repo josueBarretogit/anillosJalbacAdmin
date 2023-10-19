@@ -1,31 +1,17 @@
 <script lang="ts" setup>
-import { ref } from "vue";
-import type { Anillo } from "@/interfaces/interfaces";
-import { deleteAnillo, getAnillos } from "./../services/anilloApi";
-import { AxiosError } from "axios";
 import DialogMensajeRequest from "./../components/dialogMensajeRequest.vue";
-
-const dialogEliminar = ref(false);
-const dialogEliminar2 = ref(false);
-
+import { useFormEliminar } from "./../customHooks/useFormEliminar";
 defineProps<{
   id: number;
   token: string;
   tipo: string;
 }>();
-
-function cerrarFormularioEliminar() {
-  dialogEliminar2.value = false;
-
-  dialogEliminar.value = false;
-}
-
-async function eliminarAnillo(id: number, token: string) {
-  const response: Anillo | AxiosError = await deleteAnillo(id, token);
-  if (response) {
-    dialogEliminar2.value = true;
-  }
-}
+const {
+  dialogEliminar2,
+  dialogEliminar,
+  cerrarFormularioEliminar,
+  eliminarAnillo,
+} = useFormEliminar();
 </script>
 
 <template>
