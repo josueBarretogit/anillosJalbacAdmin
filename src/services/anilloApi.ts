@@ -72,7 +72,9 @@ async function getAnillo(
 
 async function getAnillos(): Promise<Anillo[] | undefined> {
   try {
-    const response = await axios.get("http://localhost:4000/api/anillos/");
+    const response = await axios.get(
+      "https://anillosjalbacapi.onrender.com/api/anillos",
+    );
 
     return response.data;
   } catch (error) {

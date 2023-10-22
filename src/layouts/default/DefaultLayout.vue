@@ -4,8 +4,8 @@
 
     <v-main>
       <Suspense>
-        <template class="d-flex justify-center align-center" #fallback>
-          <div class="d-flex justify-center">
+        <template #fallback>
+          <div class="d-flex justify-center h-100 align-center">
             <v-progress-circular
               :size="50"
               color="blue"

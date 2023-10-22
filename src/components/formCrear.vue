@@ -27,15 +27,21 @@ const {
 <template>
   <v-dialog v-model="dialog" persistent width="auto" scrim="#000000">
     <template v-slot:activator="{ props }">
-      <v-btn
-        color="blue"
-        v-bind="props"
-        prepend-icon="mdi-plus"
-        rounded="xl"
-        size="large"
+      <v-sheet
+        class="float-right"
+        style="position: sticky; top: 0; background-color: white; right: 0"
       >
-        Crear anillo
-      </v-btn>
+        <v-btn
+          color="blue"
+          v-bind="props"
+          prepend-icon="mdi-plus"
+          rounded="xl"
+          variant="outlined"
+          size="large"
+        >
+          Crear {{ tipo }}
+        </v-btn></v-sheet
+      >
     </template>
 
     <v-card :width="smAndUp ? 650 : 320">

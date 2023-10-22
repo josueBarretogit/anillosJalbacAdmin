@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import carta from "./../components/cartaAnillo.vue";
 import { tabs } from "@/variables/store";
+import FormCrear from "@/components/formCrear.vue";
 import solitariosView from "./solitariosView.vue";
 import { useDataNombres } from "./../customHooks/useDataNombres";
 const { anillosDataTable, colKey, numPages, page, updatePage } =
@@ -9,7 +10,8 @@ const { anillosDataTable, colKey, numPages, page, updatePage } =
 
 <template>
   <v-window v-model="tabs.tabs">
-    <v-window-item value="anillos">
+    <v-window-item value="nombres">
+      <FormCrear tipo="nombre" />
       <div class="text-center">
         <v-container>
           <v-row justify="center">

@@ -4,6 +4,7 @@ import { ref } from "vue";
 import { onMounted, watch } from "vue";
 import { getSolitarios } from "./../services/solitariosApi";
 import { loggedState, creacionAnillos, tabs } from "@/variables/store";
+import FormCrear from "@/components/formCrear.vue";
 
 let isLoading = ref(true);
 let solitariosDataTable = ref();
@@ -77,6 +78,7 @@ watch(
 );
 </script>
 <template>
+  <FormCrear tipo="solitario" />
   <div class="text-center">
     <v-container>
       <v-row justify="center">

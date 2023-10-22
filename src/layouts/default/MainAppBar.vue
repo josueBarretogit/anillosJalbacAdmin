@@ -32,15 +32,13 @@ async function cerrarSesion() {
       class="ma-2 pa-2 flex-grow-1 d-flex justify-center"
     >
       <v-tabs v-model="tabs.tabs" color="blue" fixed-tabs>
-        <v-tab value="anillos">Anillos</v-tab>
+        <v-tab value="nombres">Nombres</v-tab>
         <v-tab value="solitarios">solitarios</v-tab>
         <v-tab value="dijes">Dijes</v-tab>
       </v-tabs>
     </v-sheet>
 
     <v-sheet class="ma-2 pa-2">
-      <FormCrear v-if="loggedState.isLogged" tipo="nombre" />
-
       <v-btn
         v-if="loggedState.isLogged"
         size="large"
