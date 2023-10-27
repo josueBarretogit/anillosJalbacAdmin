@@ -4,10 +4,10 @@ import axios, { AxiosError, AxiosResponse } from "axios";
 async function createAnillo(
   data: FormData,
   token: string,
-): Promise<Anillo | AxiosError> {
+): Promise<Anillo | AxiosError | unknown> {
   try {
     const response = await axios.post(
-      "http://localhost:4000/api/anillos/create",
+      "https://anillosjalbacapi.onrender.com/api/anillos/create",
       data,
       {
         headers: {
@@ -22,7 +22,7 @@ async function createAnillo(
   } catch (error) {
     console.log(error);
     const err = error as AxiosError;
-    return err;
+    return err.response?.data;
   }
 }
 
@@ -34,7 +34,7 @@ async function editarAnillo(
   try {
     data.forEach((values) => console.log(values));
     const response = await axios.put(
-      `http://localhost:4000/api/anillos/editar/${id}`,
+      `https://anillosjalbacapi.onrender.com/api/anillos/editar/${id}`,
       data,
       {
         headers: {
@@ -87,7 +87,7 @@ async function deleteAnillo(
 ): Promise<Anillo | AxiosError> {
   try {
     const response = await axios.delete(
-      "http://localhost:4000/api/anillos/eliminarAnillo",
+      "https://anillosjalbacapi.onrender.com/api/anillos/eliminarAnillo",
       {
         headers: {
           "Content-Type": "application/json",
@@ -114,7 +114,7 @@ async function logIn(
 ): Promise<Login | undefined> {
   try {
     const response = await axios.post(
-      "http://localhost:4000/api/usuarios/login",
+      "https://anillosjalbacapi.onrender.com/api/usuarios/login",
       {
         correo,
         contrasena,
@@ -140,7 +140,7 @@ async function logOut(
 ): Promise<{ response: string } | undefined> {
   try {
     const response = await axios.get(
-      "http://localhost:4000/api/usuarios/logout",
+      "https://anillosjalbacapi.onrender.com/api/usuarios/logout",
 
       {
         headers: {

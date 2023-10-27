@@ -16,10 +16,10 @@ defineProps<{
       <template v-slot:default="{ isHovering, props }">
         <v-img
           v-bind="props"
-          v-bind:lazy-src="`http://localhost:4000/${anillo?.foto}`"
+          v-bind:lazy-src="`${anillo?.foto}`"
           :height="400"
           cover
-          :src="`http://localhost:4000/${anillo?.foto}`"
+          :src="`${anillo?.foto}`"
         >
           <template v-slot:placeholder>
             <div class="d-flex align-center justify-center fill-height">

@@ -4,6 +4,7 @@ import { AxiosError } from "axios";
 import { useField, useForm } from "vee-validate";
 import { ref } from "vue";
 import { useDisplay } from "vuetify/lib/framework.mjs";
+import type { Anillo } from "@/interfaces/interfaces";
 
 export function useFormCrear() {
   const { smAndUp } = useDisplay();
@@ -11,6 +12,8 @@ export function useFormCrear() {
   const dialog = ref(false);
 
   const dialog2 = ref(false);
+  const razonError = ref<unknown>("");
+  const showRazonError = ref(false);
 
   const isLoading = ref(false);
   function cerrarFormularioCancelar() {
@@ -87,14 +90,22 @@ export function useFormCrear() {
     valuesForm.append("image", values.imagen[0]);
 
     isLoading.value = true;
-    const response = await createAnillo(valuesForm, token as string);
+    const response: Anillo | AxiosError | unknown = await createAnillo(
+      valuesForm,
+      token as string,
+    );
 
     isLoading.value = false;
     console.log(response);
     if (!(response instanceof AxiosError)) {
+      showRazonError.value = false;
       dialog2.value = true;
       creacionAnillos.setIsCreated(creacionAnillos.isCreated + 1);
+      console.log(response);
       handleReset();
+    } else {
+      razonError.value = response.response?.data.response;
+      showRazonError.value = true;
     }
   });
   return {
@@ -110,6 +121,8 @@ export function useFormCrear() {
     dialog2,
     smAndUp,
     isLoading,
+    razonError,
+    showRazonError,
     cerrarFormularioCancelar,
   };
 }

@@ -21,27 +21,22 @@ const {
   smAndUp,
   cerrarFormularioCancelar,
   isLoading,
+  razonError,
+  showRazonError,
 } = useFormCrear();
 </script>
 
 <template>
   <v-dialog v-model="dialog" persistent width="auto" scrim="#000000">
     <template v-slot:activator="{ props }">
-      <v-sheet
-        class="float-right"
-        style="position: sticky; top: 0; background-color: white; right: 0"
+      <v-btn
+        color="blue"
+        v-bind="props"
+        prepend-icon="mdi-plus"
+        rounded="xl"
+        size="large"
       >
-        <v-btn
-          color="blue"
-          v-bind="props"
-          prepend-icon="mdi-plus"
-          rounded="xl"
-          variant="outlined"
-          size="large"
-        >
-          Crear {{ tipo }}
-        </v-btn></v-sheet
-      >
+      </v-btn>
     </template>
 
     <v-card :width="smAndUp ? 650 : 320">
@@ -141,6 +136,20 @@ const {
               indeterminate
               color="blue"
             ></v-progress-circular>
+          </div>
+          <div class="ma-4 d-flex justify-center">
+            <v-alert
+              style="max-width: 320px"
+              type="error"
+              v-model="showRazonError"
+              variant="tonal"
+              closable
+              close-label="Cerrar"
+              title="Error"
+              border="top"
+            >
+              {{ razonError }}
+            </v-alert>
           </div>
         </form>
       </v-card-text>

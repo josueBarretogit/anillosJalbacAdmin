@@ -9,9 +9,11 @@ const { anillosDataTable, colKey, numPages, page, updatePage } =
 </script>
 
 <template>
+  <div style="position: fixed; z-index: 2; right: 0; bottom: 20px">
+    <FormCrear tipo="nombre" />
+  </div>
   <v-window v-model="tabs.tabs">
     <v-window-item value="nombres">
-      <FormCrear tipo="nombre" />
       <div class="text-center">
         <v-container>
           <v-row justify="center">
