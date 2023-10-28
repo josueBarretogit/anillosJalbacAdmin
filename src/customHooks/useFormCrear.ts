@@ -4,20 +4,21 @@ import { AxiosError } from "axios";
 import { useField, useForm } from "vee-validate";
 import { ref } from "vue";
 import { useDisplay } from "vuetify/lib/framework.mjs";
-import type { Anillo } from "@/interfaces/interfaces";
+import type { Anillo, CreateError } from "@/interfaces/interfaces";
+import { dialogRequestExitoso } from "./../variables/store";
 
 export function useFormCrear() {
   const { smAndUp } = useDisplay();
 
   const dialog = ref(false);
 
-  const dialog2 = ref(false);
   const razonError = ref<unknown>("");
   const showRazonError = ref(false);
 
   const isLoading = ref(false);
+
   function cerrarFormularioCancelar() {
-    dialog2.value = false;
+    dialogRequestExitoso.setIsShow(false);
     dialog.value = false;
     handleReset();
   }
@@ -74,7 +75,7 @@ export function useFormCrear() {
   const nombre = useField("nombre");
   const pesoOro = useField("pesoOro");
   const pesoPlata = useField("pesoPlata");
-  const categoria = useField("categoria");
+  const categoria = useField<string[]>("categoria");
   const talla = useField("talla");
   const referencia = useField("referencia");
   const imagen = useField<File[]>("imagen");
@@ -90,7 +91,7 @@ export function useFormCrear() {
     valuesForm.append("image", values.imagen[0]);
 
     isLoading.value = true;
-    const response: Anillo | AxiosError | unknown = await createAnillo(
+    const response: Anillo | AxiosError = await createAnillo(
       valuesForm,
       token as string,
     );
@@ -99,12 +100,12 @@ export function useFormCrear() {
     console.log(response);
     if (!(response instanceof AxiosError)) {
       showRazonError.value = false;
-      dialog2.value = true;
+      dialogRequestExitoso.setIsShow(true);
       creacionAnillos.setIsCreated(creacionAnillos.isCreated + 1);
       console.log(response);
       handleReset();
     } else {
-      razonError.value = response.response?.data.response;
+      razonError.value = (response as CreateError).response.data.response;
       showRazonError.value = true;
     }
   });
@@ -118,7 +119,6 @@ export function useFormCrear() {
     imagen,
     submit,
     dialog,
-    dialog2,
     smAndUp,
     isLoading,
     razonError,

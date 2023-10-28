@@ -4,10 +4,10 @@ import axios, { AxiosError, AxiosResponse } from "axios";
 async function createAnillo(
   data: FormData,
   token: string,
-): Promise<Anillo | AxiosError | unknown> {
+): Promise<Anillo | AxiosError> {
   try {
     const response = await axios.post(
-      "https://anillosjalbacapi.onrender.com/api/anillos/create",
+      "http://localhost:4000/api/anillos/create",
       data,
       {
         headers: {
@@ -22,7 +22,7 @@ async function createAnillo(
   } catch (error) {
     console.log(error);
     const err = error as AxiosError;
-    return err.response?.data;
+    return err;
   }
 }
 
@@ -34,7 +34,7 @@ async function editarAnillo(
   try {
     data.forEach((values) => console.log(values));
     const response = await axios.put(
-      `https://anillosjalbacapi.onrender.com/api/anillos/editar/${id}`,
+      `http://localhost:4000/api/anillos/editar/${id}`,
       data,
       {
         headers: {
@@ -72,9 +72,7 @@ async function getAnillo(
 
 async function getAnillos(): Promise<Anillo[] | undefined> {
   try {
-    const response = await axios.get(
-      "https://anillosjalbacapi.onrender.com/api/anillos",
-    );
+    const response = await axios.get("http://localhost:4000/api/anillos");
 
     return response.data;
   } catch (error) {
@@ -87,7 +85,7 @@ async function deleteAnillo(
 ): Promise<Anillo | AxiosError> {
   try {
     const response = await axios.delete(
-      "https://anillosjalbacapi.onrender.com/api/anillos/eliminarAnillo",
+      "http://localhost:4000/api/anillos/eliminarAnillo",
       {
         headers: {
           "Content-Type": "application/json",
@@ -114,7 +112,7 @@ async function logIn(
 ): Promise<Login | undefined> {
   try {
     const response = await axios.post(
-      "https://anillosjalbacapi.onrender.com/api/usuarios/login",
+      "http://localhost:4000/api/usuarios/login",
       {
         correo,
         contrasena,
@@ -140,7 +138,7 @@ async function logOut(
 ): Promise<{ response: string } | undefined> {
   try {
     const response = await axios.get(
-      "https://anillosjalbacapi.onrender.com/api/usuarios/logout",
+      "http://localhost:4000/api/usuarios/logout",
 
       {
         headers: {

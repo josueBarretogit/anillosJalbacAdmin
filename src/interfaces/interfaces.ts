@@ -42,3 +42,11 @@ export interface TokenDecoded {
   correo: string;
   idUsuario: number;
 }
+
+export interface CreateError {
+  response: {
+    data: {
+      response: string;
+    };
+  };
+}

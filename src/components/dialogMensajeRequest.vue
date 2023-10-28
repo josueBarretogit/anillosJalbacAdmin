@@ -1,21 +1,20 @@
 <script lang="ts" setup>
 import { ref } from "vue";
 import { creacionAnillos } from "@/variables/store";
+import { dialogRequestExitoso } from "@/variables/store";
 
 const props = defineProps<{
-  dialogRequest2: boolean;
   mensaje: string;
 }>();
 
-const dialog = ref(props.dialogRequest2);
 function cerrarDialog() {
   creacionAnillos.setIsCreated(creacionAnillos.isCreated + 1);
-  dialog.value = false;
+  dialogRequestExitoso.setIsShow(false);
 }
 </script>
 
 <template>
-  <v-dialog v-model="dialog" width="auto" scrim="#000000">
+  <v-dialog v-model="dialogRequestExitoso.isShow" width="auto" scrim="#000000">
     <v-card>
       <v-card-text
         ><v-alert

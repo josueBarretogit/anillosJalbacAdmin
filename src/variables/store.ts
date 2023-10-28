@@ -40,3 +40,11 @@ export const tabs = reactive({
     this.tabs = tab;
   },
 });
+
+export const dialogRequestExitoso = reactive({
+  isShow: false,
+
+  setIsShow(value: boolean) {
+    this.isShow = value;
+  },
+});
