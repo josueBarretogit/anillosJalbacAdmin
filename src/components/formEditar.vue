@@ -1,9 +1,10 @@
 <script lang="ts" setup>
 import { useFormEditar } from "./../customHooks/useFormEditar";
 
+import InputsCrearEditar from "./formComponents/inputsCrearEditar.vue";
 import DialogMensajeRequest from "./../components/dialogMensajeRequest.vue";
 import { Anillo } from "@/interfaces/interfaces";
-
+import { ref } from "vue";
 const props = defineProps<{
   tipo: string;
   anillo: Anillo;
@@ -23,6 +24,8 @@ const {
   cerrarFormularioCancelar,
   isLoading,
 } = useFormEditar(props.anillo);
+
+const categoriaSelect = ref(["Nombre", "Argolla"]);
 </script>
 
 <template>
@@ -43,72 +46,14 @@ const {
       <v-card-text>
         <form @submit.prevent="submit">
           <v-container>
-            <v-row no-gutters class="mt-3 mb-3">
-              <v-col cols="12" sm="6">
-                <v-text-field
-                  color="blue"
-                  variant="outlined"
-                  class="ml-4 mr-4"
-                  v-model="nombre.value.value"
-                  :error-messages="nombre.errorMessage.value"
-                  label="nombre"
-                ></v-text-field>
-              </v-col>
-              <v-col cols="12" sm="6">
-                <v-text-field
-                  color="blue"
-                  variant="outlined"
-                  class="ml-4 mr-4"
-                  v-model="categoria.value.value"
-                  :error-messages="categoria.errorMessage.value"
-                  label="Categoria"
-                ></v-text-field>
-              </v-col>
-            </v-row>
-            <v-row no-gutters class="mt-3 mb-3">
-              <v-col cols="12" sm="6">
-                <v-text-field
-                  color="blue"
-                  variant="outlined"
-                  class="ml-4 mr-4"
-                  v-model="pesoOro.value.value"
-                  :error-messages="pesoOro.errorMessage.value"
-                  label="Peso oro"
-                ></v-text-field>
-              </v-col>
-              <v-col cols="12" sm="6">
-                <v-text-field
-                  color="blue"
-                  variant="outlined"
-                  class="ml-4 mr-4"
-                  v-model="pesoPlata.value.value"
-                  :error-messages="pesoPlata.errorMessage.value"
-                  label="Peso plata"
-                ></v-text-field>
-              </v-col>
-            </v-row>
-            <v-row no-gutters class="mt-3 mb-3">
-              <v-col cols="12" sm="6">
-                <v-text-field
-                  color="blue"
-                  variant="outlined"
-                  class="ml-4 mr-4"
-                  v-model="referencia.value.value"
-                  :error-messages="referencia.errorMessage.value"
-                  label="Referencia"
-                ></v-text-field>
-              </v-col>
-              <v-col cols="12" sm="6">
-                <v-text-field
-                  color="blue"
-                  variant="outlined"
-                  class="ml-4 mr-4"
-                  v-model="talla.value.value"
-                  :error-messages="talla.errorMessage.value"
-                  label="Talla"
-                ></v-text-field>
-              </v-col>
-            </v-row>
+            <InputsCrearEditar
+              :categoria="categoria"
+              :nombre="nombre"
+              :referencia="referencia"
+              :talla="talla"
+              :peso-oro="pesoOro"
+              :peso-plata="pesoPlata"
+            />
             <div v-if="isLoading" class="ma-4 d-flex justify-center">
               <v-progress-circular
                 :size="50"

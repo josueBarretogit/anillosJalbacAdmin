@@ -75,7 +75,7 @@ export function useFormCrear() {
   const nombre = useField("nombre");
   const pesoOro = useField("pesoOro");
   const pesoPlata = useField("pesoPlata");
-  const categoria = useField<string[]>("categoria");
+  const categoria = useField("categoria");
   const talla = useField("talla");
   const referencia = useField("referencia");
   const imagen = useField<File[]>("imagen");
@@ -97,15 +97,13 @@ export function useFormCrear() {
     );
 
     isLoading.value = false;
-    console.log(response);
     if (!(response instanceof AxiosError)) {
       showRazonError.value = false;
       dialogRequestExitoso.setIsShow(true);
       creacionAnillos.setIsCreated(creacionAnillos.isCreated + 1);
-      console.log(response);
       handleReset();
     } else {
-      razonError.value = (response as CreateError).response.data.response;
+      razonError.value = (response as CreateError).response.data;
       showRazonError.value = true;
     }
   });

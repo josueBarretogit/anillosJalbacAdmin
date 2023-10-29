@@ -60,9 +60,5 @@ const {
       </v-card-actions>
     </v-card>
   </v-dialog>
-  <DialogMensajeRequest
-    v-if="dialogEliminar2"
-    :dialog-request2="dialogEliminar2"
-    :mensaje="`${tipo} eliminado exitosamente`"
-  />
+  <DialogMensajeRequest :mensaje="`${tipo} eliminado exitosamente`" />
 </template>
