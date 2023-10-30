@@ -156,24 +156,23 @@ async function logOut(
   }
 }
 
-async function getExistingImage(
-  imageName: string,
-): Promise<AxiosResponse | AxiosError | undefined> {
-  try {
-    const response = await axios.get(`http://localhost:4000/${imageName}`);
-    return response.data;
-  } catch (error) {
-    const err = error as AxiosError;
-    return err;
-  }
-}
 async function replaceImage(
   data: FormData,
   id: number,
-): Promise<AxiosResponse | AxiosError | undefined> {
+  token: string,
+): Promise<AxiosResponse | AxiosError> {
   try {
     const response = await axios.patch(
       `http://localhost:4000/anillos/replaceImage/${id}`,
+      data,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          "Access-Control-Allow-Origin": "*",
+          Authorization: `Bearer ${token}`,
+        },
+        withCredentials: true,
+      },
     );
     return response.data;
   } catch (error) {
@@ -188,5 +187,5 @@ export {
   deleteAnillo,
   createAnillo,
   editarAnillo,
-  getExistingImage,
+  replaceImage,
 };

@@ -1,26 +1,20 @@
 import { Anillo, CreateError } from "@/interfaces/interfaces";
-import { createAnillo, getExistingImage } from "@/services/anilloApi";
+import { createAnillo, replaceImage } from "@/services/anilloApi";
 import { dialogRequestExitoso, creacionAnillos } from "@/variables/store";
 import { AxiosError } from "axios";
-import { useForm } from "vee-validate";
+import { useField, useForm } from "vee-validate";
 import { ref } from "vue";
-import { validationSchema } from "./validationSchema/validationSchemaCrearEditar";
+import { validationSchema } from "./validationSchema/validationSchemaReplaceImage";
 
-export function useCambiarImagen(imageName: string) {
-  const dialog = ref(false);
-
+export function useCambiarImagen(imageName: string, id: number) {
+  const imagen = useField<File[]>("imagen");
   const razonError = ref<unknown>("");
   const showRazonError = ref(false);
 
   const isLoading = ref(false);
 
-  function cerrarFormularioCancelar() {
-    dialogRequestExitoso.setIsShow(false);
-    dialog.value = false;
-    handleReset();
-  }
-
   const token = localStorage.getItem("accessToken");
+
   const { handleSubmit, handleReset } = useForm({
     validationSchema: validationSchema,
   });
@@ -30,8 +24,9 @@ export function useCambiarImagen(imageName: string) {
     valuesForm.append("image", values.imagen[0]);
 
     isLoading.value = true;
-    const response: Anillo | AxiosError = await createAnillo(
+    const response: Anillo | AxiosError = await replaceImage(
       valuesForm,
+      id,
       token as string,
     );
 
@@ -46,5 +41,5 @@ export function useCambiarImagen(imageName: string) {
       showRazonError.value = true;
     }
   });
-  return { submit };
+  return { submit, imagen };
 }
