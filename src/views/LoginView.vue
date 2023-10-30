@@ -1,8 +1,6 @@
 <script lang="ts" setup>
-import router from "@/router";
 import { useLogin } from "./../customHooks/useLogin";
-const token = localStorage.getItem("accessToken");
-if (token) router.push({ name: "viewNombres" });
+import { useRouter } from "vue-router";
 
 const { submit, correo, contrasena, showAlert, isLoading, razonError } =
   useLogin();

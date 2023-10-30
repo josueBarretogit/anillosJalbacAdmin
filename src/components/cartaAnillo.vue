@@ -31,12 +31,15 @@ defineProps<{
           </template>
 
           <v-overlay
-            :model-value="isHovering"
+            :model-value="true"
             contained
             scrim="#405cff"
             class="align-center justify-center"
           >
-            <form-cambiar-imagen :image-url="anillo?.foto" />
+            <form-cambiar-imagen
+              :image-url="anillo?.foto"
+              :id-anillo="anillo.id"
+            />
           </v-overlay>
         </v-img>
       </template>

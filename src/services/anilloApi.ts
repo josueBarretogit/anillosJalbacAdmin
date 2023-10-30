@@ -160,7 +160,7 @@ async function replaceImage(
   data: FormData,
   id: number,
   token: string,
-): Promise<AxiosResponse | AxiosError> {
+): Promise<Anillo | AxiosError> {
   try {
     const response = await axios.patch(
       `http://localhost:4000/anillos/replaceImage/${id}`,

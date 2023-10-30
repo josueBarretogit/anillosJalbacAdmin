@@ -15,12 +15,11 @@ export function useCambiarImagen(imageName: string, id: number) {
 
   const token = localStorage.getItem("accessToken");
 
-  const { handleSubmit, handleReset } = useForm({
-    validationSchema: validationSchema,
-  });
+  const { handleSubmit, handleReset } = useForm();
 
   const submit = handleSubmit(async (values) => {
     const valuesForm = new FormData();
+    alert("hola");
     valuesForm.append("image", values.imagen[0]);
 
     isLoading.value = true;
