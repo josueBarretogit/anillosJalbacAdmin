@@ -16,10 +16,10 @@ defineProps<{
       <template v-slot:default="{ isHovering, props }">
         <v-img
           v-bind="props"
-          v-bind:lazy-src="`${anillo?.foto}`"
+          v-bind:lazy-src="anillo?.foto"
           :height="400"
           cover
-          :src="`${anillo?.foto}`"
+          :src="anillo?.foto"
         >
           <template v-slot:placeholder>
             <div class="d-flex align-center justify-center fill-height">
@@ -29,13 +29,14 @@ defineProps<{
               ></v-progress-circular>
             </div>
           </template>
+
           <v-overlay
             :model-value="isHovering"
             contained
-            scrim="#036358"
+            scrim="#405cff"
             class="align-center justify-center"
           >
-            <form-cambiar-imagen :image-name="anillo?.foto" />
+            <form-cambiar-imagen :image-url="anillo?.foto" />
           </v-overlay>
         </v-img>
       </template>

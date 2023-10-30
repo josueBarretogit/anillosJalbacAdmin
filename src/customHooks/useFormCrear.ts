@@ -6,6 +6,7 @@ import { ref } from "vue";
 import { useDisplay } from "vuetify/lib/framework.mjs";
 import type { Anillo, CreateError } from "@/interfaces/interfaces";
 import { dialogRequestExitoso } from "./../variables/store";
+import { validationSchema } from "./validationSchema/validationSchemaCrearEditar";
 
 export function useFormCrear() {
   const { smAndUp } = useDisplay();
@@ -24,52 +25,17 @@ export function useFormCrear() {
   }
 
   const token = localStorage.getItem("accessToken");
+  const validationSchemaCrear: any = validationSchema;
+
+  validationSchemaCrear.imagen = function (value: File[]) {
+    if (!value) {
+      return "Este campo es obligatorio";
+    }
+    return true;
+  };
 
   const { handleSubmit, handleReset } = useForm({
-    validationSchema: {
-      nombre(value: string) {
-        if (!value) {
-          return "Este campo es obligatorio";
-        }
-        return true;
-      },
-      pesoOro(value: string) {
-        if (!value) {
-          return "Este campo es obligatorio";
-        }
-        return true;
-      },
-      pesoPlata(value: string) {
-        if (!value) {
-          return "Este campo es obligatorio";
-        }
-        return true;
-      },
-      categoria(value: string) {
-        if (!value) {
-          return "Este campo es obligatorio";
-        }
-        return true;
-      },
-      talla(value: string) {
-        if (!value) {
-          return "Este campo es obligatorio";
-        }
-        return true;
-      },
-      referencia(value: string) {
-        if (!value) {
-          return "Este campo es obligatorio";
-        }
-        return true;
-      },
-      imagen(value: File[]) {
-        if (!value) {
-          return "Este campo es obligatorio";
-        }
-        return true;
-      },
-    },
+    validationSchema: validationSchemaCrear,
   });
 
   const nombre = useField("nombre");

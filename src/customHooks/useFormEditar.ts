@@ -4,6 +4,7 @@ import { AxiosError } from "axios";
 import { useField, useForm } from "vee-validate";
 import { ref } from "vue";
 import { useDisplay } from "vuetify/lib/framework.mjs";
+import { validationSchema } from "./validationSchema/validationSchemaCrearEditar";
 
 export function useFormEditar(joya: any) {
   const { smAndUp } = useDisplay();
@@ -21,44 +22,7 @@ export function useFormEditar(joya: any) {
   const token = localStorage.getItem("accessToken");
 
   const { handleSubmit, handleReset } = useForm({
-    validationSchema: {
-      nombre(value: string) {
-        if (!value) {
-          return "Este campo es obligatorio";
-        }
-        return true;
-      },
-      pesoOro(value: string) {
-        if (!value) {
-          return "Este campo es obligatorio";
-        }
-        return true;
-      },
-      pesoPlata(value: string) {
-        if (!value) {
-          return "Este campo es obligatorio";
-        }
-        return true;
-      },
-      categoria(value: string) {
-        if (!value) {
-          return "Este campo es obligatorio";
-        }
-        return true;
-      },
-      talla(value: string) {
-        if (!value) {
-          return "Este campo es obligatorio";
-        }
-        return true;
-      },
-      referencia(value: string) {
-        if (!value) {
-          return "Este campo es obligatorio";
-        }
-        return true;
-      },
-    },
+    validationSchema: validationSchema,
   });
 
   const id = useField("id");
