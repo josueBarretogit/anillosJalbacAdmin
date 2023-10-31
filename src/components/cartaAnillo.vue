@@ -3,7 +3,8 @@ import type { Anillo } from "@/interfaces/interfaces";
 import FormEliminar from "./formEliminar.vue";
 import FormEditar from "./formEditar.vue";
 import FormCambiarImagen from "./../components/formCambiarImagen.vue";
-
+import { ref } from "vue";
+import { imageReplacing } from "@/variables/store";
 defineProps<{
   anillo: Anillo;
   tipo: string;
@@ -16,7 +17,7 @@ defineProps<{
       <template v-slot:default="{ isHovering, props }">
         <v-img
           v-bind="props"
-          v-bind:lazy-src="anillo?.foto"
+          v-bind:lazy-src="!imageReplacing.isLoading ? anillo?.foto : ''"
           :height="400"
           cover
           :src="anillo?.foto"
@@ -31,7 +32,7 @@ defineProps<{
           </template>
 
           <v-overlay
-            :model-value="true"
+            :model-value="isHovering"
             contained
             scrim="#405cff"
             class="align-center justify-center"

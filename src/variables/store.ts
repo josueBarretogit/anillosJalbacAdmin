@@ -43,8 +43,14 @@ export const tabs = reactive({
 
 export const dialogRequestExitoso = reactive({
   isShow: false,
-
   setIsShow(value: boolean) {
     this.isShow = value;
+  },
+});
+
+export const imageReplacing = reactive({
+  isLoading: false,
+  setIsLoading(value: boolean) {
+    this.isLoading = value;
   },
 });
