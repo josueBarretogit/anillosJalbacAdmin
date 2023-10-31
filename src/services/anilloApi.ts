@@ -163,7 +163,7 @@ async function replaceImage(
 ): Promise<Anillo | AxiosError> {
   try {
     const response = await axios.patch(
-      `http://localhost:4000/anillos/replaceImage/${id}`,
+      `http://localhost:4000/api/anillos/replaceImage/${id}`,
       data,
       {
         headers: {
