@@ -6,12 +6,7 @@ defineProps<{
   token: string;
   tipo: string;
 }>();
-const {
-  dialogEliminar2,
-  dialogEliminar,
-  cerrarFormularioEliminar,
-  eliminarAnillo,
-} = useFormEliminar();
+const { dialogEliminar, eliminarAnillo } = useFormEliminar();
 </script>
 
 <template>
@@ -33,8 +28,7 @@ const {
         <v-container>
           <v-row>
             <v-alert
-              color="red"
-              type="error"
+              type="warning"
               title="Eliminar"
               text="¿Estas seguro que deseas eliminar este anillo?"
             ></v-alert>
@@ -60,5 +54,9 @@ const {
       </v-card-actions>
     </v-card>
   </v-dialog>
-  <DialogMensajeRequest :mensaje="`${tipo} eliminado exitosamente`" />
+  <DialogMensajeRequest
+    :mensaje="`${tipo} eliminado exitosamente`"
+    :fallo="true"
+    :mensaje-error="'eso dio algo malo'"
+  />
 </template>

@@ -19,6 +19,8 @@ export function useFormEliminar() {
     const response = await deleteAnillo(id, token);
     if (!(response instanceof AxiosError)) {
       dialogRequestExitoso.setIsShow(true);
+    } else {
+      dialogRequestExitoso.setMensajeError(response.response?.data as string);
     }
   }
 

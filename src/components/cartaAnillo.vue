@@ -17,7 +17,7 @@ defineProps<{
       <template v-slot:default="{ isHovering, props }">
         <v-img
           v-bind="props"
-          v-bind:lazy-src="!imageReplacing.isLoading ? anillo?.foto : ''"
+          v-bind:lazy-src="anillo?.foto"
           :height="400"
           cover
           :src="anillo?.foto"
@@ -32,15 +32,12 @@ defineProps<{
           </template>
 
           <v-overlay
-            :model-value="isHovering"
+            :model-value="isHovering || imageReplacing.isLoading"
             contained
             scrim="#405cff"
             class="align-center justify-center"
           >
-            <form-cambiar-imagen
-              :image-url="anillo?.foto"
-              :id-anillo="anillo.id"
-            />
+            <form-cambiar-imagen :id-anillo="anillo.id" />
           </v-overlay>
         </v-img>
       </template>

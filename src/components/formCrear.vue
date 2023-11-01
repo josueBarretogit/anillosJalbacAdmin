@@ -108,5 +108,9 @@ const {
     </v-card>
   </v-dialog>
 
-  <DialogMensajeRequest :mensaje="`${tipo} creado exitosamente`" />
+  <DialogMensajeRequest
+    :mensaje="`${tipo} creado exitosamente`"
+    :fallo="true"
+    :mensaje-error="'eso dio algo malo'"
+  />
 </template>

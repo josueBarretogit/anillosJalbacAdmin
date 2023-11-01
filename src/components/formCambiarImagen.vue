@@ -9,49 +9,11 @@ import {
 } from "@/variables/store";
 
 import type { CreateError } from "@/interfaces/interfaces";
+import { useCambiarImagen } from "@/customHooks/useCambiarImagen";
 const props = defineProps<{
-  imageUrl: string;
   idAnillo: number;
 }>();
-
-const razonError = ref<unknown>("");
-const showRazonError = ref(false);
-
-const isLoading = ref(false);
-
-const token = localStorage.getItem("accessToken");
-
-const imagen = ref<File[]>([]);
-function clickInput() {
-  const input: HTMLElement | null = document.getElementById("hiddenInput");
-  input?.click();
-}
-async function submitImage(data: File[]) {
-  console.log(data);
-  imagen.value = data;
-  const valuesForm = new FormData();
-  valuesForm.append("image", imagen?.value?.[0] as File);
-  console.log(imagen.value[0]);
-
-  imageReplacing.setIsLoading(true);
-
-  const response = await replaceImage(
-    valuesForm,
-    props.idAnillo,
-    token as string,
-  );
-
-  console.log(response);
-  isLoading.value = false;
-  if (!(response instanceof AxiosError)) {
-    showRazonError.value = false;
-    creacionAnillos.setIsCreated(creacionAnillos.isCreated + 1);
-    imageReplacing.setIsLoading(false);
-  } else {
-    razonError.value = (response as CreateError).response.data;
-    showRazonError.value = true;
-  }
-}
+const { clickInput, submitImage, imagen } = useCambiarImagen(props.idAnillo);
 </script>
 <template>
   <div>
@@ -62,7 +24,7 @@ async function submitImage(data: File[]) {
       label="Imagen"
       color="blue"
       variant="outlined"
-      @update:model-value="submitImage($event)"
+      @update:model-value="submitImage($event, idAnillo)"
       v-model="imagen"
       id="hiddenInput"
       class="d-none"
@@ -72,7 +34,7 @@ async function submitImage(data: File[]) {
       icon="mdi-camera-plus"
       size="x-large"
       color="black"
-      :loading="isLoading"
+      :loading="imageReplacing.isLoading"
       @click="clickInput()"
     >
     </v-btn>

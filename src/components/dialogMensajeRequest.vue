@@ -5,6 +5,8 @@ import { dialogRequestExitoso } from "@/variables/store";
 
 const props = defineProps<{
   mensaje: string;
+  mensajeError: string | undefined;
+  fallo: boolean;
 }>();
 
 function cerrarDialog() {
@@ -16,13 +18,22 @@ function cerrarDialog() {
 <template>
   <v-dialog v-model="dialogRequestExitoso.isShow" width="auto" scrim="#000000">
     <v-card>
-      <v-card-text
+      <v-card-text v-if="fallo"
+        ><v-alert
+          type="error"
+          title="Operación falló"
+          :text="mensajeError"
+        ></v-alert>
+      </v-card-text>
+
+      <v-card-text v-else
         ><v-alert
           type="success"
           title="Operacion exitosa"
           :text="mensaje"
-        ></v-alert
-      ></v-card-text>
+        ></v-alert>
+      </v-card-text>
+
       <v-card-actions>
         <v-btn color="blue" variant="text" @click="cerrarDialog">
           Cerrar

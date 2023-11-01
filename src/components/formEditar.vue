@@ -81,8 +81,8 @@ const categoriaSelect = ref(["Nombre", "Argolla"]);
     </v-card>
   </v-dialog>
   <DialogMensajeRequest
-    v-if="dialog2"
-    :dialog-request2="dialog2"
     :mensaje="`${props.tipo} editado exitosamente`"
+    :fallo="true"
+    :mensaje-error="'eso dio algo malo'"
   />
 </template>

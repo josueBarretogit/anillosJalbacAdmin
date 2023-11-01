@@ -46,6 +46,10 @@ export const dialogRequestExitoso = reactive({
   setIsShow(value: boolean) {
     this.isShow = value;
   },
+  mensajeError: "",
+  setMensajeError(value: string) {
+    this.mensajeError = value;
+  },
 });
 
 export const imageReplacing = reactive({
