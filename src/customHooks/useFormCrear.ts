@@ -12,6 +12,7 @@ export function useFormCrear() {
   const { smAndUp } = useDisplay();
 
   const dialog = ref(false);
+  const dialogMensaje = ref(false);
 
   const razonError = ref<unknown>("");
   const showRazonError = ref(false);
@@ -61,14 +62,17 @@ export function useFormCrear() {
       valuesForm,
       token as string,
     );
-
     isLoading.value = false;
+
     if (!(response instanceof AxiosError)) {
       showRazonError.value = false;
+      dialogRequestExitoso.setFallo(false);
       dialogRequestExitoso.setIsShow(true);
       creacionAnillos.setIsCreated(creacionAnillos.isCreated + 1);
+      dialogMensaje.value = true;
       handleReset();
     } else {
+      dialogRequestExitoso.setIsShow(false);
       razonError.value = (response as CreateError).response.data;
       showRazonError.value = true;
     }
@@ -83,6 +87,7 @@ export function useFormCrear() {
     imagen,
     submit,
     dialog,
+    dialogMensaje,
     smAndUp,
     isLoading,
     razonError,

@@ -1,12 +1,13 @@
 <script lang="ts" setup>
 import DialogMensajeRequest from "./../components/dialogMensajeRequest.vue";
+import { dialogRequestExitoso } from "@/variables/store";
 import { useFormEliminar } from "./../customHooks/useFormEliminar";
 defineProps<{
   id: number;
   token: string;
   tipo: string;
 }>();
-const { dialogEliminar, eliminarAnillo } = useFormEliminar();
+const { dialogEliminar, eliminarAnillo, dialogMensaje } = useFormEliminar();
 </script>
 
 <template>
@@ -55,8 +56,9 @@ const { dialogEliminar, eliminarAnillo } = useFormEliminar();
     </v-card>
   </v-dialog>
   <DialogMensajeRequest
+    v-if="dialogMensaje"
     :mensaje="`${tipo} eliminado exitosamente`"
-    :fallo="true"
-    :mensaje-error="'eso dio algo malo'"
+    :fallo="dialogRequestExitoso.fallo"
+    :mensaje-error="`${dialogRequestExitoso.mensajeError}`"
   />
 </template>

@@ -46,9 +46,15 @@ export const dialogRequestExitoso = reactive({
   setIsShow(value: boolean) {
     this.isShow = value;
   },
+
   mensajeError: "",
   setMensajeError(value: string) {
     this.mensajeError = value;
+  },
+
+  fallo: false,
+  setFallo(value: boolean) {
+    this.fallo = value;
   },
 });
 

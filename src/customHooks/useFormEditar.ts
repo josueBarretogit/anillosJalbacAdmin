@@ -1,5 +1,5 @@
 import { editarAnillo } from "@/services/anilloApi";
-import { creacionAnillos } from "@/variables/store";
+import { creacionAnillos, dialogRequestExitoso } from "@/variables/store";
 import { AxiosError } from "axios";
 import { useField, useForm } from "vee-validate";
 import { ref } from "vue";
@@ -11,11 +11,11 @@ export function useFormEditar(joya: any) {
 
   const dialog = ref(false);
 
-  const dialog2 = ref(false);
+  const dialogMensaje = ref(false);
 
   const isLoading = ref(false);
   function cerrarFormularioCancelar() {
-    dialog2.value = false;
+    dialogMensaje.value = false;
     dialog.value = false;
   }
 
@@ -59,10 +59,13 @@ export function useFormEditar(joya: any) {
     );
 
     isLoading.value = false;
+
     if (!(response instanceof AxiosError)) {
-      dialog2.value = true;
       creacionAnillos.setIsCreated(creacionAnillos.isCreated + 1);
+      dialogRequestExitoso.setIsShow(true);
+      dialogMensaje.value = true;
     } else {
+      dialogRequestExitoso.setIsShow(false);
       console.log(response);
     }
   });
@@ -75,7 +78,7 @@ export function useFormEditar(joya: any) {
     referencia,
     submit,
     dialog,
-    dialog2,
+    dialogMensaje,
     smAndUp,
     cerrarFormularioCancelar,
     isLoading,

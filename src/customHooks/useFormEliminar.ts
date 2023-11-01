@@ -6,7 +6,7 @@ import { dialogRequestExitoso } from "./../variables/store";
 
 export function useFormEliminar() {
   const dialogEliminar = ref(false);
-  const dialogEliminar2 = ref(false);
+  const dialogMensaje = ref(false);
 
   function cerrarFormularioEliminar() {
     dialogRequestExitoso.setIsShow(false);
@@ -15,17 +15,19 @@ export function useFormEliminar() {
   }
 
   async function eliminarAnillo(id: number, token: string) {
-    console.log(id);
+    dialogMensaje.value = true;
     const response = await deleteAnillo(id, token);
     if (!(response instanceof AxiosError)) {
+      dialogRequestExitoso.setFallo(false);
       dialogRequestExitoso.setIsShow(true);
     } else {
       dialogRequestExitoso.setMensajeError(response.response?.data as string);
+      dialogRequestExitoso.setFallo(true);
     }
   }
 
   return {
-    dialogEliminar2,
+    dialogMensaje,
     dialogEliminar,
     cerrarFormularioEliminar,
     eliminarAnillo,

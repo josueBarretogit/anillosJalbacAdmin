@@ -19,6 +19,7 @@ const {
   imagen,
   submit,
   dialog,
+  dialogMensaje,
   smAndUp,
   cerrarFormularioCancelar,
   isLoading,
@@ -109,8 +110,9 @@ const {
   </v-dialog>
 
   <DialogMensajeRequest
+    v-if="dialogMensaje"
     :mensaje="`${tipo} creado exitosamente`"
-    :fallo="true"
-    :mensaje-error="'eso dio algo malo'"
+    :fallo="dialogRequestExitoso.fallo"
+    :mensaje-error="`${dialogRequestExitoso.mensajeError}`"
   />
 </template>

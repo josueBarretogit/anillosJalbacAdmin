@@ -1,10 +1,10 @@
 <script lang="ts" setup>
 import { useFormEditar } from "./../customHooks/useFormEditar";
-
 import InputsCrearEditar from "./formComponents/inputsCrearEditar.vue";
 import DialogMensajeRequest from "./../components/dialogMensajeRequest.vue";
 import { Anillo } from "@/interfaces/interfaces";
 import { ref } from "vue";
+import { dialogRequestExitoso } from "@/variables/store";
 const props = defineProps<{
   tipo: string;
   anillo: Anillo;
@@ -19,7 +19,7 @@ const {
   referencia,
   submit,
   dialog,
-  dialog2,
+  dialogMensaje,
   smAndUp,
   cerrarFormularioCancelar,
   isLoading,
@@ -81,8 +81,9 @@ const categoriaSelect = ref(["Nombre", "Argolla"]);
     </v-card>
   </v-dialog>
   <DialogMensajeRequest
+    v-if="dialogMensaje"
     :mensaje="`${props.tipo} editado exitosamente`"
-    :fallo="true"
-    :mensaje-error="'eso dio algo malo'"
+    :fallo="dialogRequestExitoso.fallo"
+    :mensaje-error="`${dialogRequestExitoso.mensajeError}`"
   />
 </template>

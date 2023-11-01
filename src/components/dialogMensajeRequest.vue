@@ -18,14 +18,13 @@ function cerrarDialog() {
 <template>
   <v-dialog v-model="dialogRequestExitoso.isShow" width="auto" scrim="#000000">
     <v-card>
-      <v-card-text v-if="fallo"
+      <v-card-text v-if="dialogRequestExitoso.fallo"
         ><v-alert
           type="error"
           title="Operación falló"
           :text="mensajeError"
         ></v-alert>
       </v-card-text>
-
       <v-card-text v-else
         ><v-alert
           type="success"
