@@ -1,19 +1,18 @@
 <script setup lang="ts">
-import { AxiosError } from "axios";
-import { replaceImage } from "@/services/anilloApi";
-import { ref } from "vue";
-import {
-  dialogRequestExitoso,
-  creacionAnillos,
-  imageReplacing,
-} from "@/variables/store";
-
-import type { CreateError } from "@/interfaces/interfaces";
 import { useCambiarImagen } from "@/customHooks/useCambiarImagen";
+import DialogMensajeRequest from "./dialogMensajeRequest.vue";
+import { dialogRequestExitoso } from "@/variables/store";
 const props = defineProps<{
   idAnillo: number;
 }>();
-const { clickInput, submitImage, imagen } = useCambiarImagen(props.idAnillo);
+const {
+  clickInput,
+  submitImage,
+  imagen,
+  isLoading,
+  dialogMensaje,
+  razonError,
+} = useCambiarImagen(props.idAnillo);
 </script>
 <template>
   <div>
@@ -34,9 +33,15 @@ const { clickInput, submitImage, imagen } = useCambiarImagen(props.idAnillo);
       icon="mdi-camera-plus"
       size="x-large"
       color="black"
-      :loading="imageReplacing.isLoading"
+      :loading="isLoading"
       @click="clickInput()"
     >
     </v-btn>
   </div>
+  <DialogMensajeRequest
+    v-if="dialogMensaje"
+    :mensaje="`Ocurrio el siguiente error: ${razonError}`"
+    :fallo="dialogRequestExitoso.fallo"
+    :mensaje-error="`${dialogRequestExitoso.mensajeError}`"
+  />
 </template>

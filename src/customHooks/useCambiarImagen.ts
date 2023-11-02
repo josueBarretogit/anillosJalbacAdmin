@@ -1,19 +1,14 @@
 import { Anillo, CreateError } from "@/interfaces/interfaces";
 import { createAnillo, replaceImage } from "@/services/anilloApi";
-import {
-  dialogRequestExitoso,
-  creacionAnillos,
-  imageReplacing,
-} from "@/variables/store";
+import { creacionAnillos, imageReplacing } from "@/variables/store";
 import { AxiosError } from "axios";
-import { useField, useForm } from "vee-validate";
 import { ref } from "vue";
-import { validationSchema } from "./validationSchema/validationSchemaReplaceImage";
 
 export function useCambiarImagen(id: number) {
   const razonError = ref<unknown>("");
 
-  const showRazonError = ref(false);
+  const isLoading = ref(false);
+  const dialogMensaje = ref(false);
 
   const token = localStorage.getItem("accessToken");
 
@@ -33,17 +28,27 @@ export function useCambiarImagen(id: number) {
 
     imageReplacing.setIsLoading(true);
 
+    imageReplacing.setIdAnilloLoading(id);
+    isLoading.value = true;
     const response = await replaceImage(valuesForm, id, token as string);
 
+    isLoading.value = false;
     imageReplacing.setIsLoading(false);
-    console.log(response);
+
     if (!(response instanceof AxiosError)) {
-      showRazonError.value = false;
       creacionAnillos.setIsCreated(creacionAnillos.isCreated + 1);
     } else {
+      console.log("hubo un error");
+      dialogMensaje.value = true;
       razonError.value = (response as CreateError).response.data;
-      showRazonError.value = true;
     }
   }
-  return { clickInput, submitImage, imagen };
+  return {
+    clickInput,
+    submitImage,
+    imagen,
+    isLoading,
+    dialogMensaje,
+    razonError,
+  };
 }

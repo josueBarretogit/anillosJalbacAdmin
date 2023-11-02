@@ -3,7 +3,8 @@ import type { Anillo } from "@/interfaces/interfaces";
 import FormEliminar from "./formEliminar.vue";
 import FormEditar from "./formEditar.vue";
 import FormCambiarImagen from "./../components/formCambiarImagen.vue";
-import { ref } from "vue";
+import { ref, watch } from "vue";
+
 import { imageReplacing } from "@/variables/store";
 defineProps<{
   anillo: Anillo;
@@ -32,7 +33,11 @@ defineProps<{
           </template>
 
           <v-overlay
-            :model-value="isHovering || imageReplacing.isLoading"
+            :model-value="
+              isHovering ||
+              (imageReplacing.isLoading &&
+                anillo?.id == imageReplacing.idAnilloLoading)
+            "
             contained
             scrim="#405cff"
             class="align-center justify-center"
