@@ -5,7 +5,7 @@ import FormEditar from "./formEditar.vue";
 import FormCambiarImagen from "./../components/formCambiarImagen.vue";
 import { ref, watch } from "vue";
 
-import { imageReplacing } from "@/variables/store";
+import { dialogRequestExitoso, imageReplacing } from "@/variables/store";
 defineProps<{
   anillo: Anillo;
   tipo: string;

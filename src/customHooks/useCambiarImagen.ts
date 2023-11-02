@@ -3,6 +3,7 @@ import { createAnillo, replaceImage } from "@/services/anilloApi";
 import { creacionAnillos, imageReplacing } from "@/variables/store";
 import { AxiosError } from "axios";
 import { ref } from "vue";
+import { dialogRequestExitoso } from "@/variables/store";
 
 export function useCambiarImagen(id: number) {
   const razonError = ref<unknown>("");
@@ -39,8 +40,12 @@ export function useCambiarImagen(id: number) {
       creacionAnillos.setIsCreated(creacionAnillos.isCreated + 1);
     } else {
       console.log("hubo un error");
+
+      dialogRequestExitoso.setFallo(true);
+      dialogRequestExitoso.setIsShow(true);
+      imageReplacing.setFalloReplace(true);
+      dialogRequestExitoso.setMensajeError(response.response?.data as string);
       dialogMensaje.value = true;
-      razonError.value = (response as CreateError).response.data;
     }
   }
   return {

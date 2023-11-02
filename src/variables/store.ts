@@ -63,6 +63,12 @@ export const imageReplacing = reactive({
   setIsLoading(value: boolean) {
     this.isLoading = value;
   },
+
+  falloReplace: false,
+  setFalloReplace(value: boolean) {
+    this.falloReplace = value;
+  },
+
   idAnilloLoading: 0,
   setIdAnilloLoading(value: number) {
     this.idAnilloLoading = value;

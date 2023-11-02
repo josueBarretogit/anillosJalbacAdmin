@@ -24,8 +24,6 @@ const {
   cerrarFormularioCancelar,
   isLoading,
 } = useFormEditar(props.anillo);
-
-const categoriaSelect = ref(["Nombre", "Argolla"]);
 </script>
 
 <template>

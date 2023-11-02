@@ -21,7 +21,7 @@ export function useFormEditar(joya: any) {
 
   const token = localStorage.getItem("accessToken");
 
-  const { handleSubmit, handleReset } = useForm({
+  const { handleSubmit } = useForm({
     validationSchema: validationSchema,
   });
 
@@ -51,6 +51,7 @@ export function useFormEditar(joya: any) {
     valuesForm.append("talla", values.talla);
     valuesForm.append("referencia", values.referencia);
 
+    console.log("editado");
     isLoading.value = true;
     const response = await editarAnillo(
       valuesForm,

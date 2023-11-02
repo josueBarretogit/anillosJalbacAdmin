@@ -38,10 +38,4 @@ const {
     >
     </v-btn>
   </div>
-  <DialogMensajeRequest
-    v-if="dialogMensaje"
-    :mensaje="`Ocurrio el siguiente error: ${razonError}`"
-    :fallo="dialogRequestExitoso.fallo"
-    :mensaje-error="`${dialogRequestExitoso.mensajeError}`"
-  />
 </template>

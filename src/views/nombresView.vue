@@ -4,6 +4,9 @@ import { tabs } from "@/variables/store";
 import FormCrear from "@/components/formCrear.vue";
 import solitariosView from "./solitariosView.vue";
 import { useDataNombres } from "./../customHooks/useDataNombres";
+import DialogMensajeRequest from "@/components/dialogMensajeRequest.vue";
+import { imageReplacing } from "@/variables/store";
+import { dialogRequestExitoso } from "@/variables/store";
 const { anillosDataTable, colKey, numPages, page, updatePage } =
   await useDataNombres();
 </script>
@@ -64,4 +67,10 @@ const { anillosDataTable, colKey, numPages, page, updatePage } =
       <h1>ventana solitarios</h1>
     </v-window-item>
   </v-window>
+  <DialogMensajeRequest
+    v-if="imageReplacing.falloReplace"
+    :mensaje="`Ocurrio el siguiente error`"
+    :fallo="true"
+    :mensaje-error="dialogRequestExitoso.mensajeError"
+  />
 </template>
