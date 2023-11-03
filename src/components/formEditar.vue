@@ -3,7 +3,6 @@ import { useFormEditar } from "./../customHooks/useFormEditar";
 import InputsCrearEditar from "./formComponents/inputsCrearEditar.vue";
 import DialogMensajeRequest from "./../components/dialogMensajeRequest.vue";
 import { Anillo } from "@/interfaces/interfaces";
-import { ref } from "vue";
 import { dialogRequestExitoso } from "@/variables/store";
 const props = defineProps<{
   tipo: string;
@@ -60,7 +59,7 @@ const {
               ></v-progress-circular>
             </div>
             <div class="d-flex justify-center">
-              <v-btn class="me-4" type="submit" color="blue">
+              <v-btn class="me-4" type="submit" color="blue" @click="">
                 Editar anillo
               </v-btn>
             </div>
@@ -78,10 +77,4 @@ const {
       </v-card-actions>
     </v-card>
   </v-dialog>
-  <DialogMensajeRequest
-    v-if="dialogMensaje"
-    :mensaje="`${props.tipo} editado exitosamente`"
-    :fallo="dialogRequestExitoso.fallo"
-    :mensaje-error="`${dialogRequestExitoso.mensajeError}`"
-  />
 </template>

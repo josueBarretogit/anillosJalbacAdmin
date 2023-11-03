@@ -3,12 +3,12 @@ import { FieldContext } from "vee-validate";
 import { ref } from "vue";
 
 defineProps<{
-  referencia: FieldContext | undefined;
-  talla: FieldContext | undefined;
-  pesoOro: FieldContext | undefined;
-  pesoPlata: FieldContext | undefined;
-  categoria: FieldContext | undefined;
-  nombre: FieldContext | undefined;
+  referencia: FieldContext;
+  talla: FieldContext;
+  pesoOro: FieldContext;
+  pesoPlata: FieldContext;
+  categoria: FieldContext;
+  nombre: FieldContext;
 }>();
 
 const categoriaSelect = ref(["Nombre", "Argolla"]);

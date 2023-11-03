@@ -1,4 +1,4 @@
-const validationSchema = {
+let validationSchema = {
   nombre(value: string) {
     if (!value) {
       return "Este campo es obligatorio";

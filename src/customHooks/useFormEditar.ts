@@ -14,6 +14,7 @@ export function useFormEditar(joya: any) {
   const dialogMensaje = ref(false);
 
   const isLoading = ref(false);
+
   function cerrarFormularioCancelar() {
     dialogMensaje.value = false;
     dialog.value = false;
@@ -21,11 +22,10 @@ export function useFormEditar(joya: any) {
 
   const token = localStorage.getItem("accessToken");
 
-  const { handleSubmit } = useForm({
+  const { handleSubmit, handleReset } = useForm({
     validationSchema: validationSchema,
   });
 
-  const id = useField("id");
   const nombre = useField("nombre");
   const pesoOro = useField("pesoOro");
   const pesoPlata = useField("pesoPlata");
@@ -33,7 +33,6 @@ export function useFormEditar(joya: any) {
   const talla = useField("talla");
   const referencia = useField("referencia");
 
-  id.value.value = joya.id;
   nombre.value.value = joya.nombre;
   pesoOro.value.value = joya.pesoOro;
   pesoPlata.value.value = joya.pesoPlata;
@@ -53,11 +52,7 @@ export function useFormEditar(joya: any) {
 
     console.log("editado");
     isLoading.value = true;
-    const response = await editarAnillo(
-      valuesForm,
-      id.value.value as string,
-      token as string,
-    );
+    const response = await editarAnillo(valuesForm, joya.id, token as string);
 
     isLoading.value = false;
 
@@ -70,6 +65,7 @@ export function useFormEditar(joya: any) {
       console.log(response);
     }
   });
+
   return {
     nombre,
     pesoOro,
