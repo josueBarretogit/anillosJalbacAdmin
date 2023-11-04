@@ -2,9 +2,10 @@
 import carta from "./../components/cartaAnillo.vue";
 import { ref } from "vue";
 import { onMounted, watch } from "vue";
-import { getSolitarios } from "./../services/solitariosApi";
 import { loggedState, creacionAnillos, tabs } from "@/variables/store";
 import FormCrear from "@/components/formCrear.vue";
+import { getAnillos } from "@/services/anilloApi";
+import { table } from "console";
 
 let isLoading = ref(true);
 let solitariosDataTable = ref();
@@ -14,7 +15,7 @@ let numPages = ref(1);
 
 loggedState.setToTrue();
 
-const listSolitarios = await getSolitarios();
+const listSolitarios = await getAnillos(tabs.tabs);
 
 let solitariosCopy = listSolitarios;
 
@@ -59,7 +60,7 @@ watch(
   () => creacionAnillos.isCreated,
   async () => {
     isLoading.value = true;
-    solitariosCopy = await getSolitarios();
+    solitariosCopy = await getAnillos(tabs.tabs);
 
     isLoading.value = false;
     page.value = 1;
@@ -78,7 +79,6 @@ watch(
 );
 </script>
 <template>
-  <FormCrear tipo="solitario" />
   <div class="text-center">
     <v-container>
       <v-row justify="center">
@@ -114,6 +114,7 @@ watch(
           class="ml-5 mr-5"
           v-bind:anillo="solitario"
           :key="solitario.id"
+          :tipo="tabs.tabs"
         />
       </v-col>
     </v-row>

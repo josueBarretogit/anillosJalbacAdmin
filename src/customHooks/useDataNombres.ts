@@ -1,5 +1,5 @@
 import { getAnillos } from "@/services/anilloApi";
-import { loggedState, creacionAnillos } from "@/variables/store";
+import { loggedState, creacionAnillos, tabs } from "@/variables/store";
 import { ref, watch } from "vue";
 
 export async function useDataNombres() {
@@ -26,7 +26,7 @@ export async function useDataNombres() {
 
   loggedState.setToTrue();
 
-  let anillosCopy = await getAnillos();
+  let anillosCopy = await getAnillos(tabs.tabs);
 
   anillosDataTable.value = anillosCopy?.slice(0, page.value * totalItems.value);
 
@@ -53,7 +53,7 @@ export async function useDataNombres() {
     () => creacionAnillos.isCreated,
     async () => {
       isLoading.value = true;
-      anillosCopy = await getAnillos();
+      anillosCopy = await getAnillos(tabs.tabs);
       isLoading.value = false;
 
       anillosDataTable.value = sliceArray(

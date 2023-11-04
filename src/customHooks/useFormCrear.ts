@@ -8,7 +8,7 @@ import type { Anillo, CreateError } from "@/interfaces/interfaces";
 import { dialogRequestExitoso } from "./../variables/store";
 import { validationSchemaCrear } from "./validationSchema/validationSchemaCrearEditar";
 
-export function useFormCrear() {
+export function useFormCrear(tipoJoya: string) {
   const { smAndUp } = useDisplay();
 
   const dialog = ref(false);
@@ -24,8 +24,6 @@ export function useFormCrear() {
     dialog.value = false;
     handleReset();
   }
-
-  const token = localStorage.getItem("accessToken");
 
   const { handleSubmit, handleReset } = useForm({
     validationSchema: validationSchemaCrear,
@@ -52,7 +50,7 @@ export function useFormCrear() {
     isLoading.value = true;
     const response: Anillo | AxiosError = await createAnillo(
       valuesForm,
-      token as string,
+      tipoJoya,
     );
     isLoading.value = false;
 

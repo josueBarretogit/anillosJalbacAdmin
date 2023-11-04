@@ -5,7 +5,7 @@ import DialogMensajeRequest from "./../components/dialogMensajeRequest.vue";
 import { ref } from "vue";
 import { dialogRequestExitoso } from "./../variables/store";
 
-defineProps<{
+const properties = defineProps<{
   tipo: string;
 }>();
 
@@ -25,20 +25,13 @@ const {
   isLoading,
   razonError,
   showRazonError,
-} = useFormCrear();
+} = useFormCrear(properties.tipo);
 </script>
 
 <template>
   <v-dialog v-model="dialog" persistent width="auto" scrim="#000000">
     <template v-slot:activator="{ props }">
-      <v-btn
-        color="blue"
-        v-bind="props"
-        prepend-icon="mdi-plus"
-        rounded="xl"
-        size="large"
-      >
-      </v-btn>
+      <v-btn color="blue" v-bind="props" icon="mdi-plus" rounded="xl"> </v-btn>
     </template>
 
     <v-card :width="smAndUp ? 650 : 320">

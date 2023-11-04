@@ -15,8 +15,8 @@ const { xs } = useDisplay();
 </script>
 
 <template>
-  <div style="position: fixed; z-index: 2; right: 0; bottom: 20px">
-    <FormCrear tipo="nombre" />
+  <div style="position: fixed; z-index: 2; right: 20px; bottom: 20px">
+    <FormCrear :tipo="tabs.tabs" />
   </div>
 
   <v-window v-model="tabs.tabs">
