@@ -4,12 +4,16 @@ import { AxiosError } from "axios";
 import { useField, useForm } from "vee-validate";
 import { ref } from "vue";
 import { useDisplay } from "vuetify/lib/framework.mjs";
-import { validationSchema } from "./validationSchema/validationSchemaCrearEditar";
+import { validationSchemaEditar } from "./validationSchema/validationSchemaCrearEditar";
+import { CreateError } from "@/interfaces/interfaces";
 
 export function useFormEditar(joya: any) {
   const { smAndUp } = useDisplay();
 
   const dialog = ref(false);
+
+  const razonError = ref<unknown>("");
+  const showRazonError = ref(false);
 
   const dialogMensaje = ref(false);
 
@@ -23,7 +27,7 @@ export function useFormEditar(joya: any) {
   const token = localStorage.getItem("accessToken");
 
   const { handleSubmit, handleReset } = useForm({
-    validationSchema: validationSchema,
+    validationSchema: validationSchemaEditar,
   });
 
   const nombre = useField("nombre");
@@ -57,12 +61,14 @@ export function useFormEditar(joya: any) {
     isLoading.value = false;
 
     if (!(response instanceof AxiosError)) {
+      showRazonError.value = false;
       creacionAnillos.setIsCreated(creacionAnillos.isCreated + 1);
       dialogRequestExitoso.setIsShow(true);
       dialogMensaje.value = true;
     } else {
       dialogRequestExitoso.setIsShow(false);
-      console.log(response);
+      razonError.value = (response as CreateError).response.data;
+      showRazonError.value = true;
     }
   });
 
@@ -79,5 +85,7 @@ export function useFormEditar(joya: any) {
     smAndUp,
     cerrarFormularioCancelar,
     isLoading,
+    showRazonError,
+    razonError,
   };
 }

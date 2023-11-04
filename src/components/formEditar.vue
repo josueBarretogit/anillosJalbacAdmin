@@ -22,6 +22,8 @@ const {
   smAndUp,
   cerrarFormularioCancelar,
   isLoading,
+  showRazonError,
+  razonError,
 } = useFormEditar(props.anillo);
 </script>
 
@@ -59,9 +61,23 @@ const {
               ></v-progress-circular>
             </div>
             <div class="d-flex justify-center">
-              <v-btn class="me-4" type="submit" color="blue" @click="">
+              <v-btn class="me-4" type="submit" color="blue">
                 Editar anillo
               </v-btn>
+            </div>
+            <div class="ma-4 d-flex justify-center">
+              <v-alert
+                style="max-width: 320px"
+                type="error"
+                v-model="showRazonError"
+                variant="tonal"
+                closable
+                close-label="Cerrar"
+                title="Error"
+                border="top"
+              >
+                {{ razonError }}
+              </v-alert>
             </div>
           </v-container>
         </form>
@@ -77,4 +93,10 @@ const {
       </v-card-actions>
     </v-card>
   </v-dialog>
+  <DialogMensajeRequest
+    v-if="dialogMensaje"
+    :mensaje="`${tipo} editado exitosamente`"
+    :fallo="dialogRequestExitoso.fallo"
+    :mensaje-error="`${dialogRequestExitoso.mensajeError}`"
+  />
 </template>

@@ -7,14 +7,18 @@ import { useDataNombres } from "./../customHooks/useDataNombres";
 import DialogMensajeRequest from "@/components/dialogMensajeRequest.vue";
 import { imageReplacing } from "@/variables/store";
 import { dialogRequestExitoso } from "@/variables/store";
+import { useDisplay } from "vuetify/lib/framework.mjs";
 const { anillosDataTable, colKey, numPages, page, updatePage } =
   await useDataNombres();
+
+const { xs } = useDisplay();
 </script>
 
 <template>
   <div style="position: fixed; z-index: 2; right: 0; bottom: 20px">
     <FormCrear tipo="nombre" />
   </div>
+
   <v-window v-model="tabs.tabs">
     <v-window-item value="nombres">
       <div class="text-center">
@@ -49,7 +53,7 @@ const { anillosDataTable, colKey, numPages, page, updatePage } =
             class="d-flex justify-center flex-wrap"
           >
             <carta
-              class="ml-5 mr-5"
+              :class="!xs ? 'ml-5 mr-5' : ''"
               v-bind:anillo="anillo"
               :key="anillo.id"
               tipo="nombre"
@@ -67,6 +71,7 @@ const { anillosDataTable, colKey, numPages, page, updatePage } =
       <h1>ventana solitarios</h1>
     </v-window-item>
   </v-window>
+
   <DialogMensajeRequest
     v-if="imageReplacing.falloReplace"
     :mensaje="`Ocurrio el siguiente error`"
