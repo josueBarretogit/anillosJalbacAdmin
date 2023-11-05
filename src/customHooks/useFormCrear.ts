@@ -6,7 +6,10 @@ import { ref } from "vue";
 import { useDisplay } from "vuetify/lib/framework.mjs";
 import type { Anillo, CreateError } from "@/interfaces/interfaces";
 import { dialogRequestExitoso } from "./../variables/store";
-import { validationSchemaCrear } from "./validationSchema/validationSchemaCrearEditar";
+import {
+  validationSchemaCrearNombre,
+  validationSchemaCrearSolitario,
+} from "./validationSchema/validationSchemaCrearEditar";
 
 export function useFormCrear(tipoJoya: string) {
   const { smAndUp } = useDisplay();
@@ -26,8 +29,12 @@ export function useFormCrear(tipoJoya: string) {
   }
 
   const { handleSubmit, handleReset } = useForm({
-    validationSchema: validationSchemaCrear,
+    validationSchema:
+      tipoJoya == "nombres"
+        ? validationSchemaCrearNombre
+        : validationSchemaCrearSolitario,
   });
+  console.log("hola" + tipoJoya);
 
   const nombre = useField("nombre");
   const categoria = useField("categoria");
@@ -41,10 +48,17 @@ export function useFormCrear(tipoJoya: string) {
 
   const submit = handleSubmit(async (values) => {
     const valuesForm = new FormData();
-    valuesForm.append("nombre", values.nombre);
+
+    if (tipoJoya == "nombres") {
+      valuesForm.append("nombre", values.nombre);
+      valuesForm.append("categoria", values.categoria);
+    } else if (tipoJoya == "solitarios") {
+      valuesForm.append("formaPiedra", values.formaPiedra);
+      valuesForm.append("tamanoPiedra", values.tamanoPiedra);
+    }
+
     valuesForm.append("pesoOro", values.pesoOro);
     valuesForm.append("pesoPlata", values.pesoPlata);
-    valuesForm.append("categoria", values.categoria);
     valuesForm.append("talla", values.talla);
     valuesForm.append("referencia", values.referencia);
     valuesForm.append("image", values.imagen[0]);

@@ -15,6 +15,7 @@ export function useFormEliminar() {
   }
 
   async function eliminarAnillo(id: number, token: string) {
+    console.log(id);
     dialogMensaje.value = true;
     const response = await deleteAnillo(id, tabs.tabs);
     if (!(response instanceof AxiosError)) {

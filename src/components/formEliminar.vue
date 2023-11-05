@@ -31,7 +31,7 @@ const { dialogEliminar, eliminarAnillo, dialogMensaje } = useFormEliminar();
             <v-alert
               type="warning"
               title="Eliminar"
-              text="¿Estas seguro que deseas eliminar este anillo?"
+              :text="`¿Estas seguro que deseas eliminar este ${id}?`"
             ></v-alert>
           </v-row>
         </v-container>

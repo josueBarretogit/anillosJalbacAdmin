@@ -79,6 +79,10 @@ watch(
 );
 </script>
 <template>
+  <div style="position: fixed; z-index: 2; right: 20px; bottom: 20px">
+    <FormCrear :tipo="tabs.tabs" />
+  </div>
+
   <div class="text-center">
     <v-container>
       <v-row justify="center">
@@ -103,7 +107,7 @@ watch(
   <v-container class="">
     <v-row class="d-flex justify-center">
       <v-sheet v-if="solitariosDataTable.length == 0">
-        <h1>No hay datos</h1>
+        <h1>No hay datos{{ tabs.tabs }}</h1>
       </v-sheet>
       <v-col
         v-else
