@@ -11,9 +11,11 @@ const properties = defineProps<{
 
 const {
   nombre,
+  categoria,
+  formaPiedra,
+  tamanoPiedra,
   pesoOro,
   pesoPlata,
-  categoria,
   talla,
   referencia,
   imagen,
@@ -41,6 +43,8 @@ const {
             <InputsCrearEditar
               :categoria="categoria"
               :nombre="nombre"
+              :forma-piedra="formaPiedra"
+              :tamano-piedra="tamanoPiedra"
               :referencia="referencia"
               :talla="talla"
               :peso-oro="pesoOro"

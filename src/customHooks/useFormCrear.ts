@@ -30,9 +30,11 @@ export function useFormCrear(tipoJoya: string) {
   });
 
   const nombre = useField("nombre");
+  const categoria = useField("categoria");
+  const formaPiedra = useField("formaPiedra");
+  const tamanoPiedra = useField("tamanoPiedra");
   const pesoOro = useField("pesoOro");
   const pesoPlata = useField("pesoPlata");
-  const categoria = useField("categoria");
   const talla = useField("talla");
   const referencia = useField("referencia");
   const imagen = useField<File[]>("imagen");
@@ -69,9 +71,11 @@ export function useFormCrear(tipoJoya: string) {
   });
   return {
     nombre,
+    categoria,
+    formaPiedra,
+    tamanoPiedra,
     pesoOro,
     pesoPlata,
-    categoria,
     talla,
     referencia,
     imagen,
