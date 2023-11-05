@@ -12,7 +12,7 @@ const {
   isLoading,
   dialogMensaje,
   razonError,
-} = useCambiarImagen(props.idAnillo);
+} = useCambiarImagen();
 </script>
 <template>
   <div>

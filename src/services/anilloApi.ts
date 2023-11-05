@@ -1,10 +1,10 @@
 import type { Anillo, Login } from "@/interfaces/interfaces";
-import axios, { AxiosError, AxiosResponse } from "axios";
+import axios, { AxiosError } from "axios";
+
 const token = localStorage.getItem("accessToken");
 
-const axiosInstace = axios.create({
+const axiosInstance = axios.create({
   baseURL: "http://localhost:4000/api/",
-  timeout: 1000,
   headers: {
     "Content-Type": "multipart/form-data",
     "Access-Control-Allow-Origin": "*",
@@ -18,7 +18,7 @@ async function createAnillo(
   tipo: string,
 ): Promise<Anillo | AxiosError> {
   try {
-    const response = await axiosInstace.post(`${tipo}/create`, data);
+    const response = await axiosInstance.post(`${tipo}/create`, data);
     return response.data;
   } catch (error) {
     console.log(error);
@@ -29,23 +29,11 @@ async function createAnillo(
 
 async function editarAnillo(
   data: FormData,
-  id: string,
-  token: string,
+  id: number,
+  tipoJoya: string,
 ): Promise<Anillo | AxiosError> {
   try {
-    data.forEach((values) => console.log(values));
-    const response = await axios.put(
-      `http://localhost:4000/api/anillos/editar/${id}`,
-      data,
-      {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          "Access-Control-Allow-Origin": "*",
-          Authorization: `Bearer ${token}`,
-        },
-        withCredentials: true,
-      },
-    );
+    const response = await axiosInstance.put(`${tipoJoya}/editar/${id}`, data);
     return response.data;
   } catch (error) {
     console.log(error);
@@ -53,27 +41,10 @@ async function editarAnillo(
     return err;
   }
 }
-async function getAnillo(
-  id: number,
-  isLoading: boolean,
-): Promise<Anillo | undefined> {
-  try {
-    const response = await axios.post(
-      "http://localhost:4000/api/anillos/getone",
-      {
-        id: id,
-      },
-    );
-
-    return response.data;
-  } catch (error) {
-    console.log(error);
-  }
-}
 
 async function getAnillos(tipoJoya: string): Promise<Anillo[] | undefined> {
   try {
-    const response = await axiosInstace.get(`${tipoJoya}`);
+    const response = await axiosInstance.get(`${tipoJoya}`);
     return response.data;
   } catch (error) {
     console.log(error);
@@ -82,23 +53,10 @@ async function getAnillos(tipoJoya: string): Promise<Anillo[] | undefined> {
 
 async function deleteAnillo(
   id: number,
-  token: string,
+  tipoJoya: string,
 ): Promise<Anillo | AxiosError> {
   try {
-    const response = await axios.delete(
-      "http://localhost:4000/api/anillos/eliminarAnillo",
-      {
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-          Authorization: `Bearer ${token}`,
-        },
-        withCredentials: true,
-        data: {
-          id: id,
-        },
-      },
-    );
+    const response = await axiosInstance.delete(`${tipoJoya}/eliminar/${id}"`);
 
     return response.data;
   } catch (error) {
@@ -112,20 +70,10 @@ async function logIn(
   contrasena: string,
 ): Promise<Login | undefined> {
   try {
-    const response = await axios.post(
-      "http://localhost:4000/api/usuarios/login",
-      {
-        correo,
-        contrasena,
-      },
-      {
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-        },
-        withCredentials: true,
-      },
-    );
+    const response = await axiosInstance.post(`usuarios/login`, {
+      correo,
+      contrasena,
+    });
 
     return response.data;
   } catch (error: any) {
@@ -134,22 +82,10 @@ async function logIn(
     return err.response?.data as Login;
   }
 }
-async function logOut(
-  token: string | null,
-): Promise<{ response: string } | undefined> {
-  try {
-    const response = await axios.get(
-      "http://localhost:4000/api/usuarios/logout",
 
-      {
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-          Authorization: `Bearer ${token}`,
-        },
-        withCredentials: true,
-      },
-    );
+async function logOut(): Promise<{ response: string } | undefined> {
+  try {
+    const response = await axiosInstance.get("usuarios/logout");
     return response.data;
   } catch (error: any) {
     const err = error as AxiosError;
@@ -160,20 +96,12 @@ async function logOut(
 async function replaceImage(
   data: FormData,
   id: number,
-  token: string,
+  tipoJoya: string,
 ): Promise<Anillo | AxiosError> {
   try {
-    const response = await axios.patch(
-      `http://localhost:4000/api/anillos/replaceImage/${id}`,
+    const response = await axiosInstance.patch(
+      `${tipoJoya}/replaceImage/${id}`,
       data,
-      {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          "Access-Control-Allow-Origin": "*",
-          Authorization: `Bearer ${token}`,
-        },
-        withCredentials: true,
-      },
     );
     return response.data;
   } catch (error) {
@@ -181,6 +109,7 @@ async function replaceImage(
     return err;
   }
 }
+
 export {
   getAnillos,
   logIn,

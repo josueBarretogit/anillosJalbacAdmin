@@ -1,17 +1,15 @@
 import { Anillo, CreateError } from "@/interfaces/interfaces";
 import { createAnillo, replaceImage } from "@/services/anilloApi";
-import { creacionAnillos, imageReplacing } from "@/variables/store";
+import { creacionAnillos, imageReplacing, tabs } from "@/variables/store";
 import { AxiosError } from "axios";
 import { ref } from "vue";
 import { dialogRequestExitoso } from "@/variables/store";
 
-export function useCambiarImagen(id: number) {
+export function useCambiarImagen() {
   const razonError = ref<unknown>("");
 
   const isLoading = ref(false);
   const dialogMensaje = ref(false);
-
-  const token = localStorage.getItem("accessToken");
 
   const imagen = ref<File[]>([]);
 
@@ -31,7 +29,7 @@ export function useCambiarImagen(id: number) {
 
     imageReplacing.setIdAnilloLoading(id);
     isLoading.value = true;
-    const response = await replaceImage(valuesForm, id, token as string);
+    const response = await replaceImage(valuesForm, id, tabs.tabs);
 
     isLoading.value = false;
     imageReplacing.setIsLoading(false);

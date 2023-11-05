@@ -34,7 +34,7 @@ export const creacionAnillos = reactive({
 });
 
 export const tabs = reactive({
-  tabs: "anillos",
+  tabs: "nombres",
 
   setTabs(tab: string) {
     this.tabs = tab;

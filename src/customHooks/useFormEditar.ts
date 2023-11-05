@@ -1,13 +1,13 @@
 import { editarAnillo } from "@/services/anilloApi";
-import { creacionAnillos, dialogRequestExitoso } from "@/variables/store";
+import { creacionAnillos, dialogRequestExitoso, tabs } from "@/variables/store";
 import { AxiosError } from "axios";
 import { useField, useForm } from "vee-validate";
 import { ref } from "vue";
 import { useDisplay } from "vuetify/lib/framework.mjs";
 import { validationSchemaEditar } from "./validationSchema/validationSchemaCrearEditar";
-import { CreateError } from "@/interfaces/interfaces";
+import { Anillo, CreateError } from "@/interfaces/interfaces";
 
-export function useFormEditar(joya: any) {
+export function useFormEditar(joya: Anillo) {
   const { smAndUp } = useDisplay();
 
   const dialog = ref(false);
@@ -23,8 +23,6 @@ export function useFormEditar(joya: any) {
     dialogMensaje.value = false;
     dialog.value = false;
   }
-
-  const token = localStorage.getItem("accessToken");
 
   const { handleSubmit, handleReset } = useForm({
     validationSchema: validationSchemaEditar,
@@ -56,7 +54,7 @@ export function useFormEditar(joya: any) {
 
     console.log("editado");
     isLoading.value = true;
-    const response = await editarAnillo(valuesForm, joya.id, token as string);
+    const response = await editarAnillo(valuesForm, joya.id, tabs.tabs);
 
     isLoading.value = false;
 
