@@ -74,7 +74,17 @@ export function useFormCrear(tipoJoya: string) {
       showRazonError.value = false;
       dialogRequestExitoso.setFallo(false);
       dialogRequestExitoso.setIsShow(true);
-      creacionAnillos.setIsCreated(creacionAnillos.isCreated + 1);
+
+      if (tipoJoya == "nombres") {
+        creacionAnillos.setIsCreated(creacionAnillos.isCreated + 1);
+        console.log("created nombre");
+      } else if (tipoJoya == "solitarios") {
+        creacionAnillos.setIsCreatedSolitario(
+          creacionAnillos.isCreatedSolitario + 1,
+        );
+        console.log("created solitario");
+      }
+
       dialogMensaje.value = true;
       handleReset();
     } else {

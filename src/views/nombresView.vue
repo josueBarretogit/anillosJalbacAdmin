@@ -15,12 +15,11 @@ const { xs } = useDisplay();
 </script>
 
 <template>
-  <div style="position: fixed; z-index: 2; right: 20px; bottom: 20px">
-    <FormCrear :tipo="tabs.tabs" />
-  </div>
-
   <v-window v-model="tabs.tabs">
     <v-window-item value="nombres">
+      <div style="position: fixed; z-index: 2; right: 20px; bottom: 20px">
+        <FormCrear :tipo="tabs.tabs" />
+      </div>
       <div class="text-center">
         <v-container>
           <v-row justify="center">
@@ -56,7 +55,7 @@ const { xs } = useDisplay();
               :class="!xs ? 'ml-5 mr-5' : ''"
               v-bind:anillo="anillo"
               :key="anillo.id"
-              tipo="nombre"
+              tipo="nombres"
             />
           </v-col>
         </v-row>

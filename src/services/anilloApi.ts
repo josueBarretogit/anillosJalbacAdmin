@@ -56,7 +56,11 @@ async function deleteAnillo(
   tipoJoya: string,
 ): Promise<Anillo | AxiosError> {
   try {
-    const response = await axiosInstance.delete(`${tipoJoya}/eliminar/${id}`);
+    const response = await axiosInstance.delete(`${tipoJoya}/eliminar`, {
+      params: {
+        id: id,
+      },
+    });
 
     return response.data;
   } catch (error) {

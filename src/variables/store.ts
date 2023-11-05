@@ -26,10 +26,13 @@ export const loggedState = reactive({
 
 export const creacionAnillos = reactive({
   isCreated: 0,
-
   setIsCreated(created: number) {
     this.isCreated = created;
     console.log(this.isCreated);
+  },
+  isCreatedSolitario: 0,
+  setIsCreatedSolitario(created: number) {
+    this.isCreatedSolitario = created;
   },
 });
 

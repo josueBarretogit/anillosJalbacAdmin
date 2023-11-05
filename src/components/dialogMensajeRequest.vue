@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { ref } from "vue";
-import { creacionAnillos } from "@/variables/store";
+import { creacionAnillos, tabs } from "@/variables/store";
 import { dialogRequestExitoso } from "@/variables/store";
 
 const props = defineProps<{
@@ -10,7 +10,13 @@ const props = defineProps<{
 }>();
 
 function cerrarDialog() {
-  creacionAnillos.setIsCreated(creacionAnillos.isCreated + 1);
+  if (tabs.tabs == "nombres") {
+    creacionAnillos.setIsCreated(creacionAnillos.isCreated + 1);
+  } else if (tabs.tabs == "solitarios") {
+    creacionAnillos.setIsCreatedSolitario(
+      creacionAnillos.isCreatedSolitario + 1,
+    );
+  }
   dialogRequestExitoso.setIsShow(false);
 }
 </script>

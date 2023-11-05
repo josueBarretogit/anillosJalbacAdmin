@@ -6,6 +6,8 @@ import { loggedState, creacionAnillos, tabs } from "@/variables/store";
 import FormCrear from "@/components/formCrear.vue";
 import { getAnillos } from "@/services/anilloApi";
 import { table } from "console";
+import { useDisplay } from "vuetify/lib/framework.mjs";
+const { xs } = useDisplay();
 
 let isLoading = ref(true);
 let solitariosDataTable = ref();
@@ -57,7 +59,7 @@ setTimeout(
 );
 
 watch(
-  () => creacionAnillos.isCreated,
+  () => creacionAnillos.isCreatedSolitario,
   async () => {
     isLoading.value = true;
     solitariosCopy = await getAnillos(tabs.tabs);
@@ -115,7 +117,7 @@ watch(
         class="d-flex justify-center flex-wrap"
       >
         <carta
-          class="ml-5 mr-5"
+          :class="!xs ? 'ml-5 mr-5' : ''"
           v-bind:anillo="solitario"
           :key="solitario.id"
           :tipo="tabs.tabs"
