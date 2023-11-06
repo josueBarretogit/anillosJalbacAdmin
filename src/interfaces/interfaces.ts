@@ -22,9 +22,8 @@ export interface Dije {
 
 export interface Solitario {
   id: number;
-  alto: string;
-  ancho: string;
-  categoria: string;
+  formaPiedra: string;
+  tamanoPiedra: string;
   foto: string;
   referencia: string;
   pesoOro: string;

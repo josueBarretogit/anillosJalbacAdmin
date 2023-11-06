@@ -104,8 +104,13 @@ async function replaceImage(
 ): Promise<Anillo | AxiosError> {
   try {
     const response = await axiosInstance.patch(
-      `${tipoJoya}/replaceImage/${id}`,
+      `${tipoJoya}/replaceImage`,
       data,
+      {
+        params: {
+          id: id,
+        },
+      },
     );
     return response.data;
   } catch (error) {

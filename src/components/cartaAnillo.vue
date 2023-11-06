@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import type { Anillo } from "@/interfaces/interfaces";
+import type { Anillo, Solitario } from "@/interfaces/interfaces";
 import FormEliminar from "./formEliminar.vue";
 import FormEditar from "./formEditar.vue";
 import FormCambiarImagen from "./../components/formCambiarImagen.vue";
 import { ref, watch } from "vue";
 
-import { dialogRequestExitoso, imageReplacing } from "@/variables/store";
+import { dialogRequestExitoso, imageReplacing, tabs } from "@/variables/store";
 import { useDisplay } from "vuetify/lib/framework.mjs";
 defineProps<{
-  anillo: Anillo;
+  anillo: Anillo & Solitario;
   tipo: string;
 }>();
 
@@ -52,21 +52,39 @@ const { xs } = useDisplay();
     </v-hover>
 
     <v-row no-gutters>
-      <v-col sm="4">
+      <v-col sm="4" md="6">
         <v-card-title class="titulo">Peso oro</v-card-title>
         <v-card-title class="titulo">Peso plata</v-card-title>
-        <v-card-title class="titulo">Tipo</v-card-title>
         <v-card-title class="titulo">Talla</v-card-title>
-        <v-card-title class="titulo">Nombre</v-card-title>
+        <div v-if="tabs.tabs == 'nombres'">
+          <v-card-title class="titulo">Categoria</v-card-title>
+          <v-card-title class="titulo">Nombre</v-card-title>
+        </div>
+        <div v-if="tabs.tabs == 'solitarios'">
+          <v-card-title class="titulo">Forma piedra</v-card-title>
+          <v-card-title class="titulo">Tamaño piedra</v-card-title>
+        </div>
         <v-card-title class="titulo">Referencia</v-card-title>
       </v-col>
 
       <v-col sm="4" md="6">
         <v-card-title class="subtitlo">{{ anillo?.pesoOro }}</v-card-title>
         <v-card-title class="subtitlo">{{ anillo?.pesoPlata }}</v-card-title>
-        <v-card-title class="subtitlo">{{ anillo?.categoria }}</v-card-title>
         <v-card-title class="subtitlo">{{ anillo?.talla }}</v-card-title>
-        <v-card-title class="subtitlo">{{ anillo?.nombre }}</v-card-title>
+
+        <div v-if="tabs.tabs == 'nombres'">
+          <v-card-title class="subtitlo">{{ anillo?.categoria }}</v-card-title>
+          <v-card-title class="subtitlo">{{ anillo?.nombre }}</v-card-title>
+        </div>
+        <div v-if="tabs.tabs == 'solitarios'">
+          <v-card-title class="subtitlo">{{
+            anillo?.formaPiedra
+          }}</v-card-title>
+          <v-card-title class="subtitlo">{{
+            anillo?.tamanoPiedra
+          }}</v-card-title>
+        </div>
+
         <v-card-title class="subtitlo">{{ anillo?.referencia }}</v-card-title>
       </v-col>
     </v-row>

@@ -35,7 +35,13 @@ export function useCambiarImagen() {
     imageReplacing.setIsLoading(false);
 
     if (!(response instanceof AxiosError)) {
-      creacionAnillos.setIsCreated(creacionAnillos.isCreated + 1);
+      if (tabs.tabs == "nombres") {
+        creacionAnillos.setIsCreated(creacionAnillos.isCreated + 1);
+      } else if (tabs.tabs == "solitarios") {
+        creacionAnillos.setIsCreatedSolitario(
+          creacionAnillos.isCreatedSolitario + 1,
+        );
+      }
     } else {
       console.log("hubo un error");
 

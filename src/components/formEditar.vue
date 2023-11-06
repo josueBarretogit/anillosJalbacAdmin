@@ -2,15 +2,17 @@
 import { useFormEditar } from "./../customHooks/useFormEditar";
 import InputsCrearEditar from "./formComponents/inputsCrearEditar.vue";
 import DialogMensajeRequest from "./../components/dialogMensajeRequest.vue";
-import { Anillo } from "@/interfaces/interfaces";
+import { Anillo, Solitario } from "@/interfaces/interfaces";
 import { dialogRequestExitoso } from "@/variables/store";
 const props = defineProps<{
   tipo: string;
-  anillo: Anillo;
+  anillo: Anillo & Solitario;
 }>();
 
 const {
   nombre,
+  formaPiedra,
+  tamanoPiedra,
   pesoOro,
   pesoPlata,
   categoria,
@@ -24,7 +26,7 @@ const {
   isLoading,
   showRazonError,
   razonError,
-} = useFormEditar(props.anillo);
+} = useFormEditar(props.anillo, props.tipo);
 </script>
 
 <template>
@@ -48,6 +50,8 @@ const {
             <InputsCrearEditar
               :categoria="categoria"
               :nombre="nombre"
+              :forma-piedra="formaPiedra"
+              :tamano-piedra="tamanoPiedra"
               :referencia="referencia"
               :talla="talla"
               :peso-oro="pesoOro"

@@ -4,10 +4,13 @@ import { AxiosError } from "axios";
 import { useField, useForm } from "vee-validate";
 import { ref } from "vue";
 import { useDisplay } from "vuetify/lib/framework.mjs";
-import { validationSchemaEditar } from "./validationSchema/validationSchemaCrearEditar";
-import { Anillo, CreateError } from "@/interfaces/interfaces";
+import {
+  validationSchemaEditarNombre,
+  validationSchemaEditarSolitario,
+} from "./validationSchema/validationSchemaCrearEditar";
+import { Anillo, CreateError, Solitario } from "@/interfaces/interfaces";
 
-export function useFormEditar(joya: Anillo) {
+export function useFormEditar(joya: Anillo & Solitario, tipoJoya: string) {
   const { smAndUp } = useDisplay();
 
   const dialog = ref(false);
@@ -25,18 +28,26 @@ export function useFormEditar(joya: Anillo) {
   }
 
   const { handleSubmit, handleReset } = useForm({
-    validationSchema: validationSchemaEditar,
+    validationSchema:
+      tipoJoya == "nombres"
+        ? validationSchemaEditarNombre
+        : validationSchemaEditarSolitario,
   });
 
   const nombre = useField("nombre");
+  const categoria = useField("categoria");
+  const tamanoPiedra = useField("tamanoPiedra");
+  const formaPiedra = useField("formaPiedra");
   const pesoOro = useField("pesoOro");
   const pesoPlata = useField("pesoPlata");
-  const categoria = useField("categoria");
   const talla = useField("talla");
   const referencia = useField("referencia");
 
   nombre.value.value = joya.nombre;
   pesoOro.value.value = joya.pesoOro;
+
+  formaPiedra.value.value = joya.formaPiedra;
+  tamanoPiedra.value.value = joya.tamanoPiedra;
   pesoPlata.value.value = joya.pesoPlata;
   categoria.value.value = joya.categoria;
   talla.value.value = joya.talla;
@@ -72,6 +83,8 @@ export function useFormEditar(joya: Anillo) {
 
   return {
     nombre,
+    formaPiedra,
+    tamanoPiedra,
     pesoOro,
     pesoPlata,
     categoria,
