@@ -5,10 +5,9 @@ import FormCrear from "./../../components/formCrear.vue";
 import { logOut } from "./../../services/anilloApi";
 import { loggedState, tabs } from "./../../variables/store";
 
-const token = localStorage.getItem("accessToken");
 const router = useRouter();
 async function cerrarSesion() {
-  const response = await logOut(token);
+  const response = await logOut();
   console.log(response);
   if (response) {
     localStorage.removeItem("accessToken");
@@ -22,23 +21,24 @@ async function cerrarSesion() {
 </script>
 
 <template>
-  <v-app-bar>
-    <v-sheet class="ma-2 pa-2 flex-grow-0">
+  <v-app-bar class="d-flex flex-wrap bg-white flex-column">
+    <div class="ma-2 pa-2 flex-grow-0" style="width: 100px">
       <v-app-bar-title>Jalbac Admin</v-app-bar-title>
-    </v-sheet>
+    </div>
 
-    <v-sheet
+    <div
       v-if="loggedState.isLogged"
       class="ma-2 pa-2 flex-grow-1 d-flex justify-center"
+      style="width: 100px"
     >
-      <v-tabs v-model="tabs.tabs" color="blue" fixed-tabs>
+      <v-tabs style="width: 500px" v-model="tabs.tabs" color="blue" show-arrows>
         <v-tab value="nombres">Nombres</v-tab>
         <v-tab value="solitarios">solitarios</v-tab>
         <v-tab value="dijes">Dijes</v-tab>
       </v-tabs>
-    </v-sheet>
+    </div>
 
-    <v-sheet class="ma-2 pa-2">
+    <div class="ma-2 pa-2" style="width: 100px">
       <v-btn
         v-if="loggedState.isLogged"
         size="large"
@@ -48,6 +48,6 @@ async function cerrarSesion() {
       >
         Cerrar sesion
       </v-btn>
-    </v-sheet>
+    </div>
   </v-app-bar>
 </template>

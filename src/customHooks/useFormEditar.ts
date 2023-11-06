@@ -48,6 +48,7 @@ export function useFormEditar(joya: Anillo & Solitario, tipoJoya: string) {
 
   formaPiedra.value.value = joya.formaPiedra;
   tamanoPiedra.value.value = joya.tamanoPiedra;
+
   pesoPlata.value.value = joya.pesoPlata;
   categoria.value.value = joya.categoria;
   talla.value.value = joya.talla;
@@ -56,14 +57,21 @@ export function useFormEditar(joya: Anillo & Solitario, tipoJoya: string) {
   const submit = handleSubmit(async (values) => {
     console.log(values);
     const valuesForm = new FormData();
-    valuesForm.append("nombre", values.nombre);
+
+    if (tabs.tabs == "nombres") {
+      valuesForm.append("nombre", values.nombre);
+      valuesForm.append("categoria", values.categoria);
+    } else if (tabs.tabs == "solitarios") {
+      valuesForm.append("formaPiedra", values.formaPiedra);
+      valuesForm.append("tamanoPiedra", values.tamanoPiedra);
+    }
+
     valuesForm.append("pesoOro", values.pesoOro);
     valuesForm.append("pesoPlata", values.pesoPlata);
-    valuesForm.append("categoria", values.categoria);
     valuesForm.append("talla", values.talla);
     valuesForm.append("referencia", values.referencia);
 
-    console.log("editado");
+    console.log("editado" + tabs.tabs);
     isLoading.value = true;
     const response = await editarAnillo(valuesForm, joya.id, tabs.tabs);
 
@@ -71,7 +79,13 @@ export function useFormEditar(joya: Anillo & Solitario, tipoJoya: string) {
 
     if (!(response instanceof AxiosError)) {
       showRazonError.value = false;
-      creacionAnillos.setIsCreated(creacionAnillos.isCreated + 1);
+      if (tabs.tabs == "nombres") {
+        creacionAnillos.setIsCreated(creacionAnillos.isCreated + 1);
+      } else if (tabs.tabs == "solitarios") {
+        creacionAnillos.setIsCreatedSolitario(
+          creacionAnillos.isCreatedSolitario + 1,
+        );
+      }
       dialogRequestExitoso.setIsShow(true);
       dialogMensaje.value = true;
     } else {

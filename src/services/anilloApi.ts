@@ -33,7 +33,11 @@ async function editarAnillo(
   tipoJoya: string,
 ): Promise<Anillo | AxiosError> {
   try {
-    const response = await axiosInstance.put(`${tipoJoya}/editar/${id}`, data);
+    const response = await axiosInstance.put(`${tipoJoya}/editar`, data, {
+      params: {
+        id: id,
+      },
+    });
     return response.data;
   } catch (error) {
     console.log(error);

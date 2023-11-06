@@ -120,7 +120,7 @@ watch(
           :class="!xs ? 'ml-5 mr-5' : ''"
           v-bind:anillo="solitario"
           :key="solitario.id"
-          :tipo="tabs.tabs"
+          tipo="solitarios"
         />
       </v-col>
     </v-row>
