@@ -8,6 +8,7 @@ import DialogMensajeRequest from "@/components/dialogMensajeRequest.vue";
 import { imageReplacing } from "@/variables/store";
 import { dialogRequestExitoso } from "@/variables/store";
 import { useDisplay } from "vuetify/lib/framework.mjs";
+import Drawer from "@/components/drawer.vue";
 const { anillosDataTable, colKey, numPages, page, updatePage } =
   await useDataNombres();
 
@@ -15,11 +16,13 @@ const { xs } = useDisplay();
 </script>
 
 <template>
-  <v-window v-model="tabs.tabs">
+  <v-window v-model="tabs.tabs" temporary>
+    <Drawer />
     <v-window-item value="nombres">
       <div style="position: fixed; z-index: 2; right: 20px; bottom: 20px">
         <FormCrear :tipo="tabs.tabs" />
       </div>
+
       <div class="text-center">
         <v-container>
           <v-row justify="center">

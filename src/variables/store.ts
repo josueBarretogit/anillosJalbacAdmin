@@ -77,3 +77,18 @@ export const imageReplacing = reactive({
     this.idAnilloLoading = value;
   },
 });
+
+export const drawer = reactive({
+  drawer: false,
+  setDrawer(value: boolean) {
+    console.log(this.drawer);
+    this.drawer = value;
+  },
+});
+
+export const usuario = reactive({
+  correo: "",
+  setCorreo(value: string) {
+    this.correo = value;
+  },
+});

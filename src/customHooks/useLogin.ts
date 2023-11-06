@@ -1,6 +1,6 @@
 import { Login } from "@/interfaces/interfaces";
 import { logIn } from "@/services/anilloApi";
-import { loggedState } from "@/variables/store";
+import { loggedState, usuario } from "@/variables/store";
 import { useForm, useField } from "vee-validate";
 import { ref } from "vue";
 import { useRouter } from "vue-router";
@@ -42,6 +42,7 @@ export function useLogin() {
     isLoading.value = false;
     if (dataLogin?.isLogged) {
       loggedState.setToTrue();
+      usuario.setCorreo(dataLogin.correo);
 
       loggedState.setToken(token);
       localStorage.setItem("accessToken", dataLogin.accessToken);
