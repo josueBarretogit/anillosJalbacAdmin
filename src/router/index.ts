@@ -3,6 +3,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import viewNombres from "@/views/nombresView.vue";
 import defaultLayout from "@/layouts/default/DefaultLayout.vue";
 import loginView from "@/views/LoginView.vue";
+import UsuarioView from "@/views/usuariosView.vue";
 
 const routes = [
   {
@@ -23,6 +24,12 @@ const routes = [
         meta: {
           requiresAuth: true,
         },
+      },
+      {
+        path: "/usuarios",
+        name: "usuarios",
+
+        component: UsuarioView,
       },
     ],
   },

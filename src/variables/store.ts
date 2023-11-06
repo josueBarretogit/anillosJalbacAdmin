@@ -91,4 +91,9 @@ export const usuario = reactive({
   setCorreo(value: string) {
     this.correo = value;
   },
+
+  isCreated: "",
+  setIsCreated(value: string) {
+    this.isCreated = value;
+  },
 });

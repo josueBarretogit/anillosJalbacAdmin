@@ -5,8 +5,6 @@ import FormCrear from "./../../components/formCrear.vue";
 import { logOut } from "./../../services/anilloApi";
 import { loggedState, tabs } from "./../../variables/store";
 import { drawer } from "./../../variables/store";
-
-const router = useRouter();
 </script>
 
 <template>
@@ -31,12 +29,7 @@ const router = useRouter();
       class="d-flex justify-center align-center h-100"
       v-if="loggedState.isLogged"
     >
-      <v-btn
-        color="primary"
-        @click="drawer.setDrawer(!drawer.drawer)"
-        icon="mdi-menu"
-      >
-      </v-btn>
+      <v-btn @click="drawer.setDrawer(!drawer.drawer)" icon="mdi-menu"> </v-btn>
     </div>
   </v-app-bar>
 </template>

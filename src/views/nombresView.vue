@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import carta from "./../components/cartaAnillo.vue";
-import { tabs } from "@/variables/store";
+import { tabs, usuario } from "@/variables/store";
 import FormCrear from "@/components/formCrear.vue";
 import solitariosView from "./solitariosView.vue";
 import { useDataNombres } from "./../customHooks/useDataNombres";
@@ -9,10 +9,17 @@ import { imageReplacing } from "@/variables/store";
 import { dialogRequestExitoso } from "@/variables/store";
 import { useDisplay } from "vuetify/lib/framework.mjs";
 import Drawer from "@/components/drawer.vue";
+import { drawer } from "@/variables/store";
+import jwtDecode from "jwt-decode";
 const { anillosDataTable, colKey, numPages, page, updatePage } =
   await useDataNombres();
 
+const token = localStorage.getItem("accessToken");
+const userData: { correo: string } = jwtDecode(token as string);
+usuario.setCorreo(userData.correo);
 const { xs } = useDisplay();
+
+drawer.setDrawer(false);
 </script>
 
 <template>

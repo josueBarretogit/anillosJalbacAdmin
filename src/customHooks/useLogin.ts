@@ -5,7 +5,10 @@ import { useForm, useField } from "vee-validate";
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 
+import { drawer } from "@/variables/store";
+
 export function useLogin() {
+  drawer.setDrawer(false);
   const token = localStorage.getItem("accessToken");
 
   const router = useRouter();

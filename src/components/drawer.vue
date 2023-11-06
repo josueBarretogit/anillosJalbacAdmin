@@ -16,6 +16,11 @@ async function cerrarSesion() {
     });
   }
 }
+function goToUsuariosView() {
+  router.push({
+    name: "usuarios",
+  });
+}
 </script>
 <template>
   <v-navigation-drawer v-model="drawer.drawer" location="right">
@@ -33,9 +38,9 @@ async function cerrarSesion() {
         @click="cerrarSesion"
       ></v-list-item>
       <v-list-item
-        prepend-icon="mdi-forum"
-        title="About"
-        value="about"
+        prepend-icon="mdi-account-group"
+        title="Usuarios"
+        @click="goToUsuariosView"
       ></v-list-item>
     </v-list>
   </v-navigation-drawer>
