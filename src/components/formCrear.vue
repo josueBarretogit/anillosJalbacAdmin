@@ -108,7 +108,7 @@ const {
 
   <DialogMensajeRequest
     v-if="dialogMensaje"
-    :mensaje="`${tipo} creado exitosamente`"
+    :mensaje="`${tipo.slice(0, -1)} creado exitosamente`"
     :fallo="dialogRequestExitoso.fallo"
     :mensaje-error="`${dialogRequestExitoso.mensajeError}`"
   />

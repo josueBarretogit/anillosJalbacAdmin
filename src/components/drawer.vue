@@ -20,6 +20,8 @@ function goToUsuariosView() {
   router.push({
     name: "usuarios",
   });
+
+  drawer.setVisitedUsuariosView(true);
 }
 </script>
 <template>

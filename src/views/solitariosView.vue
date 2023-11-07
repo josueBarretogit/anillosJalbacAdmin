@@ -17,7 +17,7 @@ let numPages = ref(1);
 
 loggedState.setToTrue();
 
-const listSolitarios = await getAnillos(tabs.tabs);
+const listSolitarios = await getAnillos("solitarios");
 
 let solitariosCopy = listSolitarios;
 
@@ -62,7 +62,7 @@ watch(
   () => creacionAnillos.isCreatedSolitario,
   async () => {
     isLoading.value = true;
-    solitariosCopy = await getAnillos(tabs.tabs);
+    solitariosCopy = await getAnillos("solitarios");
 
     isLoading.value = false;
     page.value = 1;

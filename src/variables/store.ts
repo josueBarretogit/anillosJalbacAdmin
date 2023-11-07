@@ -79,6 +79,10 @@ export const imageReplacing = reactive({
 });
 
 export const drawer = reactive({
+  visitedUsuariosView: false,
+  setVisitedUsuariosView(value: boolean) {
+    this.visitedUsuariosView = value;
+  },
   drawer: false,
   setDrawer(value: boolean) {
     console.log(this.drawer);

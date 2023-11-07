@@ -26,7 +26,7 @@ export async function useDataNombres() {
 
   loggedState.setToTrue();
 
-  let anillosCopy = await getAnillos(tabs.tabs);
+  let anillosCopy = await getAnillos("nombres");
 
   anillosDataTable.value = anillosCopy?.slice(0, page.value * totalItems.value);
 
@@ -53,7 +53,7 @@ export async function useDataNombres() {
     () => creacionAnillos.isCreated,
     async () => {
       isLoading.value = true;
-      anillosCopy = await getAnillos(tabs.tabs);
+      anillosCopy = await getAnillos("nombres");
       isLoading.value = false;
 
       anillosDataTable.value = sliceArray(

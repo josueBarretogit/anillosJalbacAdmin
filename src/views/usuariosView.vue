@@ -2,7 +2,7 @@
 import { watch } from "vue";
 import { ref } from "vue";
 import { useDisplay } from "vuetify/lib/framework.mjs";
-import { usuario } from "@/variables/store";
+import { drawer, usuario } from "@/variables/store";
 import { getUsuarios } from "@/services/usuariosapi";
 import FormCrear from "@/components/formCrear.vue";
 import CartaUsuario from "@/components/cartaUsuario.vue";
@@ -33,24 +33,6 @@ watch(
 );
 </script>
 <template>
-  <div style="position: fixed; z-index: 2; left: 20px; bottom: 20px">
-    <v-btn
-      color="blue-darken-1"
-      variant="tonal"
-      @click="
-        router.push({
-          name: 'viewNombres',
-        })
-      "
-    >
-      Regresar
-    </v-btn>
-  </div>
-
-  <div style="position: fixed; z-index: 2; right: 20px; bottom: 20px">
-    <FormCrear tipo="usuarios" />
-  </div>
-
   <v-container class="">
     <v-row class="d-flex justify-center">
       <v-col
