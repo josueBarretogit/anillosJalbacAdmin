@@ -5,7 +5,7 @@ import { useDisplay } from "vuetify/lib/framework.mjs";
 import { usuario } from "@/variables/store";
 import { getUsuarios } from "@/services/usuariosapi";
 import FormCrear from "@/components/formCrear.vue";
-import Carta from "@/components/cartaAnillo.vue";
+import CartaUsuario from "@/components/cartaUsuario.vue";
 import router from "@/router";
 
 const { xs } = useDisplay();
@@ -57,9 +57,9 @@ watch(
         v-for="usuario in usuarioDataTable"
         class="d-flex justify-center flex-wrap"
       >
-        <carta
+        <CartaUsuario
           :class="!xs ? 'ml-5 mr-5' : ''"
-          v-bind:anillo="usuario"
+          v-bind:usuario="usuario"
           :key="usuario.id"
           tipo="usuarios"
         />

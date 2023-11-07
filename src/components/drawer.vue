@@ -23,7 +23,7 @@ function goToUsuariosView() {
 }
 </script>
 <template>
-  <v-navigation-drawer v-model="drawer.drawer" location="right">
+  <v-navigation-drawer v-model="drawer.drawer" location="left">
     <v-list-item
       prepend-icon="mdi-account"
       :title="usuario.correo"

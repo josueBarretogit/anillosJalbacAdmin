@@ -49,3 +49,10 @@ export interface CreateError {
     };
   };
 }
+
+export interface Usuario {
+  id: number;
+  correo: string;
+  contrasena: string;
+  rol: id;
+}
