@@ -35,7 +35,7 @@ const AppBarHeight = 64;
       </v-tabs>
     </div>
 
-    <ActionButtonsUsuario v-else />
+    <ActionButtonsUsuario v-else-if="loggedState.isLogged" />
 
     <template v-slot:extension>
       <div class="d-flex justify-center w-100">
@@ -48,5 +48,3 @@ const AppBarHeight = 64;
     </template>
   </v-app-bar>
 </template>
-
-<!--<v-btn size="large" color="blue" icon="mdi-menu" @click="cerrarSesion">-->

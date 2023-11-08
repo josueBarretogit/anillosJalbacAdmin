@@ -38,6 +38,11 @@ export function useFormCrear(tipoJoya: string) {
 
   const nombre = useField("nombre");
   const categoria = useField("categoria");
+
+  const alto = useField("alto");
+  const ancho = useField("ancho");
+  const categoriaDije = useField("categoria");
+
   const formaPiedra = useField("formaPiedra");
   const tamanoPiedra = useField("tamanoPiedra");
   const pesoOro = useField("pesoOro");
@@ -55,6 +60,10 @@ export function useFormCrear(tipoJoya: string) {
     } else if (tipoJoya == "solitarios") {
       valuesForm.append("formaPiedra", values.formaPiedra);
       valuesForm.append("tamanoPiedra", values.tamanoPiedra);
+    } else if (tipoJoya == "dijes") {
+      valuesForm.append("alto", values.alto);
+      valuesForm.append("ancho", values.ancho);
+      valuesForm.append("categoria", values.categoria);
     }
 
     valuesForm.append("pesoOro", values.pesoOro);
@@ -96,6 +105,9 @@ export function useFormCrear(tipoJoya: string) {
   return {
     nombre,
     categoria,
+    ancho,
+    alto,
+    categoriaDije,
     formaPiedra,
     tamanoPiedra,
     pesoOro,

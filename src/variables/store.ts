@@ -30,9 +30,15 @@ export const creacionAnillos = reactive({
     this.isCreated = created;
     console.log(this.isCreated);
   },
+
   isCreatedSolitario: 0,
   setIsCreatedSolitario(created: number) {
     this.isCreatedSolitario = created;
+  },
+
+  isCreatedDije: 0,
+  setIsCreatedDije(created: number) {
+    this.isCreatedDije = created;
   },
 });
 

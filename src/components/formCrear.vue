@@ -12,6 +12,9 @@ const properties = defineProps<{
 const {
   nombre,
   categoria,
+  alto,
+  ancho,
+  categoriaDije,
   formaPiedra,
   tamanoPiedra,
   pesoOro,
@@ -42,6 +45,9 @@ const {
           <v-container>
             <InputsCrearEditar
               :categoria="categoria"
+              :alto="alto"
+              :ancho="ancho"
+              :categoria-dije="categoriaDije"
               :nombre="nombre"
               :forma-piedra="formaPiedra"
               :tamano-piedra="tamanoPiedra"

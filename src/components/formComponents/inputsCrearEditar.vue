@@ -11,11 +11,18 @@ defineProps<{
   tamanoPiedra: FieldContext;
   formaPiedra: FieldContext;
   categoria: FieldContext;
+  categoriaDije: FieldContext;
+  alto: FieldContext;
+  ancho: FieldContext;
   nombre: FieldContext;
 }>();
 </script>
+
 <template>
   <Inputs
+    :categoria-dije="categoriaDije"
+    :alto="alto"
+    :ancho="ancho"
     :talla="talla"
     :tamano-piedra="tamanoPiedra"
     :categoria="categoria"

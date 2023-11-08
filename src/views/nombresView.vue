@@ -11,12 +11,14 @@ import { useDisplay } from "vuetify/lib/framework.mjs";
 import Drawer from "@/components/drawer.vue";
 import { drawer } from "@/variables/store";
 import jwtDecode from "jwt-decode";
+import DijesView from "./dijesView.vue";
 const { anillosDataTable, colKey, numPages, page, updatePage } =
   await useDataNombres();
 
 const token = localStorage.getItem("accessToken");
 const userData: { correo: string } = jwtDecode(token as string);
 usuario.setCorreo(userData.correo);
+
 const { xs } = useDisplay();
 
 drawer.setDrawer(false);
@@ -77,7 +79,7 @@ drawer.setDrawer(false);
     </v-window-item>
 
     <v-window-item value="dijes">
-      <h1>ventana solitarios</h1>
+      <DijesView />
     </v-window-item>
   </v-window>
 
