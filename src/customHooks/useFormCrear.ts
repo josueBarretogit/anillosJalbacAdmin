@@ -8,6 +8,7 @@ import type { Anillo, CreateError } from "@/interfaces/interfaces";
 import { dialogRequestExitoso } from "./../variables/store";
 import {
   validationSchemaCrearNombre,
+  validationSchemaCrearDije,
   validationSchemaCrearSolitario,
 } from "./validationSchema/validationSchemaCrearEditar";
 
@@ -32,7 +33,11 @@ export function useFormCrear(tipoJoya: string) {
     validationSchema:
       tipoJoya == "nombres"
         ? validationSchemaCrearNombre
-        : validationSchemaCrearSolitario,
+        : tipoJoya == "solitarios"
+        ? validationSchemaCrearSolitario
+        : tipoJoya == "dijes"
+        ? validationSchemaCrearDije
+        : null,
   });
   console.log("hola" + tipoJoya);
 
@@ -41,7 +46,7 @@ export function useFormCrear(tipoJoya: string) {
 
   const alto = useField("alto");
   const ancho = useField("ancho");
-  const categoriaDije = useField("categoria");
+  const categoriaDije = useField("categoriaDije");
 
   const formaPiedra = useField("formaPiedra");
   const tamanoPiedra = useField("tamanoPiedra");
@@ -63,7 +68,7 @@ export function useFormCrear(tipoJoya: string) {
     } else if (tipoJoya == "dijes") {
       valuesForm.append("alto", values.alto);
       valuesForm.append("ancho", values.ancho);
-      valuesForm.append("categoria", values.categoria);
+      valuesForm.append("categoria", values.categoriaDije);
     }
 
     valuesForm.append("pesoOro", values.pesoOro);
@@ -72,6 +77,7 @@ export function useFormCrear(tipoJoya: string) {
     valuesForm.append("referencia", values.referencia);
     valuesForm.append("image", values.imagen[0]);
 
+    console.log(values);
     isLoading.value = true;
     const response: Anillo | AxiosError = await createAnillo(
       valuesForm,
@@ -92,6 +98,8 @@ export function useFormCrear(tipoJoya: string) {
           creacionAnillos.isCreatedSolitario + 1,
         );
         console.log("created solitario");
+      } else if (tipoJoya == "dijes") {
+        creacionAnillos.setIsCreatedDije(creacionAnillos.isCreatedDije + 1);
       }
 
       dialogMensaje.value = true;

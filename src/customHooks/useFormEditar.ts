@@ -8,9 +8,12 @@ import {
   validationSchemaEditarNombre,
   validationSchemaEditarSolitario,
 } from "./validationSchema/validationSchemaCrearEditar";
-import { Anillo, CreateError, Solitario } from "@/interfaces/interfaces";
+import { Anillo, CreateError, Dije, Solitario } from "@/interfaces/interfaces";
 
-export function useFormEditar(joya: Anillo & Solitario, tipoJoya: string) {
+export function useFormEditar(
+  joya: Anillo & Solitario & Dije,
+  tipoJoya: string,
+) {
   const { smAndUp } = useDisplay();
 
   const dialog = ref(false);
@@ -36,8 +39,14 @@ export function useFormEditar(joya: Anillo & Solitario, tipoJoya: string) {
 
   const nombre = useField("nombre");
   const categoria = useField("categoria");
+
   const tamanoPiedra = useField("tamanoPiedra");
   const formaPiedra = useField("formaPiedra");
+
+  const alto = useField("alto");
+  const ancho = useField("ancho");
+  const categoriaDije = useField("categoriaDije");
+
   const pesoOro = useField("pesoOro");
   const pesoPlata = useField("pesoPlata");
   const talla = useField("talla");
@@ -48,6 +57,10 @@ export function useFormEditar(joya: Anillo & Solitario, tipoJoya: string) {
 
   formaPiedra.value.value = joya.formaPiedra;
   tamanoPiedra.value.value = joya.tamanoPiedra;
+
+  alto.value.value = joya.alto;
+  ancho.value.value = joya.ancho;
+  categoriaDije.value.value = joya.categoria;
 
   pesoPlata.value.value = joya.pesoPlata;
   categoria.value.value = joya.categoria;

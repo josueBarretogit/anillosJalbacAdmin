@@ -41,6 +41,8 @@ export function useCambiarImagen() {
         creacionAnillos.setIsCreatedSolitario(
           creacionAnillos.isCreatedSolitario + 1,
         );
+      } else if (tabs.tabs == "dijes") {
+        creacionAnillos.setIsCreatedDije(creacionAnillos.isCreatedDije + 1);
       }
     } else {
       console.log("hubo un error");

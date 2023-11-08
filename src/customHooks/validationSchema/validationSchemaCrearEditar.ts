@@ -166,9 +166,55 @@ const validationSchemaCrearSolitario = {
   },
 };
 
+const validationSchemaCrearDije = {
+  alto(value: string) {
+    if (!value) {
+      return "Este campo es obligatorio";
+    }
+    return true;
+  },
+  pesoOro(value: string) {
+    if (!value) {
+      return "Este campo es obligatorio";
+    }
+    return true;
+  },
+  pesoPlata(value: string) {
+    if (!value) {
+      return "Este campo es obligatorio";
+    }
+    return true;
+  },
+  ancho(value: string) {
+    if (!value) {
+      return "Este campo es obligatorio";
+    }
+    return true;
+  },
+  categoriaDije(value: string) {
+    if (!value) {
+      return "Este campo es obligatorio";
+    }
+    return true;
+  },
+  referencia(value: string) {
+    if (!value) {
+      return "Este campo es obligatorio";
+    }
+    return true;
+  },
+  imagen(value: File[]) {
+    if (!value) {
+      return "Este campo es obligatorio";
+    }
+    return true;
+  },
+};
+
 export {
   validationSchemaEditarNombre,
   validationSchemaEditarSolitario,
   validationSchemaCrearNombre,
   validationSchemaCrearSolitario,
+  validationSchemaCrearDije,
 };

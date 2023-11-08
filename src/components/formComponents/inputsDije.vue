@@ -15,9 +15,9 @@ defineProps<{
         color="blue"
         variant="outlined"
         class="ml-4 mr-4"
-        v-model="ancho.value.value"
-        :error-messages="ancho.errorMessage.value"
-        label="Talla"
+        v-model="categoriaDije.value.value as string"
+        :error-messages="categoriaDije.errorMessage.value"
+        label="Categoria"
       ></v-text-field>
     </v-col>
   </v-row>
@@ -27,9 +27,9 @@ defineProps<{
         color="blue"
         variant="outlined"
         class="ml-4 mr-4"
-        v-model="alto.value.value"
-        :error-messages="alto.errorMessage.value"
-        label="nombre"
+        v-model="ancho.value.value"
+        :error-messages="ancho.errorMessage.value"
+        label="Anchura (mm)"
       ></v-text-field>
     </v-col>
     <v-col cols="12" sm="6">
@@ -37,9 +37,9 @@ defineProps<{
         color="blue"
         variant="outlined"
         class="ml-4 mr-4"
-        v-model="categoriaDije.value.value as string"
-        :error-messages="categoriaDije.errorMessage.value"
-        label="Categoria"
+        v-model="alto.value.value"
+        :error-messages="alto.errorMessage.value"
+        label="Altura (mm)"
       ></v-text-field>
     </v-col>
   </v-row>

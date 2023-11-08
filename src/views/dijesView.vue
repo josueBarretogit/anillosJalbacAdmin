@@ -18,6 +18,7 @@ loggedState.setToTrue();
 
 const listdije = await getAnillos("dijes");
 
+console.log(listdije);
 let dijeCopy = listdije;
 
 dijeDataTable.value = dijeCopy?.slice(0, page.value * totalItems.value);
