@@ -110,7 +110,7 @@ watch(
           :class="!xs ? 'ml-5 mr-5' : ''"
           v-bind:anillo="dije"
           :key="dije.id"
-          tipo="dije"
+          tipo="dijes"
         />
       </v-col>
     </v-row>

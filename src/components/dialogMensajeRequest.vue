@@ -16,7 +16,10 @@ function cerrarDialog() {
     creacionAnillos.setIsCreatedSolitario(
       creacionAnillos.isCreatedSolitario + 1,
     );
+  } else if (tabs.tabs == "dijes") {
+    creacionAnillos.setIsCreatedDije(creacionAnillos.isCreatedDije + 1);
   }
+
   dialogRequestExitoso.setIsShow(false);
 }
 </script>

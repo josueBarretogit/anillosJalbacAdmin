@@ -5,6 +5,7 @@ import { useField, useForm } from "vee-validate";
 import { ref } from "vue";
 import { useDisplay } from "vuetify/lib/framework.mjs";
 import {
+  validationSchemaEditarDije,
   validationSchemaEditarNombre,
   validationSchemaEditarSolitario,
 } from "./validationSchema/validationSchemaCrearEditar";
@@ -34,7 +35,11 @@ export function useFormEditar(
     validationSchema:
       tipoJoya == "nombres"
         ? validationSchemaEditarNombre
-        : validationSchemaEditarSolitario,
+        : tipoJoya == "solitarios"
+        ? validationSchemaEditarSolitario
+        : tipoJoya == "dijes"
+        ? validationSchemaEditarDije
+        : null,
   });
 
   const nombre = useField("nombre");
@@ -60,7 +65,7 @@ export function useFormEditar(
 
   alto.value.value = joya.alto;
   ancho.value.value = joya.ancho;
-  categoriaDije.value.value = joya.categoria;
+  categoriaDije.value.value = (joya as Dije).categoria;
 
   pesoPlata.value.value = joya.pesoPlata;
   categoria.value.value = joya.categoria;
@@ -68,7 +73,6 @@ export function useFormEditar(
   referencia.value.value = joya.referencia;
 
   const submit = handleSubmit(async (values) => {
-    console.log(values);
     const valuesForm = new FormData();
 
     if (tipoJoya == "nombres") {
@@ -77,6 +81,10 @@ export function useFormEditar(
     } else if (tipoJoya == "solitarios") {
       valuesForm.append("formaPiedra", values.formaPiedra);
       valuesForm.append("tamanoPiedra", values.tamanoPiedra);
+    } else if (tipoJoya == "dijes") {
+      valuesForm.append("alto", values.alto);
+      valuesForm.append("ancho", values.ancho);
+      valuesForm.append("categoria", values.categoriaDije);
     }
 
     valuesForm.append("pesoOro", values.pesoOro);
@@ -84,7 +92,7 @@ export function useFormEditar(
     valuesForm.append("talla", values.talla);
     valuesForm.append("referencia", values.referencia);
 
-    console.log("editado" + tabs.tabs);
+    console.log(values);
     isLoading.value = true;
     const response = await editarAnillo(valuesForm, joya.id, tabs.tabs);
 
@@ -92,6 +100,7 @@ export function useFormEditar(
 
     if (!(response instanceof AxiosError)) {
       showRazonError.value = false;
+
       if (tipoJoya == "nombres") {
         dialogMensaje.value = true;
         creacionAnillos.setIsCreated(creacionAnillos.isCreated + 1);
@@ -100,7 +109,11 @@ export function useFormEditar(
         creacionAnillos.setIsCreatedSolitario(
           creacionAnillos.isCreatedSolitario + 1,
         );
+      } else if (tipoJoya == "dijes") {
+        creacionAnillos.setIsCreatedDije(creacionAnillos.isCreatedDije + 1);
       }
+
+      dialogMensaje.value = true;
       dialogRequestExitoso.setIsShow(true);
     } else {
       dialogRequestExitoso.setIsShow(false);
@@ -110,6 +123,9 @@ export function useFormEditar(
   });
 
   return {
+    categoriaDije,
+    ancho,
+    alto,
     nombre,
     formaPiedra,
     tamanoPiedra,

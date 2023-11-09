@@ -78,6 +78,7 @@ export function useFormCrear(tipoJoya: string) {
     valuesForm.append("image", values.imagen[0]);
 
     console.log(values);
+
     isLoading.value = true;
     const response: Anillo | AxiosError = await createAnillo(
       valuesForm,

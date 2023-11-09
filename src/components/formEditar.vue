@@ -2,14 +2,18 @@
 import { useFormEditar } from "./../customHooks/useFormEditar";
 import InputsCrearEditar from "./formComponents/inputsCrearEditar.vue";
 import DialogMensajeRequest from "./../components/dialogMensajeRequest.vue";
-import { Anillo, Solitario } from "@/interfaces/interfaces";
+import { Anillo, Dije, Solitario } from "@/interfaces/interfaces";
 import { dialogRequestExitoso } from "@/variables/store";
+
 const props = defineProps<{
   tipo: string;
-  anillo: Anillo & Solitario;
+  anillo: Anillo & Solitario & Dije;
 }>();
 
 const {
+  categoriaDije,
+  ancho,
+  alto,
   nombre,
   formaPiedra,
   tamanoPiedra,
@@ -49,6 +53,9 @@ const {
           <v-container>
             <InputsCrearEditar
               :categoria="categoria"
+              :categoria-dije="categoriaDije"
+              :alto="alto"
+              :ancho="ancho"
               :nombre="nombre"
               :forma-piedra="formaPiedra"
               :tamano-piedra="tamanoPiedra"
@@ -97,6 +104,7 @@ const {
       </v-card-actions>
     </v-card>
   </v-dialog>
+
   <DialogMensajeRequest
     v-if="dialogMensaje"
     :mensaje="`${tipo.slice(0, -1)} editado exitosamente`"

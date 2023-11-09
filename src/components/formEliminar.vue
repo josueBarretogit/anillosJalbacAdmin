@@ -58,6 +58,7 @@ const { dialogEliminar, eliminarAnillo, dialogMensaje } = useFormEliminar();
       </v-card-actions>
     </v-card>
   </v-dialog>
+
   <DialogMensajeRequest
     v-if="dialogMensaje"
     :mensaje="`${tipo.slice(0, -1)} eliminado exitosamente`"
