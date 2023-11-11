@@ -5,6 +5,7 @@ import { logOut } from "@/services/anilloApi";
 import { useRouter } from "vue-router";
 
 const router = useRouter();
+
 async function cerrarSesion() {
   const response = await logOut();
   console.log(response);
@@ -28,7 +29,7 @@ function goToUsuariosView() {
   <v-navigation-drawer v-model="drawer.drawer" location="left">
     <v-list-item
       prepend-icon="mdi-account"
-      :title="usuario.correo"
+      :title="usuario.UsuarioInterface.correo"
     ></v-list-item>
 
     <v-divider></v-divider>

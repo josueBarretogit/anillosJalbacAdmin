@@ -1,3 +1,4 @@
+import { Usuario } from "@/interfaces/interfaces";
 import { reactive, ref } from "vue";
 
 export const loggedState = reactive({
@@ -96,10 +97,23 @@ export const drawer = reactive({
   },
 });
 
-export const usuario = reactive({
+let UsuarioInterface: Usuario = {
   correo: "",
+  contrasena: "",
+  rol: "Administrador",
+  id: 1,
+};
+
+export const usuario = reactive({
+  UsuarioInterface,
+
+  setUsuario(usuario: Usuario) {
+    console.log(usuario);
+    this.UsuarioInterface = usuario;
+  },
+
   setCorreo(value: string) {
-    this.correo = value;
+    this.UsuarioInterface.correo = value;
   },
 
   isCreated: "",

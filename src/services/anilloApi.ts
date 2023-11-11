@@ -1,4 +1,4 @@
-import type { Anillo, Login } from "@/interfaces/interfaces";
+import type { Anillo, LoginResponse } from "@/interfaces/interfaces";
 import axios, { AxiosError } from "axios";
 
 const token = localStorage.getItem("accessToken");
@@ -76,7 +76,7 @@ async function deleteAnillo(
 async function logIn(
   correo: string,
   contrasena: string,
-): Promise<Login | undefined> {
+): Promise<LoginResponse | undefined> {
   try {
     const response = await axiosInstance.post(`usuarios/login`, {
       correo,
@@ -87,7 +87,7 @@ async function logIn(
   } catch (error: any) {
     console.log(error);
     const err = error as AxiosError;
-    return err.response?.data as Login;
+    return err.response?.data as LoginResponse;
   }
 }
 

@@ -6,7 +6,7 @@ import { drawer, usuario } from "@/variables/store";
 import { getUsuarios } from "@/services/usuariosapi";
 import FormCrear from "@/components/formCrear.vue";
 import CartaUsuario from "@/components/cartaUsuario.vue";
-import router from "@/router";
+import Drawer from "@/components/drawer.vue";
 
 const { xs } = useDisplay();
 const isLoading = ref(true);
@@ -34,6 +34,12 @@ watch(
 </script>
 <template>
   <v-container class="">
+    <Drawer />
+
+    <div style="position: fixed; z-index: 2; right: 20px; bottom: 20px">
+      <FormCrear tipo="tabs.tabs" />
+    </div>
+
     <v-row class="d-flex justify-center">
       <v-col
         v-for="usuario in usuarioDataTable"

@@ -29,13 +29,6 @@ export interface Solitario {
   pesoOro: string;
   pesoPlata: string;
 }
-export interface Login {
-  isLogged: boolean;
-  idUsuario: number | string;
-  correo: string;
-  accessToken: string;
-  response: string;
-}
 
 export interface TokenDecoded {
   correo: string;
@@ -54,5 +47,12 @@ export interface Usuario {
   id: number;
   correo: string;
   contrasena: string;
-  rol: number;
+  rol: "Administrador" | "Empleado";
+}
+
+export interface LoginResponse {
+  isLogged: boolean;
+  usuario: Usuario;
+  accessToken: string;
+  response: string;
 }

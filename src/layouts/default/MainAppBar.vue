@@ -4,6 +4,7 @@ import { loggedState, tabs } from "./../../variables/store";
 import { drawer } from "./../../variables/store";
 import ActionButtonsUsuario from "@/components/appBarComponents/actionButtonsUsuario.vue";
 const { xs, sm } = useDisplay();
+
 const AppBarHeight = 64;
 </script>
 

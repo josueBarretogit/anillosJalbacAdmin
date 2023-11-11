@@ -102,7 +102,7 @@ watch(
   <v-container class="">
     <v-row class="d-flex justify-center">
       <v-sheet v-if="solitariosDataTable.length == 0">
-        <h1>No hay datos{{ tabs.tabs }}</h1>
+        <v-card-title>No hay datos</v-card-title>
       </v-sheet>
       <v-col
         v-else

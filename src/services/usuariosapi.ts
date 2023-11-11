@@ -1,4 +1,4 @@
-import type { Anillo, Login } from "@/interfaces/interfaces";
+import type { Usuario, LoginResponse } from "@/interfaces/interfaces";
 import axios, { AxiosError } from "axios";
 
 const token = localStorage.getItem("accessToken");
@@ -13,7 +13,7 @@ const axiosInstance = axios.create({
   withCredentials: true,
 });
 
-async function getUsuarios(): Promise<Anillo[] | undefined> {
+async function getUsuarios(): Promise<Usuario[] | undefined> {
   try {
     const response = await axiosInstance.get("/");
     return response.data;
@@ -22,4 +22,15 @@ async function getUsuarios(): Promise<Anillo[] | undefined> {
   }
 }
 
-export { getUsuarios };
+async function createUsuario(data: FormData): Promise<Usuario | AxiosError> {
+  try {
+    const response = await axiosInstance.post(`/create`, data);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    const err = error as AxiosError;
+    return err;
+  }
+}
+
+export { getUsuarios, createUsuario };

@@ -1,10 +1,9 @@
-import { Login } from "@/interfaces/interfaces";
+import { LoginResponse } from "@/interfaces/interfaces";
 import { logIn } from "@/services/anilloApi";
 import { loggedState, usuario } from "@/variables/store";
 import { useForm, useField } from "vee-validate";
 import { ref } from "vue";
 import { useRouter } from "vue-router";
-
 import { drawer } from "@/variables/store";
 
 export function useLogin() {
@@ -14,6 +13,7 @@ export function useLogin() {
   const router = useRouter();
 
   loggedState.setToFalse();
+
   const { handleSubmit } = useForm({
     validationSchema: {
       correo(value: string) {
@@ -37,21 +37,22 @@ export function useLogin() {
   const submit = handleSubmit(async (values) => {
     isLoading.value = true;
     showAlert.value = false;
-    const dataLogin: Login | undefined = await logIn(
+    const dataLogin: LoginResponse | undefined = await logIn(
       values.correo,
       values.contrasena,
     );
 
+    console.log(dataLogin);
     isLoading.value = false;
     if (dataLogin?.isLogged) {
       loggedState.setToTrue();
-      usuario.setCorreo(dataLogin.correo);
+      usuario.setUsuario(dataLogin.usuario);
 
       loggedState.setToken(token);
       localStorage.setItem("accessToken", dataLogin.accessToken);
+
       router.push({
         name: "viewNombres",
-        params: { correo: dataLogin.correo, id: dataLogin.idUsuario },
       });
     } else if (!dataLogin?.isLogged) {
       showAlert.value = true;

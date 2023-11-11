@@ -24,11 +24,13 @@ const { xs } = useDisplay();
       <v-col sm="4" md="6">
         <v-card-title class="titulo">Correo</v-card-title>
         <v-card-title class="titulo">Contrasena</v-card-title>
+        <v-card-title class="titulo">Rol</v-card-title>
       </v-col>
 
       <v-col sm="4" md="6">
         <v-card-title class="subtitlo">{{ usuario?.correo }}</v-card-title>
         <v-card-title class="subtitlo">{{ usuario?.contrasena }}</v-card-title>
+        <v-card-title class="subtitlo">{{ usuario?.rol }}</v-card-title>
       </v-col>
     </v-row>
 
