@@ -101,6 +101,7 @@ let UsuarioInterface: Usuario = {
   correo: "",
   contrasena: "",
   rol: "Administrador",
+  estado: false,
   id: 1,
 };
 
@@ -116,8 +117,8 @@ export const usuario = reactive({
     this.UsuarioInterface.correo = value;
   },
 
-  isCreated: "",
-  setIsCreated(value: string) {
-    this.isCreated = value;
+  isRegistered: 0,
+  setIsRegistered(value: number) {
+    this.isRegistered = value;
   },
 });

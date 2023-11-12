@@ -41,6 +41,7 @@ function goToUsuariosView() {
         @click="cerrarSesion"
       ></v-list-item>
       <v-list-item
+        v-if="usuario.UsuarioInterface.estado"
         prepend-icon="mdi-account-group"
         title="Usuarios"
         @click="goToUsuariosView"

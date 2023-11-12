@@ -1,36 +1,21 @@
 <script lang="ts" setup>
-import { useFormCrear } from "./../customHooks/useFormCrear";
-import InputsCrearEditar from "./formComponents/inputsCrearEditar.vue";
-import DialogMensajeRequest from "./../components/dialogMensajeRequest.vue";
+import DialogMensajeRequest from "../dialogMensajeRequest.vue";
 import { ref } from "vue";
-import { dialogRequestExitoso } from "./../variables/store";
-
-const properties = defineProps<{
-  tipo: string;
-}>();
-
+import { useFormCrearUsuario } from "@/customHooks/usuariosHooks/useFormcrearUsuario";
+import { dialogRequestExitoso } from "@/variables/store";
 const {
-  nombre,
-  categoria,
-  alto,
-  ancho,
-  categoriaDije,
-  formaPiedra,
-  tamanoPiedra,
-  pesoOro,
-  pesoPlata,
-  talla,
-  referencia,
-  imagen,
-  submit,
-  dialog,
-  dialogMensaje,
-  smAndUp,
   cerrarFormularioCancelar,
+  correo,
+  contrasena,
+  rol,
   isLoading,
   razonError,
   showRazonError,
-} = useFormCrear(properties.tipo);
+  submit,
+  smAndUp,
+  dialog,
+  dialogMensaje,
+} = useFormCrearUsuario();
 </script>
 
 <template>
@@ -43,37 +28,45 @@ const {
       <v-card-text>
         <form @submit.prevent="submit">
           <v-container>
-            <InputsCrearEditar
-              :categoria="categoria"
-              :alto="alto"
-              :ancho="ancho"
-              :categoria-dije="categoriaDije"
-              :nombre="nombre"
-              :forma-piedra="formaPiedra"
-              :tamano-piedra="tamanoPiedra"
-              :referencia="referencia"
-              :talla="talla"
-              :peso-oro="pesoOro"
-              :peso-plata="pesoPlata"
-            />
             <v-row no-gutters justify="center" class="mt-3 mb-3">
               <v-col>
-                <v-file-input
-                  accept="image/*"
-                  class="ml-4 mr-4"
-                  clearable
-                  show-size
-                  label="Imagen"
+                <v-text-field
                   color="blue"
                   variant="outlined"
-                  v-model="imagen.value.value"
-                  :error-messages="imagen.errorMessage.value"
-                ></v-file-input>
+                  class="ml-4 mr-4"
+                  v-model="correo.value.value"
+                  :error-messages="correo.errorMessage.value"
+                  label="correo"
+                ></v-text-field>
+              </v-col>
+            </v-row>
+            <v-row no-gutters justify="center" class="mt-3 mb-3">
+              <v-col>
+                <v-text-field
+                  color="blue"
+                  variant="outlined"
+                  class="ml-4 mr-4"
+                  v-model="contrasena.value.value"
+                  :error-messages="contrasena.errorMessage.value"
+                  label="contraseña"
+                ></v-text-field>
+              </v-col>
+            </v-row>
+            <v-row no-gutters justify="center" class="mt-3 mb-3">
+              <v-col>
+                <v-text-field
+                  color="blue"
+                  variant="outlined"
+                  class="ml-4 mr-4"
+                  v-model="contrasena.value.value"
+                  :error-messages="contrasena.errorMessage.value"
+                  label="contraseña"
+                ></v-text-field>
               </v-col>
             </v-row>
             <div class="d-flex justify-center">
               <v-btn class="me-4" type="submit" color="blue">
-                Crear anillo
+                Registrar usuario
               </v-btn>
             </div>
           </v-container>
@@ -114,7 +107,7 @@ const {
 
   <DialogMensajeRequest
     v-if="dialogMensaje"
-    :mensaje="`${tipo.slice(0, -1)} creado exitosamente`"
+    :mensaje="`Usuario creado exitosamente`"
     :fallo="dialogRequestExitoso.fallo"
     :mensaje-error="`${dialogRequestExitoso.mensajeError}`"
   />

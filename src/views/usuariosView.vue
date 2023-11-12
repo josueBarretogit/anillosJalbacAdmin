@@ -22,7 +22,7 @@ const forceRender = () => {
 };
 
 watch(
-  () => usuario.isCreated,
+  () => usuario.isRegistered,
   async () => {
     isLoading.value = true;
     usuarioDataTable.value = await getUsuarios();
@@ -49,7 +49,6 @@ watch(
           :class="!xs ? 'ml-5 mr-5' : ''"
           v-bind:usuario="usuario"
           :key="usuario.id"
-          tipo="usuarios"
         />
       </v-col>
     </v-row>

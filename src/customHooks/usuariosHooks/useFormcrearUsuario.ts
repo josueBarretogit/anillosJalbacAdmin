@@ -2,9 +2,11 @@ import { AxiosError } from "axios";
 import { useField, useForm } from "vee-validate";
 import { ref } from "vue";
 import { useDisplay } from "vuetify/lib/framework.mjs";
-import type { Anillo, CreateError } from "@/interfaces/interfaces";
+import type { CreateError, Usuario } from "@/interfaces/interfaces";
+import { dialogRequestExitoso, usuario } from "@/variables/store";
+import { registrarUsuario } from "@/services/usuariosapi";
 
-export function useFormCrear() {
+export function useFormCrearUsuario() {
   const { smAndUp } = useDisplay();
 
   const dialog = ref(false);
@@ -47,39 +49,27 @@ export function useFormCrear() {
   const correo = useField("correo");
   const contrasena = useField("contrasena");
   const rol = useField("rol");
+  const estado = useField("estado");
 
-  conscategoriat submit = handleSubmit(async (values) => {
+  const submit = handleSubmit(async (values) => {
     const valuesForm = new FormData();
 
     valuesForm.append("correo", values.correo);
     valuesForm.append("contrasena", values.contrasena);
     valuesForm.append("rol", values.rol);
+    valuesForm.append("estado", values.estado);
 
     console.log(values);
 
     isLoading.value = true;
-    const response: Anillo | AxiosError = await createAnillo(
-      valuesForm,
-      tipoJoya,
-    );
+    const response: Usuario | AxiosError = await registrarUsuario(valuesForm);
     isLoading.value = false;
 
     if (!(response instanceof AxiosError)) {
       showRazonError.value = false;
       dialogRequestExitoso.setFallo(false);
       dialogRequestExitoso.setIsShow(true);
-
-      if (tipoJoya == "nombres") {
-        creacionAnillos.setIsCreated(creacionAnillos.isCreated + 1);
-        console.log("created nombre");
-      } else if (tipoJoya == "solitarios") {
-        creacionAnillos.setIsCreatedSolitario(
-          creacionAnillos.isCreatedSolitario + 1,
-        );
-        console.log("created solitario");
-      } else if (tipoJoya == "dijes") {
-        creacionAnillos.setIsCreatedDije(creacionAnillos.isCreatedDije + 1);
-      }
+      usuario.setIsRegistered(usuario.isRegistered + 1);
 
       dialogMensaje.value = true;
       handleReset();
@@ -89,7 +79,19 @@ export function useFormCrear() {
       showRazonError.value = true;
     }
   });
-  return {
 
+  return {
+    correo,
+    contrasena,
+    rol,
+    dialog,
+    estado,
+    submit,
+    cerrarFormularioCancelar,
+    razonError,
+    showRazonError,
+    isLoading,
+    smAndUp,
+    dialogMensaje,
   };
 }

@@ -6,7 +6,7 @@ const token = localStorage.getItem("accessToken");
 const axiosInstance = axios.create({
   baseURL: "http://localhost:4000/api/usuarios",
   headers: {
-    "Content-Type": "application/json",
+    "Content-Type": "multipart/form-data",
     "Access-Control-Allow-Origin": "*",
     Authorization: `Bearer ${token}`,
   },
@@ -22,9 +22,9 @@ async function getUsuarios(): Promise<Usuario[] | undefined> {
   }
 }
 
-async function createUsuario(data: FormData): Promise<Usuario | AxiosError> {
+async function registrarUsuario(data: FormData): Promise<Usuario | AxiosError> {
   try {
-    const response = await axiosInstance.post(`/create`, data);
+    const response = await axios.post(`/register`, data);
     return response.data;
   } catch (error) {
     console.log(error);
@@ -33,4 +33,4 @@ async function createUsuario(data: FormData): Promise<Usuario | AxiosError> {
   }
 }
 
-export { getUsuarios, createUsuario };
+export { getUsuarios, registrarUsuario };

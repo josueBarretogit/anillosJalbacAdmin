@@ -47,6 +47,7 @@ export interface Usuario {
   id: number;
   correo: string;
   contrasena: string;
+  estado: boolean;
   rol: "Administrador" | "Empleado";
 }
 
