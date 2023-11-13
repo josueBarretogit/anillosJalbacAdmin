@@ -33,4 +33,22 @@ async function registrarUsuario(data: FormData): Promise<Usuario | AxiosError> {
   }
 }
 
-export { getUsuarios, registrarUsuario };
+async function actualizarUsuario(
+  data: FormData,
+  id: number,
+): Promise<Usuario | AxiosError> {
+  try {
+    const response = await axiosInstance.put(`/editar`, data, {
+      params: {
+        id: id,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    const err = error as AxiosError;
+    return err;
+  }
+}
+
+export { getUsuarios, registrarUsuario, actualizarUsuario };

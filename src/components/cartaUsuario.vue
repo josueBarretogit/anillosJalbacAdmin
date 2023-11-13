@@ -1,12 +1,7 @@
 <script setup lang="ts">
 import type { Usuario } from "@/interfaces/interfaces";
-import FormEliminar from "./formEliminar.vue";
-import FormEditar from "./formEditar.vue";
-import { ref, watch } from "vue";
-import { dialogRequestExitoso, imageReplacing, tabs } from "@/variables/store";
-import { useDisplay } from "vuetify/lib/framework.mjs";
-import FormCrearUsuario from "./usuariosComponents/formCrearUsuario.vue";
 
+import FormEditarUsuario from "./usuariosComponents/formEditarUsuario.vue";
 defineProps<{
   usuario: Usuario;
 }>();
@@ -35,6 +30,7 @@ defineProps<{
     </v-row>
 
     <v-card-actions class="d-flex flex-wrap">
+      <FormEditarUsuario :usuario-to-update="usuario" />
       <v-btn color="red" variant="elevated">Desactivar </v-btn>
     </v-card-actions>
   </v-card>

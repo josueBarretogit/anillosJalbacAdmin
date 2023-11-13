@@ -2,7 +2,7 @@
 import { watch } from "vue";
 import { ref } from "vue";
 import { useDisplay } from "vuetify/lib/framework.mjs";
-import { drawer, usuario } from "@/variables/store";
+import { drawer, usuarioStore } from "@/variables/store";
 import { getUsuarios } from "@/services/usuariosapi";
 import FormCrearUsuario from "@/components/usuariosComponents/formCrearUsuario.vue";
 import CartaUsuario from "@/components/cartaUsuario.vue";
@@ -23,7 +23,7 @@ const forceRender = () => {
 };
 
 watch(
-  () => usuario.isRegistered,
+  () => usuarioStore.isRegistered,
   async () => {
     isLoading.value = true;
     usuarioDataTable.value = await getUsuarios();
@@ -48,6 +48,7 @@ watch(
         class="d-flex justify-center flex-wrap"
       >
         <CartaUsuario
+          v-if="usuarioStore.UsuarioInterface.correo != usuario.correo"
           :class="!xs ? 'ml-5 mr-5' : ''"
           v-bind:usuario="usuario"
           :key="usuario.id"

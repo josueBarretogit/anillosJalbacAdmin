@@ -1,3 +1,0 @@
-const validationSchema = {};
-
-export { validationSchema };

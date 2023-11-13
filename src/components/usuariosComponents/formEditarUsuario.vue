@@ -4,6 +4,13 @@ import { ref } from "vue";
 import { useFormCrearUsuario } from "@/customHooks/usuariosHooks/useFormcrearUsuario";
 import { dialogRequestExitoso } from "@/variables/store";
 import InputsCrearEditarUsuario from "./inputsCrearEditarUsuario.vue";
+import { useFormEditarUsuario } from "@/customHooks/usuariosHooks/useFormEditarUsuario";
+import { Usuario } from "@/interfaces/interfaces";
+
+const props = defineProps<{
+  usuarioToUpdate: Usuario;
+}>();
+
 const {
   cerrarFormularioCancelar,
   correo,
@@ -17,13 +24,21 @@ const {
   smAndUp,
   dialog,
   dialogMensaje,
-} = useFormCrearUsuario();
+} = useFormEditarUsuario(props.usuarioToUpdate);
 </script>
 
 <template>
   <v-dialog v-model="dialog" persistent width="auto" scrim="#000000">
     <template v-slot:activator="{ props }">
-      <v-btn color="blue" v-bind="props" icon="mdi-plus" rounded="xl"> </v-btn>
+      <v-btn
+        prepend-icon="mdi-pencil"
+        color="blue"
+        v-bind="props"
+        rounded="xl"
+        size="large"
+      >
+        Editar usuario
+      </v-btn>
     </template>
 
     <v-card :width="smAndUp ? 650 : 320">

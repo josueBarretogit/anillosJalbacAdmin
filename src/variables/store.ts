@@ -105,7 +105,7 @@ let UsuarioInterface: Usuario = {
   id: 1,
 };
 
-export const usuario = reactive({
+export const usuarioStore = reactive({
   UsuarioInterface,
 
   setUsuario(usuario: Usuario) {

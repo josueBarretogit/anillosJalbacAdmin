@@ -3,11 +3,11 @@ import { useField, useForm } from "vee-validate";
 import { ref } from "vue";
 import { useDisplay } from "vuetify/lib/framework.mjs";
 import type { CreateError, Usuario } from "@/interfaces/interfaces";
-import { dialogRequestExitoso, usuarioStore } from "@/variables/store";
-import { registrarUsuario } from "@/services/usuariosapi";
+import { dialogRequestExitoso, usuario } from "@/variables/store";
+import { actualizarUsuario } from "@/services/usuariosapi";
 import { validationSchema } from "../validationSchema/validationSchemaUsuario";
 
-export function useFormCrearUsuario() {
+export function useFormEditarUsuario(usuarioToUpdate: Usuario) {
   const { smAndUp } = useDisplay();
 
   const dialog = ref(false);
@@ -33,6 +33,11 @@ export function useFormCrearUsuario() {
   const rol = useField("rol");
   const estado = useField("estado");
 
+  correo.value.value = usuarioToUpdate.correo;
+  contrasena.value.value = usuarioToUpdate.contrasena;
+  rol.value.value = usuarioToUpdate.rol;
+  estado.value.value = usuarioToUpdate.estado;
+
   const roles = ref(["Administrador", "Empleado"]);
 
   const submit = handleSubmit(async (values) => {
@@ -45,15 +50,17 @@ export function useFormCrearUsuario() {
     console.log(values);
 
     isLoading.value = true;
-    const response: Usuario | AxiosError = await registrarUsuario(valuesForm);
+    const response: Usuario | AxiosError = await actualizarUsuario(
+      valuesForm,
+      usuarioToUpdate.id,
+    );
     isLoading.value = false;
 
     if (!(response instanceof AxiosError)) {
       showRazonError.value = false;
       dialogRequestExitoso.setFallo(false);
       dialogRequestExitoso.setIsShow(true);
-      usuarioStore.setIsRegistered(usuarioStore.isRegistered + 1);
-
+      usuario.setIsRegistered(usuario.isRegistered + 1);
       dialogMensaje.value = true;
       handleReset();
     } else {
