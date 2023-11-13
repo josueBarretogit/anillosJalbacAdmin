@@ -35,7 +35,6 @@ defineProps<{
     </v-row>
 
     <v-card-actions class="d-flex flex-wrap">
-      <FormCrearUsuario />
       <v-btn color="red" variant="elevated">Desactivar </v-btn>
     </v-card-actions>
   </v-card>

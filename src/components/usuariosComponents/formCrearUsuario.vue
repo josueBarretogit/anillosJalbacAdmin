@@ -8,6 +8,7 @@ const {
   correo,
   contrasena,
   rol,
+  roles,
   isLoading,
   razonError,
   showRazonError,
@@ -40,6 +41,7 @@ const {
                 ></v-text-field>
               </v-col>
             </v-row>
+
             <v-row no-gutters justify="center" class="mt-3 mb-3">
               <v-col>
                 <v-text-field
@@ -54,14 +56,15 @@ const {
             </v-row>
             <v-row no-gutters justify="center" class="mt-3 mb-3">
               <v-col>
-                <v-text-field
+                <v-select
                   color="blue"
                   variant="outlined"
                   class="ml-4 mr-4"
-                  v-model="contrasena.value.value"
-                  :error-messages="contrasena.errorMessage.value"
-                  label="contraseña"
-                ></v-text-field>
+                  v-model="rol.value.value as string"
+                  :error-messages="rol.errorMessage.value"
+                  :items="roles"
+                  label="Rol"
+                ></v-select>
               </v-col>
             </v-row>
             <div class="d-flex justify-center">

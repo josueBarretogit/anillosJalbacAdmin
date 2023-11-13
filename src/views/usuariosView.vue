@@ -4,7 +4,7 @@ import { ref } from "vue";
 import { useDisplay } from "vuetify/lib/framework.mjs";
 import { drawer, usuario } from "@/variables/store";
 import { getUsuarios } from "@/services/usuariosapi";
-import FormCrear from "@/components/formCrear.vue";
+import FormCrearUsuario from "@/components/usuariosComponents/formCrearUsuario.vue";
 import CartaUsuario from "@/components/cartaUsuario.vue";
 import Drawer from "@/components/drawer.vue";
 
@@ -15,6 +15,7 @@ const colKey = ref(0);
 
 usuarioDataTable.value = await getUsuarios();
 
+console.log(usuarioDataTable.value);
 isLoading.value = false;
 
 const forceRender = () => {
@@ -26,6 +27,7 @@ watch(
   async () => {
     isLoading.value = true;
     usuarioDataTable.value = await getUsuarios();
+
     isLoading.value = false;
 
     forceRender();
@@ -37,7 +39,7 @@ watch(
     <Drawer />
 
     <div style="position: fixed; z-index: 2; right: 20px; bottom: 20px">
-      <FormCrear tipo="tabs.tabs" />
+      <FormCrearUsuario />
     </div>
 
     <v-row class="d-flex justify-center">

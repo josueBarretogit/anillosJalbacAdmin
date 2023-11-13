@@ -51,13 +51,14 @@ export function useFormCrearUsuario() {
   const rol = useField("rol");
   const estado = useField("estado");
 
+  const roles = ref(["Administrador", "Empleado"]);
+
   const submit = handleSubmit(async (values) => {
     const valuesForm = new FormData();
 
     valuesForm.append("correo", values.correo);
     valuesForm.append("contrasena", values.contrasena);
     valuesForm.append("rol", values.rol);
-    valuesForm.append("estado", values.estado);
 
     console.log(values);
 
@@ -81,6 +82,7 @@ export function useFormCrearUsuario() {
   });
 
   return {
+    roles,
     correo,
     contrasena,
     rol,

@@ -24,7 +24,7 @@ async function getUsuarios(): Promise<Usuario[] | undefined> {
 
 async function registrarUsuario(data: FormData): Promise<Usuario | AxiosError> {
   try {
-    const response = await axios.post(`/register`, data);
+    const response = await axiosInstance.post(`/register`, data);
     return response.data;
   } catch (error) {
     console.log(error);

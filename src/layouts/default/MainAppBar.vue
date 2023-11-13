@@ -39,7 +39,10 @@ const AppBarHeight = 64;
     <ActionButtonsUsuario v-else-if="loggedState.isLogged" />
 
     <template v-slot:extension>
-      <div class="d-flex justify-center w-100">
+      <div
+        class="d-flex justify-center w-100"
+        v-if="loggedState.isLogged && !drawer.visitedUsuariosView"
+      >
         <v-tabs v-model="tabs.tabs" color="blue" show-arrows center-active>
           <v-tab value="nombres">Nombres</v-tab>
           <v-tab value="solitarios">solitarios</v-tab>

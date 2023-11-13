@@ -8,7 +8,7 @@ const router = useRouter();
 
 async function cerrarSesion() {
   const response = await logOut();
-  console.log(response);
+  drawer.setVisitedUsuariosView(false);
   if (response) {
     localStorage.removeItem("accessToken");
     loggedState.setToFalse();
@@ -26,7 +26,7 @@ function goToUsuariosView() {
 }
 </script>
 <template>
-  <v-navigation-drawer v-model="drawer.drawer" location="left">
+  <v-navigation-drawer v-model="drawer.drawer" location="left" temporary>
     <v-list-item
       prepend-icon="mdi-account"
       :title="usuario.UsuarioInterface.correo"
@@ -41,7 +41,7 @@ function goToUsuariosView() {
         @click="cerrarSesion"
       ></v-list-item>
       <v-list-item
-        v-if="usuario.UsuarioInterface.estado"
+        v-if="usuario.UsuarioInterface.rol == 'Administrador'"
         prepend-icon="mdi-account-group"
         title="Usuarios"
         @click="goToUsuariosView"
