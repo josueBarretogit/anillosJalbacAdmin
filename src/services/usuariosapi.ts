@@ -1,4 +1,5 @@
 import type { Usuario, LoginResponse } from "@/interfaces/interfaces";
+import { usuarioStore } from "@/variables/store";
 import axios, { AxiosError } from "axios";
 
 const token = localStorage.getItem("accessToken");
@@ -16,7 +17,12 @@ const axiosInstance = axios.create({
 async function getUsuarios(): Promise<Usuario[] | undefined> {
   try {
     const response = await axiosInstance.get("/");
-    return response.data;
+    const filteredUsuarios: Usuario[] = response.data.filter(
+      (usuario: Usuario) =>
+        usuario.correo != usuarioStore.UsuarioInterface.correo &&
+        usuario.estado,
+    );
+    return filteredUsuarios;
   } catch (error) {
     console.log(error);
   }
@@ -51,4 +57,18 @@ async function actualizarUsuario(
   }
 }
 
-export { getUsuarios, registrarUsuario, actualizarUsuario };
+async function desactivarUsuario(id: number): Promise<Usuario | AxiosError> {
+  try {
+    const response = await axiosInstance.delete(`/desactivar`, {
+      params: {
+        id: id,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    const err = error as AxiosError;
+    return err;
+  }
+}
+export { getUsuarios, registrarUsuario, actualizarUsuario, desactivarUsuario };

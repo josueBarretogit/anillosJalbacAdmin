@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { drawer, loggedState, usuario } from "@/variables/store";
+import { drawer, loggedState, usuarioStore } from "@/variables/store";
 
 import { logOut } from "@/services/anilloApi";
 import { useRouter } from "vue-router";
@@ -29,7 +29,7 @@ function goToUsuariosView() {
   <v-navigation-drawer v-model="drawer.drawer" location="left" temporary>
     <v-list-item
       prepend-icon="mdi-account"
-      :title="usuario.UsuarioInterface.correo"
+      :title="usuarioStore.UsuarioInterface.correo"
     ></v-list-item>
 
     <v-divider></v-divider>
@@ -41,7 +41,7 @@ function goToUsuariosView() {
         @click="cerrarSesion"
       ></v-list-item>
       <v-list-item
-        v-if="usuario.UsuarioInterface.rol == 'Administrador'"
+        v-if="usuarioStore.UsuarioInterface.rol == 'Administrador'"
         prepend-icon="mdi-account-group"
         title="Usuarios"
         @click="goToUsuariosView"

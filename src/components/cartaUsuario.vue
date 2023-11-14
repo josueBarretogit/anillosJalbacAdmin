@@ -1,16 +1,19 @@
 <script setup lang="ts">
 import type { Usuario } from "@/interfaces/interfaces";
-
+import FormDesactivarUsuario from "./usuariosComponents/formDesactivarUsuario.vue";
 import FormEditarUsuario from "./usuariosComponents/formEditarUsuario.vue";
-defineProps<{
+const props = defineProps<{
   usuario: Usuario;
 }>();
+
+const usuarioIcon =
+  props.usuario.rol == "Administrador" ? "account-supervisor" : "account";
 </script>
 
 <template>
   <v-card :width="450" color="grey-darken-4">
     <v-avatar color="info">
-      <v-icon icon="mdi-account-circle"></v-icon>
+      <v-icon :icon="`mdi-${usuarioIcon}`"></v-icon>
     </v-avatar>
 
     <v-row no-gutters>
@@ -31,6 +34,7 @@ defineProps<{
 
     <v-card-actions class="d-flex flex-wrap">
       <FormEditarUsuario :usuario-to-update="usuario" />
+      <FormDesactivarUsuario :id="usuario.id" />
       <v-btn color="red" variant="elevated">Desactivar </v-btn>
     </v-card-actions>
   </v-card>

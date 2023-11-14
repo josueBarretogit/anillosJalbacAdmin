@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { Usuario } from "@/interfaces/interfaces";
 import { watch } from "vue";
 import { ref } from "vue";
 import { useDisplay } from "vuetify/lib/framework.mjs";
@@ -48,7 +49,6 @@ watch(
         class="d-flex justify-center flex-wrap"
       >
         <CartaUsuario
-          v-if="usuarioStore.UsuarioInterface.correo != usuario.correo"
           :class="!xs ? 'ml-5 mr-5' : ''"
           v-bind:usuario="usuario"
           :key="usuario.id"

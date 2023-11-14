@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import carta from "./../components/cartaAnillo.vue";
-import { tabs, usuario } from "@/variables/store";
+import { tabs, usuarioStore } from "@/variables/store";
 import FormCrear from "@/components/formCrear.vue";
 import solitariosView from "./solitariosView.vue";
 import { useDataNombres } from "./../customHooks/useDataNombres";
@@ -16,8 +16,10 @@ const { anillosDataTable, colKey, numPages, page, updatePage } =
   await useDataNombres();
 
 const token = localStorage.getItem("accessToken");
-const userData: { correo: string } = jwtDecode(token as string);
-usuario.setCorreo(userData.correo);
+const userData: { correo: string; rol: string; id: number } = jwtDecode(
+  token as string,
+);
+usuarioStore.setCorreo(userData.correo);
 
 const { xs } = useDisplay();
 

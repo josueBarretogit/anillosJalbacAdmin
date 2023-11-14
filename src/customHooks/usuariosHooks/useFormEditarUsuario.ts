@@ -3,7 +3,7 @@ import { useField, useForm } from "vee-validate";
 import { ref } from "vue";
 import { useDisplay } from "vuetify/lib/framework.mjs";
 import type { CreateError, Usuario } from "@/interfaces/interfaces";
-import { dialogRequestExitoso, usuario } from "@/variables/store";
+import { dialogRequestExitoso, usuarioStore } from "@/variables/store";
 import { actualizarUsuario } from "@/services/usuariosapi";
 import { validationSchema } from "../validationSchema/validationSchemaUsuario";
 
@@ -60,9 +60,8 @@ export function useFormEditarUsuario(usuarioToUpdate: Usuario) {
       showRazonError.value = false;
       dialogRequestExitoso.setFallo(false);
       dialogRequestExitoso.setIsShow(true);
-      usuario.setIsRegistered(usuario.isRegistered + 1);
+      usuarioStore.setIsRegistered(usuarioStore.isRegistered + 1);
       dialogMensaje.value = true;
-      handleReset();
     } else {
       dialogRequestExitoso.setIsShow(false);
       razonError.value = (response as CreateError).response.data;

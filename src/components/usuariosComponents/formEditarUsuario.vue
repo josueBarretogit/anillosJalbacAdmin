@@ -1,7 +1,5 @@
 <script lang="ts" setup>
 import DialogMensajeRequest from "../dialogMensajeRequest.vue";
-import { ref } from "vue";
-import { useFormCrearUsuario } from "@/customHooks/usuariosHooks/useFormcrearUsuario";
 import { dialogRequestExitoso } from "@/variables/store";
 import InputsCrearEditarUsuario from "./inputsCrearEditarUsuario.vue";
 import { useFormEditarUsuario } from "@/customHooks/usuariosHooks/useFormEditarUsuario";
@@ -53,7 +51,7 @@ const {
             />
             <div class="d-flex justify-center">
               <v-btn class="me-4" type="submit" color="blue">
-                Registrar usuario
+                Editar usuario
               </v-btn>
             </div>
           </v-container>
@@ -94,7 +92,7 @@ const {
 
   <DialogMensajeRequest
     v-if="dialogMensaje"
-    :mensaje="`Usuario creado exitosamente`"
+    :mensaje="`Usuario editado exitosamente`"
     :fallo="dialogRequestExitoso.fallo"
     :mensaje-error="`${dialogRequestExitoso.mensajeError}`"
   />
