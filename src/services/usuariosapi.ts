@@ -19,10 +19,11 @@ async function getUsuarios(): Promise<Usuario[] | undefined> {
     const response = await axiosInstance.get("/");
     const filteredUsuarios: Usuario[] = response.data.filter(
       (usuario: Usuario) =>
-        usuario.correo != usuarioStore.UsuarioInterface.correo &&
-        usuario.estado,
+        usuario.correo != usuarioStore.UsuarioInterface.correo,
     );
-    return filteredUsuarios;
+    return filteredUsuarios.sort((a: Usuario, b: Usuario) =>
+      a.estado == b.estado ? 0 : 1,
+    );
   } catch (error) {
     console.log(error);
   }

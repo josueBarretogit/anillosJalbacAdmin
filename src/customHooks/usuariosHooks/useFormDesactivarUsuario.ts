@@ -2,7 +2,7 @@ import { ref } from "vue";
 import type { Anillo, Usuario } from "@/interfaces/interfaces";
 import { AxiosError } from "axios";
 import { desactivarUsuario } from "@/services/usuariosapi";
-import { dialogRequestExitoso } from "@/variables/store";
+import { dialogRequestExitoso, usuarioStore } from "@/variables/store";
 
 export function useFormDesactivar() {
   const dialogEliminar = ref(false);
@@ -21,6 +21,8 @@ export function useFormDesactivar() {
     if (!(response instanceof AxiosError)) {
       dialogRequestExitoso.setFallo(false);
       dialogRequestExitoso.setIsShow(true);
+      dialogMensaje.value = true;
+      usuarioStore.setIsRegistered(usuarioStore.isRegistered + 1);
     } else {
       dialogRequestExitoso.setMensajeError(response.response?.data as string);
       dialogRequestExitoso.setFallo(true);

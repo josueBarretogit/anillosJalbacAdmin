@@ -35,7 +35,7 @@ const {
         rounded="xl"
         size="large"
       >
-        Editar usuario
+        Editar
       </v-btn>
     </template>
 
@@ -50,9 +50,7 @@ const {
               :roles="roles"
             />
             <div class="d-flex justify-center">
-              <v-btn class="me-4" type="submit" color="blue">
-                Editar usuario
-              </v-btn>
+              <v-btn class="me-4" type="submit" color="blue"> Editar </v-btn>
             </div>
           </v-container>
           <div v-if="isLoading" class="ma-4 d-flex justify-center">

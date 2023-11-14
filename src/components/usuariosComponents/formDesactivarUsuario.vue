@@ -1,7 +1,8 @@
 <script lang="ts" setup>
-import DialogMensajeRequest from "./../components/dialogMensajeRequest.vue";
-import { dialogRequestExitoso } from "@/variables/store";
 import { useFormDesactivar } from "@/customHooks/usuariosHooks/useFormDesactivarUsuario";
+import { dialogRequestExitoso } from "@/variables/store";
+import DialogMensajeRequest from "../dialogMensajeRequest.vue";
+
 defineProps<{
   id: number;
 }>();
@@ -49,7 +50,7 @@ const { dialogEliminar, deactivateUsuario, dialogMensaje } =
           variant="text"
           @click="deactivateUsuario(id)"
         >
-          Eliminar
+          Desactivar
         </v-btn>
       </v-card-actions>
     </v-card>

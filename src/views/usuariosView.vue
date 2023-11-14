@@ -49,7 +49,7 @@ watch(
         class="d-flex justify-center flex-wrap"
       >
         <CartaUsuario
-          :class="!xs ? 'ml-5 mr-5' : ''"
+          :class="!xs ? 'ml-4 mr-5' : ''"
           v-bind:usuario="usuario"
           :key="usuario.id"
         />
