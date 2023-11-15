@@ -1,7 +1,6 @@
 import { ref } from "vue";
-import type { Anillo, Usuario } from "@/interfaces/interfaces";
 import { AxiosError } from "axios";
-import { desactivarUsuario } from "@/services/usuariosapi";
+import { toggleEstadoUsuario } from "@/services/usuariosapi";
 import { dialogRequestExitoso, usuarioStore } from "@/variables/store";
 
 export function useFormDesactivar() {
@@ -11,18 +10,18 @@ export function useFormDesactivar() {
   function cerrarFormularioEliminar() {
     dialogRequestExitoso.setIsShow(false);
 
+    usuarioStore.setIsRegistered(usuarioStore.isRegistered + 1);
     dialogEliminar.value = false;
   }
 
-  async function deactivateUsuario(id: number) {
+  async function activarODesactivar(id: number) {
     console.log(id);
     dialogMensaje.value = true;
-    const response = await desactivarUsuario(id);
+    const response = await toggleEstadoUsuario(id);
     if (!(response instanceof AxiosError)) {
       dialogRequestExitoso.setFallo(false);
       dialogRequestExitoso.setIsShow(true);
       dialogMensaje.value = true;
-      usuarioStore.setIsRegistered(usuarioStore.isRegistered + 1);
     } else {
       dialogRequestExitoso.setMensajeError(response.response?.data as string);
       dialogRequestExitoso.setFallo(true);
@@ -33,6 +32,6 @@ export function useFormDesactivar() {
     dialogMensaje,
     dialogEliminar,
     cerrarFormularioEliminar,
-    deactivateUsuario,
+    activarODesactivar,
   };
 }

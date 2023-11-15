@@ -22,7 +22,7 @@ async function getUsuarios(): Promise<Usuario[] | undefined> {
         usuario.correo != usuarioStore.UsuarioInterface.correo,
     );
     return filteredUsuarios.sort((a: Usuario, b: Usuario) =>
-      a.estado == b.estado ? 0 : 1,
+      a.estado === b.estado ? 0 : a.estado ? -1 : 1,
     );
   } catch (error) {
     console.log(error);
@@ -58,9 +58,9 @@ async function actualizarUsuario(
   }
 }
 
-async function desactivarUsuario(id: number): Promise<Usuario | AxiosError> {
+async function toggleEstadoUsuario(id: number): Promise<Usuario | AxiosError> {
   try {
-    const response = await axiosInstance.delete(`/desactivar`, {
+    const response = await axiosInstance.patch(`/desactivar`, null, {
       params: {
         id: id,
       },
@@ -72,4 +72,10 @@ async function desactivarUsuario(id: number): Promise<Usuario | AxiosError> {
     return err;
   }
 }
-export { getUsuarios, registrarUsuario, actualizarUsuario, desactivarUsuario };
+
+export {
+  getUsuarios,
+  registrarUsuario,
+  actualizarUsuario,
+  toggleEstadoUsuario,
+};

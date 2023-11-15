@@ -3,10 +3,13 @@ import { useFormDesactivar } from "@/customHooks/usuariosHooks/useFormDesactivar
 import { dialogRequestExitoso } from "@/variables/store";
 import DialogMensajeRequest from "../dialogMensajeRequest.vue";
 
-defineProps<{
+const props = defineProps<{
   id: number;
+  iconAndButton: { icon: string; color: string };
+  mensajeActivarOdesactivar: string;
 }>();
-const { dialogEliminar, deactivateUsuario, dialogMensaje } =
+
+const { dialogEliminar, activarODesactivar, dialogMensaje } =
   useFormDesactivar();
 </script>
 
@@ -14,13 +17,13 @@ const { dialogEliminar, deactivateUsuario, dialogMensaje } =
   <v-dialog v-model="dialogEliminar" width="auto" scrim="true">
     <template v-slot:activator="{ props }">
       <v-btn
-        prepend-icon="mdi-delete"
-        color="red"
+        :prepend-icon="`mdi-${iconAndButton.icon}`"
+        :color="`${iconAndButton.color}`"
         v-bind="props"
         rounded="xl"
         size="large"
       >
-        Desactivar
+        {{ mensajeActivarOdesactivar }}
       </v-btn>
     </template>
 
@@ -31,7 +34,7 @@ const { dialogEliminar, deactivateUsuario, dialogMensaje } =
             <v-alert
               type="warning"
               title="Eliminar"
-              :text="`¿Estas seguro que deseas desactivar este usuario?`"
+              :text="`¿Estas seguro que deseas ${mensajeActivarOdesactivar} este usuario?`"
             ></v-alert>
           </v-row>
         </v-container>
@@ -48,9 +51,9 @@ const { dialogEliminar, deactivateUsuario, dialogMensaje } =
         <v-btn
           color="blue-darken-1"
           variant="text"
-          @click="deactivateUsuario(id)"
+          @click="activarODesactivar(id)"
         >
-          Desactivar
+          {{ mensajeActivarOdesactivar }}
         </v-btn>
       </v-card-actions>
     </v-card>
@@ -58,7 +61,7 @@ const { dialogEliminar, deactivateUsuario, dialogMensaje } =
 
   <DialogMensajeRequest
     v-if="dialogMensaje"
-    :mensaje="`Usuario desactivado exitosamente`"
+    :mensaje="`Usuario ${mensajeActivarOdesactivar} exitosamente`"
     :fallo="dialogRequestExitoso.fallo"
     :mensaje-error="`${dialogRequestExitoso.mensajeError}`"
   />
