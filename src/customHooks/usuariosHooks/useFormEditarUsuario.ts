@@ -1,13 +1,16 @@
 import { AxiosError } from "axios";
 import { useField, useForm } from "vee-validate";
-import { ref } from "vue";
+import { ref, Ref } from "vue";
 import { useDisplay } from "vuetify/lib/framework.mjs";
 import type { CreateError, Usuario } from "@/interfaces/interfaces";
 import { dialogRequestExitoso, usuarioStore } from "@/variables/store";
 import { actualizarUsuario } from "@/services/usuariosapi";
 import { validationSchema } from "../validationSchema/validationSchemaUsuario";
 
-export function useFormEditarUsuario(usuarioToUpdate: Usuario) {
+export function useFormEditarUsuario(
+  usuarioToUpdate: Usuario,
+  cambiarContrasena: Ref<boolean>,
+) {
   const { smAndUp } = useDisplay();
 
   const dialog = ref(false);
@@ -34,7 +37,9 @@ export function useFormEditarUsuario(usuarioToUpdate: Usuario) {
   const estado = useField("estado");
 
   correo.value.value = usuarioToUpdate.correo;
-  contrasena.value.value = usuarioToUpdate.contrasena;
+  contrasena.value.value = cambiarContrasena.value
+    ? usuarioToUpdate.contrasena
+    : null;
   rol.value.value = usuarioToUpdate.rol;
   estado.value.value = usuarioToUpdate.estado;
 

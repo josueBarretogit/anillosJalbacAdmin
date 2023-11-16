@@ -4,7 +4,9 @@ import { dialogRequestExitoso } from "@/variables/store";
 import InputsCrearEditarUsuario from "./inputsCrearEditarUsuario.vue";
 import { useFormEditarUsuario } from "@/customHooks/usuariosHooks/useFormEditarUsuario";
 import { Usuario } from "@/interfaces/interfaces";
+import { ref } from "vue";
 
+const cambiarContrasena = ref(false);
 const props = defineProps<{
   usuarioToUpdate: Usuario;
 }>();
@@ -22,7 +24,7 @@ const {
   smAndUp,
   dialog,
   dialogMensaje,
-} = useFormEditarUsuario(props.usuarioToUpdate);
+} = useFormEditarUsuario(props.usuarioToUpdate, cambiarContrasena);
 </script>
 
 <template>
@@ -48,6 +50,7 @@ const {
               :contrasena="contrasena"
               :rol="rol"
               :roles="roles"
+              :is-editar="true"
             />
             <div class="d-flex justify-center">
               <v-btn class="me-4" type="submit" color="blue"> Editar </v-btn>

@@ -38,14 +38,8 @@ const mensajeActivarOdesactivar = !props.usuario.estado
       <v-col md="8" cols="8">
         <v-card-title class="subtitlo" @click="showToolTip = !showToolTip"
           >{{ usuario?.correo }}
-          <v-tooltip
-            activator="parent"
-            v-model="showToolTip"
-            location="top"
-            height="50"
-            class="text-h2"
-          >
-            {{ usuario?.correo }}
+          <v-tooltip activator="parent" v-model="showToolTip" location="top">
+            <h3>{{ usuario?.correo }}</h3>
           </v-tooltip>
         </v-card-title>
         <v-card-title class="subtitlo">{{ usuario?.rol }}</v-card-title>

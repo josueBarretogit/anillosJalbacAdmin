@@ -7,6 +7,7 @@ defineProps<{
   contrasena: FieldContext;
   rol: FieldContext;
   roles: readonly any[];
+  isEditar?: boolean | undefined;
 }>();
 </script>
 
@@ -24,7 +25,7 @@ defineProps<{
     </v-col>
   </v-row>
 
-  <v-row no-gutters justify="center" class="mt-3 mb-3">
+  <v-row no-gutters justify="center" class="mt-3 mb-3" v-if="!isEditar">
     <v-col>
       <v-text-field
         color="blue"
@@ -36,6 +37,7 @@ defineProps<{
       ></v-text-field>
     </v-col>
   </v-row>
+
   <v-row no-gutters justify="center" class="mt-3 mb-3">
     <v-col>
       <v-select
@@ -47,6 +49,18 @@ defineProps<{
         :items="roles"
         label="Rol"
       ></v-select>
+    </v-col>
+  </v-row>
+  <v-row no-gutters justify="center" class="mt-3 mb-3" v-if="isEditar">
+    <v-col>
+      <v-text-field
+        color="blue"
+        variant="outlined"
+        class="ml-4 mr-4"
+        v-model="contrasena.value.value"
+        :error-messages="contrasena.errorMessage.value"
+        label="Contraseña nueva"
+      ></v-text-field>
     </v-col>
   </v-row>
 </template>

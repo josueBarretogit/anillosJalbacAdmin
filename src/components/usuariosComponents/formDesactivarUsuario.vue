@@ -9,8 +9,12 @@ const props = defineProps<{
   mensajeActivarOdesactivar: string;
 }>();
 
-const { dialogEliminar, activarODesactivar, dialogMensaje } =
+const { dialogEliminar, activarODesactivar, dialogMensaje, cerrarFormulario } =
   useFormDesactivar();
+const lowerCasedMensaje = props.mensajeActivarOdesactivar.replace(
+  props.mensajeActivarOdesactivar[0],
+  props.mensajeActivarOdesactivar[0].toLowerCase(),
+);
 </script>
 
 <template>
@@ -33,19 +37,15 @@ const { dialogEliminar, activarODesactivar, dialogMensaje } =
           <v-row>
             <v-alert
               type="warning"
-              title="Eliminar"
-              :text="`¿Estas seguro que deseas ${mensajeActivarOdesactivar} este usuario?`"
+              :title="mensajeActivarOdesactivar"
+              :text="`¿Estas seguro que deseas ${lowerCasedMensaje} este usuario?`"
             ></v-alert>
           </v-row>
         </v-container>
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn
-          color="blue-darken-1"
-          variant="text"
-          @click="dialogEliminar = false"
-        >
+        <v-btn color="blue-darken-1" variant="text" @click="cerrarFormulario">
           Cancelar
         </v-btn>
         <v-btn
@@ -58,11 +58,4 @@ const { dialogEliminar, activarODesactivar, dialogMensaje } =
       </v-card-actions>
     </v-card>
   </v-dialog>
-
-  <DialogMensajeRequest
-    v-if="dialogMensaje"
-    :mensaje="`Usuario ${mensajeActivarOdesactivar} exitosamente`"
-    :fallo="dialogRequestExitoso.fallo"
-    :mensaje-error="`${dialogRequestExitoso.mensajeError}`"
-  />
 </template>
