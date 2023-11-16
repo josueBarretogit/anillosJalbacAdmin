@@ -60,6 +60,7 @@ const mensajeActivarOdesactivar = !props.usuario.estado
       <FormEditarUsuario :usuario-to-update="usuario" />
       <FormDesactivarUsuario
         :id="usuario.id"
+        :estado="usuario.estado"
         :icon-and-button="iconAndColor"
         :mensaje-activar-odesactivar="mensajeActivarOdesactivar"
       />

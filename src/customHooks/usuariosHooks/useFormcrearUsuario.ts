@@ -5,7 +5,7 @@ import { useDisplay } from "vuetify/lib/framework.mjs";
 import type { CreateError, Usuario } from "@/interfaces/interfaces";
 import { dialogRequestExitoso, usuarioStore } from "@/variables/store";
 import { registrarUsuario } from "@/services/usuariosapi";
-import { validationSchema } from "../validationSchema/validationSchemaUsuario";
+import { validationSchemaCrear } from "../validationSchema/validationSchemaUsuario";
 
 export function useFormCrearUsuario() {
   const { smAndUp } = useDisplay();
@@ -25,7 +25,7 @@ export function useFormCrearUsuario() {
   }
 
   const { handleSubmit, handleReset } = useForm({
-    validationSchema: validationSchema,
+    validationSchema: validationSchemaCrear,
   });
 
   const correo = useField("correo");

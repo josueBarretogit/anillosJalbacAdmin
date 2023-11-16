@@ -2,11 +2,12 @@
 import { useFormDesactivar } from "@/customHooks/usuariosHooks/useFormDesactivarUsuario";
 import { dialogRequestExitoso } from "@/variables/store";
 import DialogMensajeRequest from "../dialogMensajeRequest.vue";
-
+import { usuarioStore } from "@/variables/store";
 const props = defineProps<{
   id: number;
   iconAndButton: { icon: string; color: string };
   mensajeActivarOdesactivar: string;
+  estado: boolean;
 }>();
 
 const { dialogEliminar, activarODesactivar, dialogMensaje, cerrarFormulario } =
@@ -15,17 +16,23 @@ const lowerCasedMensaje = props.mensajeActivarOdesactivar.replace(
   props.mensajeActivarOdesactivar[0],
   props.mensajeActivarOdesactivar[0].toLowerCase(),
 );
+const iconActivar = "account-reactivate";
+const iconDesactivar = "delete";
+
+const colorActivar = "green";
+const colorDesactivar = "red";
 </script>
 
 <template>
   <v-dialog v-model="dialogEliminar" width="auto" scrim="true">
     <template v-slot:activator="{ props }">
       <v-btn
-        :prepend-icon="`mdi-${iconAndButton.icon}`"
-        :color="`${iconAndButton.color}`"
+        :prepend-icon="`mdi-${!estado ? iconActivar : iconDesactivar}`"
+        :color="`${!estado ? colorActivar : colorDesactivar}`"
         v-bind="props"
         rounded="xl"
         size="large"
+        :key="usuarioStore.isRegistered"
       >
         {{ mensajeActivarOdesactivar }}
       </v-btn>

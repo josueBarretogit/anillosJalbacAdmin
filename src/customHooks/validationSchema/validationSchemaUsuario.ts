@@ -1,4 +1,4 @@
-const validationSchema = {
+const validationSchemaCrear = {
   correo(value: string) {
     if (!value) {
       return "Este campo es obligatorio";
@@ -19,4 +19,19 @@ const validationSchema = {
   },
 };
 
-export { validationSchema };
+const validationSchemaEditar = {
+  correo(value: string) {
+    if (!value) {
+      return "Este campo es obligatorio";
+    }
+    return true;
+  },
+  rol(value: string) {
+    if (!value) {
+      return "Este campo es obligatorio";
+    }
+    return true;
+  },
+};
+
+export { validationSchemaCrear, validationSchemaEditar };

@@ -5,7 +5,10 @@ import { useDisplay } from "vuetify/lib/framework.mjs";
 import type { CreateError, Usuario } from "@/interfaces/interfaces";
 import { dialogRequestExitoso, usuarioStore } from "@/variables/store";
 import { actualizarUsuario } from "@/services/usuariosapi";
-import { validationSchema } from "../validationSchema/validationSchemaUsuario";
+import {
+  validationSchemaCrear,
+  validationSchemaEditar,
+} from "../validationSchema/validationSchemaUsuario";
 
 export function useFormEditarUsuario(
   usuarioToUpdate: Usuario,
@@ -28,7 +31,9 @@ export function useFormEditarUsuario(
   }
 
   const { handleSubmit, handleReset } = useForm({
-    validationSchema: validationSchema,
+    validationSchema: cambiarContrasena.value
+      ? validationSchemaEditar
+      : validationSchemaCrear,
   });
 
   const correo = useField("correo");
