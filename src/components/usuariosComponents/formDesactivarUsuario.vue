@@ -34,7 +34,7 @@ const colorDesactivar = "red";
         size="large"
         :key="usuarioStore.isRegistered"
       >
-        {{ mensajeActivarOdesactivar }}
+        {{ estado ? "Desactivar" : "Activar" }}
       </v-btn>
     </template>
 
@@ -60,7 +60,7 @@ const colorDesactivar = "red";
           variant="text"
           @click="activarODesactivar(id)"
         >
-          {{ mensajeActivarOdesactivar }}
+          {{ estado ? "Desactivar" : "Activar" }}
         </v-btn>
       </v-card-actions>
     </v-card>

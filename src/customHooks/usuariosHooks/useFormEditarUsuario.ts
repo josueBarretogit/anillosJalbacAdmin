@@ -31,7 +31,7 @@ export function useFormEditarUsuario(
   }
 
   const { handleSubmit, handleReset } = useForm({
-    validationSchema: cambiarContrasena.value
+    validationSchema: !cambiarContrasena.value
       ? validationSchemaEditar
       : validationSchemaCrear,
   });
@@ -39,22 +39,17 @@ export function useFormEditarUsuario(
   const correo = useField("correo");
   const contrasena = useField("contrasena");
   const rol = useField("rol");
-  const estado = useField("estado");
 
   correo.value.value = usuarioToUpdate.correo;
-  contrasena.value.value = cambiarContrasena.value
-    ? usuarioToUpdate.contrasena
-    : null;
   rol.value.value = usuarioToUpdate.rol;
-  estado.value.value = usuarioToUpdate.estado;
 
   const roles = ref(["Administrador", "Empleado"]);
 
   const submit = handleSubmit(async (values) => {
     const valuesForm = new FormData();
 
+    console.log(values);
     valuesForm.append("correo", values.correo);
-    valuesForm.append("contrasena", values.contrasena);
     valuesForm.append("rol", values.rol);
 
     console.log(values);
@@ -85,7 +80,6 @@ export function useFormEditarUsuario(
     contrasena,
     rol,
     dialog,
-    estado,
     submit,
     cerrarFormularioCancelar,
     razonError,
