@@ -27,10 +27,9 @@ export function useFormEditarUsuario(
   function cerrarFormularioCancelar() {
     dialogRequestExitoso.setIsShow(false);
     dialog.value = false;
-    handleReset();
   }
 
-  const { handleSubmit, handleReset } = useForm({
+  const { handleSubmit } = useForm({
     validationSchema: !cambiarContrasena.value
       ? validationSchemaEditar
       : validationSchemaCrear,
@@ -48,7 +47,9 @@ export function useFormEditarUsuario(
   const submit = handleSubmit(async (values) => {
     const valuesForm = new FormData();
 
-    console.log(values);
+    if (values.contrasena) {
+      valuesForm.append("contrasena", values.contrasena);
+    }
     valuesForm.append("correo", values.correo);
     valuesForm.append("rol", values.rol);
 

@@ -1,3 +1,6 @@
+import { toTypedSchema } from "@vee-validate/zod";
+import { z } from "zod";
+
 const validationSchemaEditarNombre = {
   nombre(value: string) {
     if (!value) {
@@ -115,50 +118,17 @@ const validationSchemaEditarDije = {
   },
 };
 
-const validationSchemaCrearNombre = {
-  nombre(value: string) {
-    if (!value) {
-      return "Este campo es obligatorio";
-    }
-    return true;
-  },
-  pesoOro(value: string) {
-    if (!value) {
-      return "Este campo es obligatorio";
-    }
-    return true;
-  },
-  pesoPlata(value: string) {
-    if (!value) {
-      return "Este campo es obligatorio";
-    }
-    return true;
-  },
-  categoria(value: string) {
-    if (!value) {
-      return "Este campo es obligatorio";
-    }
-    return true;
-  },
-  talla(value: string) {
-    if (!value) {
-      return "Este campo es obligatorio";
-    }
-    return true;
-  },
-  referencia(value: string) {
-    if (!value) {
-      return "Este campo es obligatorio";
-    }
-    return true;
-  },
-  imagen(value: File[]) {
-    if (!value) {
-      return "Este campo es obligatorio";
-    }
-    return true;
-  },
-};
+const validationSchemaCrearNombre = toTypedSchema(
+  z.object({
+    nombre: z.string(),
+    pesoOro: z.string(),
+    pesoPlata: z.string(),
+    categoria: z.string(),
+    talla: z.string(),
+    referencia: z.string(),
+    imagen: z.any(),
+  }),
+);
 
 const validationSchemaCrearSolitario = {
   formaPiedra(value: string) {

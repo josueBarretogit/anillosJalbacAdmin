@@ -9,11 +9,6 @@ defineProps<{
   roles: readonly any[];
   isEditar?: boolean | undefined;
 }>();
-
-const rules = {
-  required: (value: string) =>
-    value?.length >= 7 || "La contraseña tiene que ser al menos 7 caracteres",
-};
 </script>
 
 <template>
@@ -64,7 +59,6 @@ const rules = {
         class="ml-4 mr-4"
         v-model="contrasena.value.value"
         :error-messages="contrasena.errorMessage.value"
-        :rules="[rules.required]"
         label="Contraseña nueva"
       ></v-text-field>
     </v-col>

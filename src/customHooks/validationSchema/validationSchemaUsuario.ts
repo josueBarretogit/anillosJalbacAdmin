@@ -26,11 +26,19 @@ const validationSchemaEditar = {
     }
     return true;
   },
+
   rol(value: string) {
     if (!value) {
       return "Este campo es obligatorio";
     }
     return true;
+  },
+
+  contrasena(value: string) {
+    if (!value) {
+      return true;
+    } else if (value?.length >= 7) return true;
+    return "La contraseña tiene que ser al menos 7 caracteres";
   },
 };
 
