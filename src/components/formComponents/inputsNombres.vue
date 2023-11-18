@@ -20,6 +20,7 @@ const categoriaSelect = ref(["Nombre", "Argolla"]);
         v-model="talla.value.value"
         :error-messages="talla.errorMessage.value"
         label="Talla"
+        type="number"
       ></v-text-field>
     </v-col>
   </v-row>

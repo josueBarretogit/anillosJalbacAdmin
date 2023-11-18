@@ -120,13 +120,29 @@ const validationSchemaEditarDije = {
 
 const validationSchemaCrearNombre = toTypedSchema(
   z.object({
-    nombre: z.string(),
-    pesoOro: z.string(),
-    pesoPlata: z.string(),
-    categoria: z.string(),
-    talla: z.string(),
-    referencia: z.string(),
-    imagen: z.any(),
+    nombre: z.string({ required_error: "Este campo es requerido" }).nonempty(),
+    pesoOro: z.coerce
+      .number({
+        required_error: "Este campo es requerido",
+        invalid_type_error: "Este campo solo admite numeros",
+      })
+      .positive(),
+    pesoPlata: z.coerce
+      .number({
+        required_error: "Este campo es requerido",
+        invalid_type_error: "Este campo solo admite numeros",
+      })
+      .positive(),
+    categoria: z
+      .string({ required_error: "Este campo es requerido" })
+      .nonempty(),
+    talla: z
+      .number({
+        invalid_type_error: "Este campo solo admite numeros",
+      })
+      .int(),
+    referencia: z.number({ required_error: "Este campo es requerido" }).int(),
+    imagen: z.any({ required_error: "Este campo es requerido" }),
   }),
 );
 
