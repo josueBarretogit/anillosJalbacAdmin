@@ -65,3 +65,9 @@ defineProps<{
     </v-col>
   </v-row>
 </template>
+<style lang="css">
+.v-input {
+  margin-top: 10px !important;
+  margin-bottom: 10px !important;
+}
+</style>

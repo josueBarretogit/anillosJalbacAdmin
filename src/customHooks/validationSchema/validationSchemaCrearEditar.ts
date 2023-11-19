@@ -120,13 +120,15 @@ const validationSchemaEditarDije = {
 
 const validationSchemaCrearNombre = toTypedSchema(
   z.object({
-    nombre: z.string({ required_error: "Este campo es requerido" }).nonempty(),
+    nombre: z
+      .string({ required_error: "Este campo es requerido" })
+      .nonempty({ message: "Este campo es requerido" }),
     pesoOro: z.coerce
       .number({
         required_error: "Este campo es requerido",
         invalid_type_error: "Este campo solo admite numeros",
       })
-      .positive(),
+      .positive({ message: "No pongas numeros negativos" }),
     pesoPlata: z.coerce
       .number({
         required_error: "Este campo es requerido",
@@ -136,13 +138,28 @@ const validationSchemaCrearNombre = toTypedSchema(
     categoria: z
       .string({ required_error: "Este campo es requerido" })
       .nonempty(),
-    talla: z
+    talla: z.coerce
       .number({
+        required_error: "Este campo es requerido",
         invalid_type_error: "Este campo solo admite numeros",
       })
-      .int(),
-    referencia: z.number({ required_error: "Este campo es requerido" }).int(),
-    imagen: z.any({ required_error: "Este campo es requerido" }),
+      .positive({ message: "No pongas numeros negativos" }),
+    referencia: z.coerce
+      .number({
+        required_error: "Este campo es requerido",
+        invalid_type_error: "Este campo solo admite numeros",
+      })
+      .int({ message: "El numero tiene que ser entero" }),
+    imagen: z
+      .any({ required_error: "Este campo es requerido" })
+      .refine(
+        (files: File[]) => files?.length == 0,
+        "Una imagen es obligatoria",
+      )
+      .refine(
+        (file) => file?.[0]?.type.includes("image/"),
+        "Solo se aceptan imagenes",
+      ),
   }),
 );
 
