@@ -3,7 +3,7 @@ import { FieldContext } from "vee-validate";
 import { ref } from "vue";
 import Inputs from "./inputs.vue";
 
-defineProps<{
+const props = defineProps<{
   referencia: FieldContext;
   talla: FieldContext;
   pesoOro: FieldContext;

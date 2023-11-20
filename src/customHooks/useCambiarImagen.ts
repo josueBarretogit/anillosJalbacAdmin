@@ -19,11 +19,9 @@ export function useCambiarImagen() {
   }
 
   async function submitImage(data: File[], id: number) {
-    console.log(data);
     imagen.value = data;
     const valuesForm = new FormData();
     valuesForm.append("image", imagen?.value?.[0] as File);
-    console.log(imagen.value[0]);
 
     imageReplacing.setIsLoading(true);
 

@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { ref } from "vue";
-import { creacionAnillos, tabs } from "@/variables/store";
+import { creacionAnillos, imageReplacing, tabs } from "@/variables/store";
 import { dialogRequestExitoso } from "@/variables/store";
 
 const props = defineProps<{
@@ -20,6 +20,8 @@ function cerrarDialog() {
     creacionAnillos.setIsCreatedDije(creacionAnillos.isCreatedDije + 1);
   }
 
+  dialogRequestExitoso.setFallo(false);
+  imageReplacing.setFalloReplace(false);
   dialogRequestExitoso.setIsShow(false);
 }
 </script>

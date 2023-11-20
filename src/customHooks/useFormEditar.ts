@@ -31,7 +31,7 @@ export function useFormEditar(
     dialog.value = false;
   }
 
-  const { handleSubmit, handleReset } = useForm({
+  const { handleSubmit } = useForm({
     validationSchema:
       tipoJoya == "nombres"
         ? validationSchemaEditarNombre
@@ -58,7 +58,6 @@ export function useFormEditar(
   const referencia = useField("referencia");
 
   nombre.value.value = joya.nombre;
-  pesoOro.value.value = joya.pesoOro;
 
   formaPiedra.value.value = joya.formaPiedra;
   tamanoPiedra.value.value = joya.tamanoPiedra;
@@ -67,10 +66,11 @@ export function useFormEditar(
   ancho.value.value = joya.ancho;
   categoriaDije.value.value = (joya as Dije).categoria;
 
-  pesoPlata.value.value = joya.pesoPlata;
+  pesoOro.value.value = joya.pesoOro.trim().replace("gr", "");
+  pesoPlata.value.value = joya.pesoPlata.trim().replace("gr", "");
   categoria.value.value = joya.categoria;
   talla.value.value = joya.talla;
-  referencia.value.value = joya.referencia;
+  referencia.value.value = joya.referencia.trim().replace("#", "");
 
   const submit = handleSubmit(async (values) => {
     const valuesForm = new FormData();

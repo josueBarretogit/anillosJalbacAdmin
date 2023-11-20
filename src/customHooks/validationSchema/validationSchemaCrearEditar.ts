@@ -1,40 +1,40 @@
 import { toTypedSchema } from "@vee-validate/zod";
 import { z } from "zod";
 
+const mensajesError = {
+  required_error: "Este campo es requerido",
+  invalid_type_error: "Este campo solo admite numeros",
+};
+
+const propiedadesComunes = {
+  pesoOro: z.coerce
+    .number(mensajesError)
+    .positive({ message: "No pongas numeros negativos" })
+    .transform((pesoOro) => pesoOro + " gr"),
+  pesoPlata: z.coerce
+    .number(mensajesError)
+    .positive({ message: "No pongas numeros negativos" })
+    .transform((pesoPlata) => pesoPlata + " gr"),
+  referencia: z.coerce
+    .number(mensajesError)
+    .int({ message: "El numero tiene que ser entero" })
+    .positive({ message: "El numero tiene que ser entero" })
+    .transform((referencia) => "#" + referencia),
+};
+
 const ObjectValidationEditarNombre = z.object({
   nombre: z
     .string({ required_error: "Este campo es requerido" })
     .regex(/[a-zA-Z0-9]$/, "No puedes ingresar caracteres especiales")
     .nonempty({ message: "Este campo es requerido" }),
-  pesoOro: z.coerce
-    .number({
-      required_error: "Este campo es requerido",
-      invalid_type_error: "Este campo solo admite numeros",
-    })
-    .positive({ message: "No pongas numeros negativos" }),
-  pesoPlata: z.coerce
-    .number({
-      required_error: "Este campo es requerido",
-      invalid_type_error: "Este campo solo admite numeros",
-    })
-    .positive({ message: "No pongas numeros negativos" }),
   categoria: z.string({ required_error: "Este campo es requerido" }).nonempty(),
   talla: z.coerce
-    .string({
-      required_error: "Este campo es requerido",
-      invalid_type_error: "Este campo solo admite numeros",
-    })
+    .string(mensajesError)
     .regex(
       new RegExp(/^\d+$|([0-9] \/ [0-9])$/),
       "Solo es valido este formato: numero ó numero / numero",
     ),
-  referencia: z.coerce
-    .number({
-      required_error: "Este campo es requerido",
-      invalid_type_error: "Este campo solo admite numeros",
-    })
-    .int({ message: "El numero tiene que ser entero" })
-    .positive({ message: "El numero tiene que ser entero" }),
+  ...propiedadesComunes,
 });
 
 const ObjectValidationCrearNombre = ObjectValidationEditarNombre.extend({
@@ -47,6 +47,32 @@ const ObjectValidationCrearNombre = ObjectValidationEditarNombre.extend({
     ),
 });
 
+const ObjectValidationEditarDije = z.object({
+  nombre: z
+    .string({ required_error: "Este campo es requerido" })
+    .regex(/[a-zA-Z0-9]$/, "No puedes ingresar caracteres especiales")
+    .nonempty({ message: "Este campo es requerido" }),
+  pesoOro: z.coerce
+    .number(mensajesError)
+    .positive({ message: "No pongas numeros negativos" })
+    .transform((pesoOro) => pesoOro + " gr"),
+  pesoPlata: z.coerce
+    .number(mensajesError)
+    .positive({ message: "No pongas numeros negativos" })
+    .transform((pesoPlata) => pesoPlata + " gr"),
+  categoria: z.string({ required_error: "Este campo es requerido" }).nonempty(),
+  talla: z.coerce
+    .string(mensajesError)
+    .regex(
+      new RegExp(/^\d+$|([0-9] \/ [0-9])$/),
+      "Solo es valido este formato: numero ó numero / numero",
+    ),
+  referencia: z.coerce
+    .number(mensajesError)
+    .int({ message: "El numero tiene que ser entero" })
+    .positive({ message: "El numero tiene que ser entero" })
+    .transform((referencia) => "#" + referencia),
+});
 const validationSchemaCrearNombre = toTypedSchema(ObjectValidationCrearNombre);
 
 const validationSchemaEditarNombre = toTypedSchema(
