@@ -122,6 +122,7 @@ const validationSchemaCrearNombre = toTypedSchema(
   z.object({
     nombre: z
       .string({ required_error: "Este campo es requerido" })
+      .regex(/[a-zA-Z0-9]$/, "No puedes ingresar caracteres especiales")
       .nonempty({ message: "Este campo es requerido" }),
     pesoOro: z.coerce
       .number({
@@ -134,16 +135,20 @@ const validationSchemaCrearNombre = toTypedSchema(
         required_error: "Este campo es requerido",
         invalid_type_error: "Este campo solo admite numeros",
       })
-      .positive(),
+      .positive({ message: "No pongas numeros negativos" }),
+
     categoria: z
       .string({ required_error: "Este campo es requerido" })
       .nonempty(),
     talla: z.coerce
-      .number({
+      .string({
         required_error: "Este campo es requerido",
         invalid_type_error: "Este campo solo admite numeros",
       })
-      .positive({ message: "No pongas numeros negativos" }),
+      .regex(
+        new RegExp(/[0-9]$|[0-9] \/ [0-9]$/),
+        "Solo es valido este formato: numero ó numero / numero",
+      ),
     referencia: z.coerce
       .number({
         required_error: "Este campo es requerido",
