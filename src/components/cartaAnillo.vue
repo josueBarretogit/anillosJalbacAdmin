@@ -69,8 +69,8 @@ const { xs } = useDisplay();
         </div>
         <div v-if="tabs.tabs == 'dijes'">
           <v-card-title class="titulo">Categoria</v-card-title>
-          <v-card-title class="titulo">Altura (mm)</v-card-title>
-          <v-card-title class="titulo">Anchura (mm) </v-card-title>
+          <v-card-title class="titulo">Altura </v-card-title>
+          <v-card-title class="titulo">Anchura </v-card-title>
         </div>
         <v-card-title class="titulo">Referencia</v-card-title>
       </v-col>

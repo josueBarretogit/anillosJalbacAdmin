@@ -60,17 +60,17 @@ export function useFormEditar(
   nombre.value.value = joya.nombre;
 
   formaPiedra.value.value = joya.formaPiedra;
-  tamanoPiedra.value.value = joya.tamanoPiedra;
+  tamanoPiedra.value.value = joya.tamanoPiedra?.trim().replace("mm", "");
 
   alto.value.value = joya.alto;
   ancho.value.value = joya.ancho;
   categoriaDije.value.value = (joya as Dije).categoria;
 
-  pesoOro.value.value = joya.pesoOro.trim().replace("gr", "");
-  pesoPlata.value.value = joya.pesoPlata.trim().replace("gr", "");
+  pesoOro.value.value = joya.pesoOro?.trim().replace("gr", "");
+  pesoPlata.value.value = joya.pesoPlata?.trim().replace("gr", "");
   categoria.value.value = joya.categoria;
   talla.value.value = joya.talla;
-  referencia.value.value = joya.referencia.trim().replace("#", "");
+  referencia.value.value = joya.referencia?.trim().replace("#", "");
 
   const submit = handleSubmit(async (values) => {
     const valuesForm = new FormData();
