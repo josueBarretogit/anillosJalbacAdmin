@@ -5,15 +5,9 @@ import { useDisplay } from "vuetify/lib/framework.mjs";
 import type { CreateError, Usuario } from "@/interfaces/interfaces";
 import { dialogRequestExitoso, usuarioStore } from "@/variables/store";
 import { actualizarUsuario } from "@/services/usuariosapi";
-import {
-  validationSchemaCrear,
-  validationSchemaEditar,
-} from "../validationSchema/validationSchemaUsuario";
+import { validationSchemaEditarUsuario } from "../validationSchema/validationSchemaUsuario";
 
-export function useFormEditarUsuario(
-  usuarioToUpdate: Usuario,
-  cambiarContrasena: Ref<boolean>,
-) {
+export function useFormEditarUsuario(usuarioToUpdate: Usuario) {
   const { smAndUp } = useDisplay();
 
   const dialog = ref(false);
@@ -27,12 +21,11 @@ export function useFormEditarUsuario(
   function cerrarFormularioCancelar() {
     dialogRequestExitoso.setIsShow(false);
     dialog.value = false;
+    usuarioStore.setIsRegistered(usuarioStore.isRegistered + 1);
   }
 
   const { handleSubmit } = useForm({
-    validationSchema: !cambiarContrasena.value
-      ? validationSchemaEditar
-      : validationSchemaCrear,
+    validationSchema: validationSchemaEditarUsuario,
   });
 
   const correo = useField("correo");

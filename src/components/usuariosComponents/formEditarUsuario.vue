@@ -6,7 +6,6 @@ import { useFormEditarUsuario } from "@/customHooks/usuariosHooks/useFormEditarU
 import { Usuario } from "@/interfaces/interfaces";
 import { ref } from "vue";
 
-const cambiarContrasena = ref(false);
 const props = defineProps<{
   usuarioToUpdate: Usuario;
 }>();
@@ -24,7 +23,7 @@ const {
   smAndUp,
   dialog,
   dialogMensaje,
-} = useFormEditarUsuario(props.usuarioToUpdate, cambiarContrasena);
+} = useFormEditarUsuario(props.usuarioToUpdate);
 </script>
 
 <template>

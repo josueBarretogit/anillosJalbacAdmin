@@ -5,6 +5,7 @@ import { useForm, useField } from "vee-validate";
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 import { drawer } from "@/variables/store";
+import { validationSchemaLogIn } from "./validationSchema/validationSchemaUsuario";
 
 export function useLogin() {
   drawer.setDrawer(false);
@@ -15,17 +16,7 @@ export function useLogin() {
   loggedState.setToFalse();
 
   const { handleSubmit } = useForm({
-    validationSchema: {
-      correo(value: string) {
-        if (/^[a-z.-]+@[a-z.-]+\.[a-z]+$/i.test(value)) return true;
-        return "El correo no es valido";
-      },
-
-      contrasena(value: string) {
-        if (value?.length >= 7) return true;
-        return "La contraseña tiene que ser al menos 7 caracteres";
-      },
-    },
+    validationSchema: validationSchemaLogIn,
   });
 
   const correo = useField("correo");

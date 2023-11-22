@@ -1,45 +1,39 @@
-const validationSchemaCrear = {
-  correo(value: string) {
-    if (!value) {
-      return "Este campo es obligatorio";
-    }
-    return true;
-  },
-  contrasena(value: string) {
-    if (!value) {
-      return "Este campo es obligatorio";
-    }
-    return true;
-  },
-  rol(value: string) {
-    if (!value) {
-      return "Este campo es obligatorio";
-    }
-    return true;
-  },
+import { toTypedSchema } from "@vee-validate/zod";
+import { z } from "zod";
+
+const messages = {
+  required_error: "Este campo es requerido",
 };
 
-const validationSchemaEditar = {
-  correo(value: string) {
-    if (!value) {
-      return "Este campo es obligatorio";
-    }
-    return true;
-  },
-
-  rol(value: string) {
-    if (!value) {
-      return "Este campo es obligatorio";
-    }
-    return true;
-  },
-
-  contrasena(value: string) {
-    if (!value) {
-      return true;
-    } else if (value?.length >= 7) return true;
-    return "La contraseña tiene que ser al menos 7 caracteres";
-  },
+const propiedadesComunes = {
+  correo: z.string(messages).email({ message: "Escribe un correo" }),
+  contrasena: z.string(messages).min(7, { message: "Minimo de caracteres 7" }),
 };
 
-export { validationSchemaCrear, validationSchemaEditar };
+const ObjectValidationLogIn = z.object(propiedadesComunes);
+const validationSchemaLogIn = toTypedSchema(ObjectValidationLogIn);
+
+const ObjectValidationCrearUsuario = z.object({
+  rol: z.string(messages),
+  ...propiedadesComunes,
+});
+
+const validationSchemaCrearUsuario = toTypedSchema(
+  ObjectValidationCrearUsuario,
+);
+
+const ObjectValidationEditarUsuario = z.object({
+  rol: z.string(messages),
+  correo: propiedadesComunes.correo,
+  contrasena: propiedadesComunes.contrasena.optional(),
+});
+
+const validationSchemaEditarUsuario = toTypedSchema(
+  ObjectValidationEditarUsuario,
+);
+
+export {
+  validationSchemaCrearUsuario,
+  validationSchemaEditarUsuario,
+  validationSchemaLogIn,
+};
