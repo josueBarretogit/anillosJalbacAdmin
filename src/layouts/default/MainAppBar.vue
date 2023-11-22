@@ -20,10 +20,18 @@ const AppBarHeight = 64;
       <v-app-bar-title>Jalbac Admin</v-app-bar-title>
     </template>
 
-    <div
-      v-if="loggedState.isLogged && !drawer.visitedUsuariosView"
-      class="ma-2 pa-2 d-flex justify-center d-none"
-    >
+    <div style="width: 400px">
+      <v-text-field
+        density="comfortable"
+        variant="outlined"
+        label="Busca nombres"
+        append-icon="mdi-magnify"
+        single-line
+        hide-details
+      ></v-text-field>
+    </div>
+
+    <div v-if="loggedState.isLogged && !drawer.visitedUsuariosView">
       <v-tabs
         v-model="tabs.tabs"
         color="blue"
