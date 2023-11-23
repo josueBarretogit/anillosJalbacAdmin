@@ -45,7 +45,6 @@ export const creacionAnillos = reactive({
 
 export const tabs = reactive({
   tabs: "nombres",
-
   setTabs(tab: string) {
     this.tabs = tab;
   },
@@ -120,5 +119,18 @@ export const usuarioStore = reactive({
   isRegistered: 0,
   setIsRegistered(value: number) {
     this.isRegistered = value;
+  },
+});
+
+export const searches = reactive({
+  placeholderSearchBar: "nombres",
+
+  setPlaceHolderSearchBar(term: string) {
+    this.placeholderSearchBar = term;
+  },
+
+  searchTerm: "",
+  setSearchTerm(term: string) {
+    this.searchTerm = term;
   },
 });

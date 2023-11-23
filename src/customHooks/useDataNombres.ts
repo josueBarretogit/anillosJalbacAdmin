@@ -1,5 +1,10 @@
 import { getAnillos } from "@/services/anilloApi";
-import { loggedState, creacionAnillos, tabs } from "@/variables/store";
+import {
+  loggedState,
+  creacionAnillos,
+  tabs,
+  searches,
+} from "@/variables/store";
 import { ref, watch } from "vue";
 
 export async function useDataNombres() {
@@ -65,6 +70,29 @@ export async function useDataNombres() {
       numPages.value = setNumPages(anillosCopy as any[]);
 
       forceRender();
+    },
+  );
+
+  watch(
+    () => searches.searchTerm,
+    () => {
+      console.log("buscando");
+      if (searches.searchTerm) {
+        anillosDataTable.value = anillosCopy?.filter((anillo) =>
+          anillo.referencia.includes(searches.searchTerm),
+        );
+
+        console.log(searches.searchTerm);
+        anillosDataTable.value = anillosDataTable?.value?.slice(
+          0,
+          page.value * totalItems.value,
+        );
+      } else {
+        anillosDataTable.value = anillosCopy?.slice(
+          0,
+          page.value * totalItems.value,
+        );
+      }
     },
   );
 

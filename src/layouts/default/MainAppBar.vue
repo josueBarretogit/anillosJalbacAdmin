@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import { useDisplay } from "vuetify/lib/framework.mjs";
-import { loggedState, tabs } from "./../../variables/store";
+import { loggedState, tabs, searches } from "./../../variables/store";
 import { drawer } from "./../../variables/store";
 import ActionButtonsUsuario from "@/components/appBarComponents/actionButtonsUsuario.vue";
+import { ref } from "vue";
+import { watch } from "vue";
 const { xs, sm } = useDisplay();
 
 const AppBarHeight = 64;
@@ -20,22 +22,30 @@ const AppBarHeight = 64;
       <v-app-bar-title>Jalbac Admin</v-app-bar-title>
     </template>
 
-    <div style="width: 400px">
+    <div
+      style="width: 400px"
+      v-if="loggedState.isLogged && !drawer.visitedUsuariosView"
+    >
       <v-text-field
         density="comfortable"
         variant="outlined"
-        label="Busca nombres"
-        append-icon="mdi-magnify"
+        v-model="searches.searchTerm"
+        prepend-icon="mdi-magnify"
         single-line
+        :label="`Buscar ${searches.placeholderSearchBar}`"
         hide-details
       ></v-text-field>
     </div>
 
-    <div v-if="loggedState.isLogged && !drawer.visitedUsuariosView">
+    <div
+      v-if="loggedState.isLogged && !drawer.visitedUsuariosView"
+      class="ml-5 mb-1"
+    >
       <v-tabs
         v-model="tabs.tabs"
         color="blue"
         show-arrows
+        @update:model-value="searches.setPlaceHolderSearchBar(tabs.tabs)"
         :class="xs ? 'd-none' : ''"
       >
         <v-tab value="nombres">Nombres</v-tab>
