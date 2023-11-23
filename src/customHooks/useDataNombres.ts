@@ -1,3 +1,5 @@
+import { filterByTerm } from "@/helpers/helpers";
+import { Anillo } from "@/interfaces/interfaces";
 import { getAnillos } from "@/services/anilloApi";
 import {
   loggedState,
@@ -9,23 +11,23 @@ import { ref, watch } from "vue";
 
 export async function useDataNombres() {
   const isLoading = ref(true);
-  const anillosDataTable = ref<any[]>();
+  const anillosDataTable = ref<Anillo[]>();
   const page = ref(1);
   const totalItems = ref(6);
   const numPages = ref(1);
   const colKey = ref(0);
 
-  function setNumPages(dataTable: Array<any>): number {
+  function setNumPages(dataTable: Array<Anillo>): number {
     return Math.ceil(
       (dataTable?.length as number) / totalItems.value,
     ) as number;
   }
 
   function sliceArray(
-    array: Array<any>,
+    array: Array<Anillo>,
     start: number,
     end: number,
-  ): Array<any> {
+  ): Array<Anillo> {
     return array?.slice(start * totalItems.value, end * totalItems.value);
   }
 
@@ -33,9 +35,13 @@ export async function useDataNombres() {
 
   let anillosCopy = await getAnillos("nombres");
 
-  anillosDataTable.value = anillosCopy?.slice(0, page.value * totalItems.value);
+  anillosDataTable.value = sliceArray(
+    anillosCopy as Anillo[],
+    0,
+    page.value * totalItems.value,
+  );
 
-  numPages.value = setNumPages(anillosCopy as any[]);
+  numPages.value = setNumPages(anillosCopy as Anillo[]);
 
   const forceRender = () => {
     colKey.value = colKey.value + 1;
@@ -43,33 +49,38 @@ export async function useDataNombres() {
 
   isLoading.value = false;
 
-  async function updatePage(index: number) {
+  function updatePage(index: number) {
     page.value = index;
     anillosDataTable.value = sliceArray(
-      anillosCopy as any[],
+      anillosCopy as Anillo[],
       page.value - 1,
       page.value,
     );
 
-    numPages.value = setNumPages(anillosCopy as any[]);
+    numPages.value = setNumPages(anillosCopy as Anillo[]);
+  }
+
+  async function updateDataTable() {
+    isLoading.value = true;
+    anillosCopy = await getAnillos("nombres");
+
+    isLoading.value = false;
+
+    anillosDataTable.value = sliceArray(
+      anillosCopy as Anillo[],
+      page.value - 1,
+      page.value,
+    );
+
+    numPages.value = setNumPages(anillosCopy as Anillo[]);
+
+    forceRender();
   }
 
   watch(
     () => creacionAnillos.isCreated,
-    async () => {
-      isLoading.value = true;
-      anillosCopy = await getAnillos("nombres");
-      isLoading.value = false;
-
-      anillosDataTable.value = sliceArray(
-        anillosCopy as any[],
-        page.value - 1,
-        page.value,
-      );
-
-      numPages.value = setNumPages(anillosCopy as any[]);
-
-      forceRender();
+    () => {
+      updateDataTable();
     },
   );
 
@@ -78,10 +89,7 @@ export async function useDataNombres() {
     () => {
       console.log("buscando");
       if (searches.searchTerm) {
-        anillosDataTable.value = anillosCopy?.filter((anillo) =>
-          anillo.referencia.includes(searches.searchTerm),
-        );
-
+        anillosDataTable.value = filterByTerm(anillosCopy) as Anillo[];
         console.log(searches.searchTerm);
         anillosDataTable.value = anillosDataTable?.value?.slice(
           0,

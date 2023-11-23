@@ -34,6 +34,7 @@ const AppBarHeight = 64;
         single-line
         :label="`Buscar ${searches.placeholderSearchBar}`"
         hide-details
+        type="search"
       ></v-text-field>
     </div>
 

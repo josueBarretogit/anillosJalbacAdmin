@@ -126,7 +126,7 @@ export const searches = reactive({
   placeholderSearchBar: "nombres",
 
   setPlaceHolderSearchBar(term: string) {
-    this.placeholderSearchBar = term;
+    this.placeholderSearchBar = term.trim().toLowerCase();
   },
 
   searchTerm: "",
