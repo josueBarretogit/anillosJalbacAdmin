@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import carta from "./../components/cartaAnillo.vue";
-import { tabs, usuarioStore } from "@/variables/store";
+import { searches, tabs, usuarioStore } from "@/variables/store";
 import FormCrear from "@/components/formCrear.vue";
 import solitariosView from "./solitariosView.vue";
-import { useDataNombres } from "./../customHooks/useDataNombres";
+import { useDataAnillos } from "./../customHooks/useDataNombres";
 import DialogMensajeRequest from "@/components/dialogMensajeRequest.vue";
 import { imageReplacing } from "@/variables/store";
 import { dialogRequestExitoso } from "@/variables/store";
@@ -12,8 +12,18 @@ import Drawer from "@/components/drawer.vue";
 import { drawer } from "@/variables/store";
 import jwtDecode from "jwt-decode";
 import DijesView from "./dijesView.vue";
-const { anillosDataTable, colKey, numPages, page, updatePage } =
-  await useDataNombres();
+import { watch } from "vue";
+import { filterByTerm } from "@/helpers/helpers";
+import { Anillo } from "@/interfaces/interfaces";
+const {
+  anillosDataTable,
+  colKey,
+  numPages,
+  page,
+  updatePage,
+  totalItems,
+  anillosCopy,
+} = await useDataAnillos(tabs.tabs);
 
 const token = localStorage.getItem("accessToken");
 const userData: { correo: string; rol: string; id: number } = jwtDecode(
@@ -24,6 +34,26 @@ usuarioStore.setCorreo(userData.correo);
 const { xs } = useDisplay();
 
 drawer.setDrawer(false);
+
+watch(
+  () => searches.searchTerm,
+  () => {
+    console.log("buscando");
+    if (searches.searchTerm) {
+      anillosDataTable.value = filterByTerm(anillosCopy as Anillo[]);
+      console.log(searches.searchTerm);
+      anillosDataTable.value = anillosDataTable?.value?.slice(
+        0,
+        page.value * totalItems.value,
+      );
+    } else {
+      anillosDataTable.value = (anillosCopy as Anillo[])?.slice(
+        0,
+        page.value * totalItems.value,
+      );
+    }
+  },
+);
 </script>
 
 <template>

@@ -9,9 +9,9 @@ import {
 } from "@/variables/store";
 import { ref, watch } from "vue";
 
-export async function useDataNombres() {
+export async function useDataAnillos(tipoJoya: string) {
   const isLoading = ref(true);
-  const anillosDataTable = ref<Anillo[]>();
+  const anillosDataTable = ref<any>();
   const page = ref(1);
   const totalItems = ref(6);
   const numPages = ref(1);
@@ -33,7 +33,7 @@ export async function useDataNombres() {
 
   loggedState.setToTrue();
 
-  let anillosCopy = await getAnillos("nombres");
+  let anillosCopy = await getAnillos(tipoJoya);
 
   anillosDataTable.value = sliceArray(
     anillosCopy as Anillo[],
@@ -62,7 +62,7 @@ export async function useDataNombres() {
 
   async function updateDataTable() {
     isLoading.value = true;
-    anillosCopy = await getAnillos("nombres");
+    anillosCopy = await getAnillos(tipoJoya);
 
     isLoading.value = false;
 
@@ -85,24 +85,26 @@ export async function useDataNombres() {
   );
 
   watch(
-    () => searches.searchTerm,
+    () => creacionAnillos.isCreatedSolitario,
     () => {
-      console.log("buscando");
-      if (searches.searchTerm) {
-        anillosDataTable.value = filterByTerm(anillosCopy as Anillo[]);
-        console.log(searches.searchTerm);
-        anillosDataTable.value = anillosDataTable?.value?.slice(
-          0,
-          page.value * totalItems.value,
-        );
-      } else {
-        anillosDataTable.value = (anillosCopy as Anillo[])?.slice(
-          0,
-          page.value * totalItems.value,
-        );
-      }
+      updateDataTable();
     },
   );
 
-  return { anillosDataTable, colKey, numPages, page, updatePage };
+  watch(
+    () => creacionAnillos.isCreatedDije,
+    () => {
+      updateDataTable();
+    },
+  );
+
+  return {
+    anillosDataTable,
+    colKey,
+    numPages,
+    page,
+    updatePage,
+    totalItems,
+    anillosCopy,
+  };
 }

@@ -6,7 +6,10 @@ export function filterByTerm(dataTable: any): any {
   return (dataTable as Anillo[]).filter((anillo) => {
     const pesoPlataFormateado = anillo.pesoPlata.trim().replace(/\s/g, "");
     console.log(pesoPlataFormateado);
-    return pesoPlataFormateado.includes(searches.searchTerm);
+    return (
+      pesoPlataFormateado.includes(searches.searchTerm) ||
+      anillo.nombre.includes(searches.searchTerm)
+    );
   });
 }
 
