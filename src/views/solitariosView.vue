@@ -2,11 +2,19 @@
 import carta from "./../components/cartaAnillo.vue";
 import { ref } from "vue";
 import { onMounted, watch } from "vue";
-import { loggedState, creacionAnillos, tabs } from "@/variables/store";
+import {
+  loggedState,
+  creacionAnillos,
+  tabs,
+  searches,
+} from "@/variables/store";
 import FormCrear from "@/components/formCrear.vue";
 import { getAnillos } from "@/services/anilloApi";
 import { table } from "console";
 import { useDisplay } from "vuetify/lib/framework.mjs";
+import { filterByTerm, filterByTermSolitario } from "@/helpers/helpers";
+
+import { Solitario } from "@/interfaces/interfaces";
 const { xs } = useDisplay();
 
 let isLoading = ref(true);
@@ -70,6 +78,30 @@ watch(
     ) as number;
 
     forceRender();
+  },
+);
+
+watch(
+  () => searches.searchTerm,
+  () => {
+    console.log("buscando");
+
+    console.log(solitariosCopy);
+    if (searches.searchTerm) {
+      solitariosDataTable.value = filterByTermSolitario(
+        solitariosCopy as Solitario[],
+      );
+      console.log(searches.searchTerm);
+      solitariosDataTable.value = solitariosDataTable.value?.slice(
+        0,
+        page.value * totalItems.value,
+      );
+    } else {
+      solitariosDataTable.value = solitariosCopy?.slice(
+        0,
+        page.value * totalItems.value,
+      );
+    }
   },
 );
 </script>

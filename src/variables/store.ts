@@ -131,6 +131,6 @@ export const searches = reactive({
 
   searchTerm: "",
   setSearchTerm(term: string) {
-    this.searchTerm = term;
+    this.searchTerm = term.toLowerCase();
   },
 });

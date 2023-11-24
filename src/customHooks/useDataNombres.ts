@@ -89,14 +89,14 @@ export async function useDataNombres() {
     () => {
       console.log("buscando");
       if (searches.searchTerm) {
-        anillosDataTable.value = filterByTerm(anillosCopy) as Anillo[];
+        anillosDataTable.value = filterByTerm(anillosCopy as Anillo[]);
         console.log(searches.searchTerm);
         anillosDataTable.value = anillosDataTable?.value?.slice(
           0,
           page.value * totalItems.value,
         );
       } else {
-        anillosDataTable.value = anillosCopy?.slice(
+        anillosDataTable.value = (anillosCopy as Anillo[])?.slice(
           0,
           page.value * totalItems.value,
         );

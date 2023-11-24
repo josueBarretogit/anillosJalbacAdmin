@@ -1,4 +1,4 @@
-import type { Anillo, LoginResponse } from "@/interfaces/interfaces";
+import type { Anillo, LoginResponse, Solitario } from "@/interfaces/interfaces";
 import axios, { AxiosError } from "axios";
 
 const token = localStorage.getItem("accessToken");
@@ -46,7 +46,9 @@ async function editarAnillo(
   }
 }
 
-async function getAnillos(tipoJoya: string): Promise<Anillo[] | undefined> {
+async function getAnillos(
+  tipoJoya: string,
+): Promise<Anillo[] | Solitario[] | undefined> {
   try {
     const response = await axiosInstance.get(`${tipoJoya}`);
     return response.data;

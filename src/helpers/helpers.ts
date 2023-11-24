@@ -1,15 +1,18 @@
 import { Anillo, Dije, Solitario } from "@/interfaces/interfaces";
 import { searches, tabs } from "@/variables/store";
 
-export function filterByTerm(dataTable: Anillo[] & Solitario[] & Dije[]): any {
+export function filterByTerm(dataTable: any): any {
   if (!searches.searchTerm) return dataTable;
-  if (tabs.tabs == "nombres") {
-    return dataTable.filter((anillo) =>
-      anillo.pesoPlata.includes(searches.searchTerm),
-    );
-  } else if (tabs.tabs == "solitarios") {
-    return (dataTable as Solitario[]).filter((solitario) =>
-      solitario.formaPiedra.includes(searches.searchTerm),
-    );
-  }
+  return (dataTable as Anillo[]).filter((anillo) => {
+    const pesoPlataFormateado = anillo.pesoPlata.trim().replace(/\s/g, "");
+    console.log(pesoPlataFormateado);
+    return pesoPlataFormateado.includes(searches.searchTerm);
+  });
+}
+
+export function filterByTermSolitario(dataTable: any): any {
+  if (!searches.searchTerm) return dataTable;
+  return (dataTable as Solitario[]).filter((solitario) =>
+    solitario.formaPiedra.includes(searches.searchTerm),
+  );
 }
