@@ -1,25 +1,40 @@
 <script setup lang="ts">
 import carta from "./../components/cartaAnillo.vue";
-import { ref } from "vue";
-import { onMounted, watch } from "vue";
-import {
-  loggedState,
-  creacionAnillos,
-  tabs,
-  searches,
-} from "@/variables/store";
+import { watch } from "vue";
+import { tabs, searches } from "@/variables/store";
 import FormCrear from "@/components/formCrear.vue";
-import { getAnillos } from "@/services/anilloApi";
-import { table } from "console";
 import { useDisplay } from "vuetify/lib/framework.mjs";
-import { filterByTerm, filterByTermSolitario } from "@/helpers/helpers";
+import {
+  filterByTermSolitario,
+  updateDatatableOnFilter,
+} from "@/helpers/helpers";
 
 import { Solitario } from "@/interfaces/interfaces";
 import { useDataAnillos } from "@/customHooks/useDataNombres";
 const { xs } = useDisplay();
 
-const { anillosDataTable, colKey, numPages, page, updatePage } =
-  await useDataAnillos(tabs.tabs);
+const {
+  anillosDataTable,
+  colKey,
+  numPages,
+  page,
+  updatePage,
+  anillosCopy,
+  totalItems,
+} = await useDataAnillos(tabs.tabs);
+
+watch(
+  () => searches.searchTerm,
+  () => {
+    updateDatatableOnFilter(
+      anillosDataTable,
+      anillosCopy as any[],
+      filterByTermSolitario,
+      totalItems,
+      page,
+    );
+  },
+);
 </script>
 <template>
   <div style="position: fixed; z-index: 2; right: 20px; bottom: 20px">

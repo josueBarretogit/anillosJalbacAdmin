@@ -13,8 +13,14 @@ import { drawer } from "@/variables/store";
 import jwtDecode from "jwt-decode";
 import DijesView from "./dijesView.vue";
 import { watch } from "vue";
-import { filterByTerm } from "@/helpers/helpers";
-import { Anillo } from "@/interfaces/interfaces";
+import { filterByTerm, updateDatatableOnFilter } from "@/helpers/helpers";
+
+const token = localStorage.getItem("accessToken");
+const userData: { correo: string; rol: string; id: number } = jwtDecode(
+  token as string,
+);
+usuarioStore.setCorreo(userData.correo);
+
 const {
   anillosDataTable,
   colKey,
@@ -25,12 +31,6 @@ const {
   anillosCopy,
 } = await useDataAnillos(tabs.tabs);
 
-const token = localStorage.getItem("accessToken");
-const userData: { correo: string; rol: string; id: number } = jwtDecode(
-  token as string,
-);
-usuarioStore.setCorreo(userData.correo);
-
 const { xs } = useDisplay();
 
 drawer.setDrawer(false);
@@ -38,20 +38,13 @@ drawer.setDrawer(false);
 watch(
   () => searches.searchTerm,
   () => {
-    console.log("buscando");
-    if (searches.searchTerm) {
-      anillosDataTable.value = filterByTerm(anillosCopy as Anillo[]);
-      console.log(searches.searchTerm);
-      anillosDataTable.value = anillosDataTable?.value?.slice(
-        0,
-        page.value * totalItems.value,
-      );
-    } else {
-      anillosDataTable.value = (anillosCopy as Anillo[])?.slice(
-        0,
-        page.value * totalItems.value,
-      );
-    }
+    updateDatatableOnFilter(
+      anillosDataTable,
+      anillosCopy as any[],
+      filterByTerm,
+      totalItems,
+      page,
+    );
   },
 );
 </script>
