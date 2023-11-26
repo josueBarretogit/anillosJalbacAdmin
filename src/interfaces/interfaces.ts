@@ -26,6 +26,7 @@ export interface Solitario {
   tamanoPiedra: string;
   foto: string;
   referencia: string;
+  talla: string;
   pesoOro: string;
   pesoPlata: string;
 }
