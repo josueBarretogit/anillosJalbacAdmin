@@ -22,7 +22,7 @@ export function filterByTerm(dataTable: any): any {
       pesoOroFormateado.includes(searches.searchTerm) ||
       anillo.nombre.includes(searches.searchTerm) ||
       talla.includes(searches.searchTerm) ||
-      anillo.categoria.includes(searches.searchTerm) ||
+      anillo.categoria.toLowerCase().includes(searches.searchTerm) ||
       referenciaFormateada.includes(searches.searchTerm)
     );
   });
@@ -70,18 +70,23 @@ export const updateDatatableOnFilter = (
   filterFunction: (data: any) => any,
   totalItems: Ref<number>,
   page: Ref<number>,
-) => {
+  numPages: Ref<number>,
+  setNumPages: (data: any[]) => any,
+): any => {
   if (searches.searchTerm) {
     anillosDataTable.value = filterFunction(dataCopy as any[]);
-    console.log(searches.searchTerm);
+    numPages.value = setNumPages(anillosDataTable.value);
     anillosDataTable.value = anillosDataTable?.value?.slice(
       0,
       page.value * totalItems.value,
     );
+    page.value = 1;
   } else {
     anillosDataTable.value = (dataCopy as any[])?.slice(
       0,
       page.value * totalItems.value,
     );
+
+    numPages.value = setNumPages(dataCopy);
   }
 };

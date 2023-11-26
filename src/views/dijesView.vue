@@ -17,19 +17,6 @@ const {
   totalItems,
   anillosCopy,
 } = await useDataAnillos(tabs.tabs);
-
-watch(
-  () => searches.searchTerm,
-  () => {
-    updateDatatableOnFilter(
-      anillosDataTable,
-      anillosCopy as any[],
-      filterByTermDije,
-      totalItems,
-      page,
-    );
-  },
-);
 </script>
 <template>
   <div style="position: fixed; z-index: 2; right: 20px; bottom: 20px">

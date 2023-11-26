@@ -6,6 +6,7 @@ import {
   creacionAnillos,
   tabs,
   searches,
+  dataCopy,
 } from "@/variables/store";
 import { ref, watch } from "vue";
 
@@ -51,13 +52,21 @@ export async function useDataAnillos(tipoJoya: string) {
 
   function updatePage(index: number) {
     page.value = index;
-    anillosDataTable.value = sliceArray(
-      anillosCopy as Anillo[],
-      page.value - 1,
-      page.value,
-    );
-
-    numPages.value = setNumPages(anillosCopy as Anillo[]);
+    if (searches.searchTerm) {
+      anillosDataTable.value = sliceArray(
+        dataCopy.copy as any[],
+        page.value - 1,
+        page.value,
+      );
+      numPages.value = setNumPages(anillosDataTable.value as any[]);
+    } else {
+      anillosDataTable.value = sliceArray(
+        anillosCopy as Anillo[],
+        page.value - 1,
+        page.value,
+      );
+      numPages.value = setNumPages(anillosCopy as Anillo[]);
+    }
   }
 
   async function updateDataTable() {
@@ -106,5 +115,6 @@ export async function useDataAnillos(tipoJoya: string) {
     updatePage,
     totalItems,
     anillosCopy,
+    setNumPages,
   };
 }

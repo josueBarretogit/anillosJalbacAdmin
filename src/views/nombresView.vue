@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import carta from "./../components/cartaAnillo.vue";
-import { searches, tabs, usuarioStore } from "@/variables/store";
+import { dataCopy, searches, tabs, usuarioStore } from "@/variables/store";
 import FormCrear from "@/components/formCrear.vue";
 import solitariosView from "./solitariosView.vue";
 import { useDataAnillos } from "./../customHooks/useDataNombres";
@@ -29,6 +29,7 @@ const {
   updatePage,
   totalItems,
   anillosCopy,
+  setNumPages,
 } = await useDataAnillos(tabs.tabs);
 
 const { xs } = useDisplay();
@@ -38,12 +39,16 @@ drawer.setDrawer(false);
 watch(
   () => searches.searchTerm,
   () => {
-    updateDatatableOnFilter(
-      anillosDataTable,
-      anillosCopy as any[],
-      filterByTerm,
-      totalItems,
-      page,
+    dataCopy.setCopy(
+      updateDatatableOnFilter(
+        anillosDataTable,
+        anillosCopy as any[],
+        filterByTerm,
+        totalItems,
+        page,
+        numPages,
+        setNumPages,
+      ),
     );
   },
 );

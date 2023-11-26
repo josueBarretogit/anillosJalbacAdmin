@@ -27,6 +27,7 @@ const AppBarHeight = 64;
       v-if="loggedState.isLogged && !drawer.visitedUsuariosView"
     >
       <v-text-field
+        clearable
         density="comfortable"
         variant="outlined"
         v-model="searches.searchTerm"
