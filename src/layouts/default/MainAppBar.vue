@@ -23,6 +23,7 @@ const AppBarHeight = 64;
     </template>
 
     <div
+      class="searchbar"
       style="width: 400px"
       v-if="loggedState.isLogged && !drawer.visitedUsuariosView"
     >
@@ -34,6 +35,24 @@ const AppBarHeight = 64;
         prepend-icon="mdi-magnify"
         single-line
         :label="`Buscar ${searches.placeholderSearchBar}`"
+        hide-details
+        type="search"
+      ></v-text-field>
+    </div>
+
+    <div
+      class="searchbar"
+      style="width: 400px"
+      v-if="loggedState.isLogged && drawer.visitedUsuariosView"
+    >
+      <v-text-field
+        clearable
+        density="comfortable"
+        variant="outlined"
+        v-model="searches.searchTermUsuario"
+        prepend-icon="mdi-magnify"
+        single-line
+        :label="`Buscar usuarios`"
         hide-details
         type="search"
       ></v-text-field>
@@ -72,3 +91,8 @@ const AppBarHeight = 64;
     </template>
   </v-app-bar>
 </template>
+<style scoped>
+.searchbar {
+  margin-right: 20px;
+}
+</style>

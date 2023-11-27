@@ -3,18 +3,21 @@ import type { Usuario } from "@/interfaces/interfaces";
 import { watch } from "vue";
 import { ref } from "vue";
 import { useDisplay } from "vuetify/lib/framework.mjs";
-import { drawer, usuarioStore } from "@/variables/store";
+import { drawer, searches, usuarioStore } from "@/variables/store";
 import { getUsuarios } from "@/services/usuariosapi";
 import FormCrearUsuario from "@/components/usuariosComponents/formCrearUsuario.vue";
 import CartaUsuario from "@/components/cartaUsuario.vue";
 import Drawer from "@/components/drawer.vue";
+import { filterByTermUsuario } from "@/helpers/helpers";
 
 const { xs } = useDisplay();
 const isLoading = ref(true);
 const usuarioDataTable = ref<any[]>();
 const colKey = ref(0);
 
-usuarioDataTable.value = await getUsuarios();
+const usuarioDataTableCopy = await getUsuarios();
+
+usuarioDataTable.value = usuarioDataTableCopy;
 
 console.log(usuarioDataTable.value);
 isLoading.value = false;
@@ -28,10 +31,18 @@ watch(
   async () => {
     isLoading.value = true;
     usuarioDataTable.value = await getUsuarios();
-
     isLoading.value = false;
-
     forceRender();
+  },
+);
+
+watch(
+  () => searches.searchTermUsuario,
+  () => {
+    console.log("searching udsuairo");
+    usuarioDataTable.value = filterByTermUsuario(
+      usuarioDataTableCopy as Usuario[],
+    );
   },
 );
 </script>

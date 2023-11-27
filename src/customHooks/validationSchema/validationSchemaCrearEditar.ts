@@ -53,7 +53,7 @@ const ObjectValidationCrearNombre =
 const ObjectValidationEditarSolitario = z.object({
   formaPiedra: z
     .string({ required_error: "Este campo es requerido" })
-    .regex(/[a-zA-Z0-9]$/, "No puedes ingresar caracteres especiales")
+    .regex(/[a-zA-Z]$/, "No puedes ingresar caracteres especiales")
     .nonempty({ message: "Este campo es requerido" }),
   tamanoPiedra: z.coerce
     .number(mensajesError)

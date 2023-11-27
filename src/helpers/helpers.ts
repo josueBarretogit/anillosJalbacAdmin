@@ -1,5 +1,5 @@
-import { Anillo, Dije, Solitario } from "@/interfaces/interfaces";
-import { searches, tabs } from "@/variables/store";
+import { Anillo, Dije, Solitario, Usuario } from "@/interfaces/interfaces";
+import { dataCopy, searches, tabs } from "@/variables/store";
 import { Ref } from "vue";
 
 function commonProperties(entity: Anillo | Solitario | Dije): any {
@@ -64,9 +64,21 @@ export function filterByTermDije(dataTable: any): any {
   });
 }
 
+export function filterByTermUsuario(dataTable: Usuario[]): Usuario[] {
+  if (!searches.searchTermUsuario) return dataTable;
+  return dataTable.filter((usuario) => {
+    const estado = usuario.estado ? "activo" : "inactivo";
+    return (
+      usuario.correo.toLowerCase().includes(searches.searchTermUsuario) ||
+      usuario.rol.toLowerCase().includes(searches.searchTermUsuario) ||
+      estado == searches.searchTermUsuario
+    );
+  });
+}
+
 export const updateDatatableOnFilter = (
   anillosDataTable: Ref<any[]>,
-  dataCopy: any[],
+  anillosCopy: any[],
   filterFunction: (data: any) => any,
   totalItems: Ref<number>,
   page: Ref<number>,
@@ -74,19 +86,20 @@ export const updateDatatableOnFilter = (
   setNumPages: (data: any[]) => any,
 ): any => {
   if (searches.searchTerm) {
-    anillosDataTable.value = filterFunction(dataCopy as any[]);
-    numPages.value = setNumPages(anillosDataTable.value);
-    anillosDataTable.value = anillosDataTable?.value?.slice(
+    const filteredData = filterFunction(anillosCopy as any[]);
+    dataCopy.setCopy(filteredData);
+    numPages.value = setNumPages(filteredData);
+    anillosDataTable.value = filteredData?.slice(
       0,
       page.value * totalItems.value,
     );
     page.value = 1;
   } else {
-    anillosDataTable.value = (dataCopy as any[])?.slice(
+    anillosDataTable.value = (anillosCopy as any[])?.slice(
       0,
       page.value * totalItems.value,
     );
 
-    numPages.value = setNumPages(dataCopy);
+    numPages.value = setNumPages(anillosCopy);
   }
 };

@@ -39,16 +39,14 @@ drawer.setDrawer(false);
 watch(
   () => searches.searchTerm,
   () => {
-    dataCopy.setCopy(
-      updateDatatableOnFilter(
-        anillosDataTable,
-        anillosCopy as any[],
-        filterByTerm,
-        totalItems,
-        page,
-        numPages,
-        setNumPages,
-      ),
+    updateDatatableOnFilter(
+      anillosDataTable,
+      anillosCopy as any[],
+      filterByTerm,
+      totalItems,
+      page,
+      numPages,
+      setNumPages,
     );
   },
 );

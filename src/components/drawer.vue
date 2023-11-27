@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { drawer, loggedState, usuarioStore } from "@/variables/store";
+import { drawer, loggedState, tabs, usuarioStore } from "@/variables/store";
 
 import { logOut } from "@/services/anilloApi";
 import { useRouter } from "vue-router";
@@ -15,6 +15,7 @@ async function cerrarSesion() {
     router.push({
       name: "Home",
     });
+    tabs.tabs = "nombres";
   }
 }
 function goToUsuariosView() {

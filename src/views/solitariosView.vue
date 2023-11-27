@@ -21,7 +21,23 @@ const {
   updatePage,
   anillosCopy,
   totalItems,
+  setNumPages,
 } = await useDataAnillos(tabs.tabs);
+
+watch(
+  () => searches.searchTerm,
+  () => {
+    updateDatatableOnFilter(
+      anillosDataTable,
+      anillosCopy as any[],
+      filterByTermSolitario,
+      totalItems,
+      page,
+      numPages,
+      setNumPages,
+    );
+  },
+);
 </script>
 <template>
   <div style="position: fixed; z-index: 2; right: 20px; bottom: 20px">

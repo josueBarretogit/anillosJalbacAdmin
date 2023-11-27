@@ -133,6 +133,11 @@ export const searches = reactive({
   setSearchTerm(term: string) {
     this.searchTerm = term.toLowerCase().trim().replace(/\s/g, "");
   },
+
+  searchTermUsuario: "",
+  setSearchTermUsuario(term: string) {
+    this.searchTermUsuario = term.toLowerCase().trim().replace(/\s/g, "");
+  },
 });
 
 export const dataCopy = reactive({
