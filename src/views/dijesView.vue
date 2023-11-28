@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import carta from "./../components/cartaAnillo.vue";
 import { onMounted, watch } from "vue";
-import { tabs, searches } from "@/variables/store";
+import { tabs, searches, dataCopy } from "@/variables/store";
 import FormCrear from "@/components/formCrear.vue";
 import { useDisplay } from "vuetify/lib/framework.mjs";
 import { useDataAnillos } from "@/customHooks/useDataNombres";

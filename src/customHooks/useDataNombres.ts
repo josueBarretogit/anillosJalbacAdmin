@@ -36,6 +36,7 @@ export async function useDataAnillos(tipoJoya: string) {
 
   let anillosCopy = await getAnillos(tipoJoya);
 
+  dataCopy.setCopy2(anillosCopy as any[]);
   anillosDataTable.value = sliceArray(anillosCopy as Anillo[], 0, page.value);
 
   numPages.value = setNumPages(anillosCopy as Anillo[]);
@@ -69,6 +70,7 @@ export async function useDataAnillos(tipoJoya: string) {
     isLoading.value = true;
     anillosCopy = await getAnillos(tipoJoya);
 
+    dataCopy.setCopy2(anillosCopy as any[]);
     isLoading.value = false;
 
     anillosDataTable.value = sliceArray(

@@ -1,5 +1,4 @@
 import { ref } from "vue";
-import type { Anillo } from "@/interfaces/interfaces";
 import { deleteAnillo } from "./../services/anilloApi";
 import { AxiosError } from "axios";
 import { dialogRequestExitoso, tabs } from "./../variables/store";

@@ -15,8 +15,7 @@ const isLoading = ref(true);
 const usuarioDataTable = ref<any[]>();
 const colKey = ref(0);
 
-const usuarioDataTableCopy = await getUsuarios();
-
+let usuarioDataTableCopy = await getUsuarios();
 usuarioDataTable.value = usuarioDataTableCopy;
 
 console.log(usuarioDataTable.value);
@@ -30,7 +29,8 @@ watch(
   () => usuarioStore.isRegistered,
   async () => {
     isLoading.value = true;
-    usuarioDataTable.value = await getUsuarios();
+    usuarioDataTableCopy = await getUsuarios();
+    usuarioDataTable.value = usuarioDataTableCopy;
     isLoading.value = false;
     forceRender();
   },
