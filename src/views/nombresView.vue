@@ -39,10 +39,9 @@ drawer.setDrawer(false);
 watch(
   () => searches.searchTerm,
   () => {
-    console.log(dataCopy.copy2);
     updateDatatableOnFilter(
       anillosDataTable,
-      anillosCopy as any[],
+      dataCopy.copyNombres as any[],
       filterByTerm,
       totalItems,
       page,

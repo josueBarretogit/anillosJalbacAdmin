@@ -88,6 +88,12 @@ const AppBarHeight = 64;
           <v-tab value="dijes">Dijes</v-tab>
         </v-tabs>
       </div>
+
+      <div class="d-flex justify-center w-100">
+        <ActionButtonsUsuario
+          if="loggedState.isLogged  && drawer.visitedUsuariosView"
+        />
+      </div>
     </template>
   </v-app-bar>
 </template>

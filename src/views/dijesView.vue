@@ -24,7 +24,7 @@ watch(
   () => {
     updateDatatableOnFilter(
       anillosDataTable,
-      anillosCopy as any[],
+      dataCopy.copyDijes as any[],
       filterByTermDije,
       totalItems,
       page,

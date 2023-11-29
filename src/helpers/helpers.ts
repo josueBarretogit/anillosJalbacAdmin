@@ -20,7 +20,7 @@ export function filterByTerm(dataTable: any): any {
     return (
       pesoPlataFormateado.includes(searches.searchTerm) ||
       pesoOroFormateado.includes(searches.searchTerm) ||
-      anillo.nombre.includes(searches.searchTerm) ||
+      anillo.nombre.toLowerCase().includes(searches.searchTerm) ||
       talla.includes(searches.searchTerm) ||
       anillo.categoria.toLowerCase().includes(searches.searchTerm) ||
       referenciaFormateada.includes(searches.searchTerm)
@@ -36,7 +36,7 @@ export function filterByTermSolitario(dataTable: any): any {
     const talla = "talla" + solitario.talla.trim();
     const tamanoPiedra = solitario.tamanoPiedra.trim().replace(/\s/g, "");
     return (
-      solitario.formaPiedra.includes(searches.searchTerm) ||
+      solitario.formaPiedra.toLowerCase().includes(searches.searchTerm) ||
       pesoPlataFormateado.includes(searches.searchTerm) ||
       pesoOroFormateado.includes(searches.searchTerm) ||
       referenciaFormateada.includes(searches.searchTerm) ||
@@ -54,7 +54,7 @@ export function filterByTermDije(dataTable: any): any {
     const altura = "altura" + dije.alto.trim().replace(/\s/g, "");
     const anchura = "anchura" + dije.ancho.trim().replace(/\s/g, "");
     return (
-      dije.categoria.includes(searches.searchTerm) ||
+      dije.categoria.toLowerCase().includes(searches.searchTerm) ||
       pesoPlataFormateado.includes(searches.searchTerm) ||
       pesoOroFormateado.includes(searches.searchTerm) ||
       referenciaFormateada.includes(searches.searchTerm) ||

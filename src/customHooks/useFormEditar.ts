@@ -62,8 +62,8 @@ export function useFormEditar(
   formaPiedra.value.value = joya.formaPiedra;
   tamanoPiedra.value.value = joya.tamanoPiedra?.trim().replace("mm", "");
 
-  alto.value.value = joya.alto;
-  ancho.value.value = joya.ancho;
+  alto.value.value = joya.alto?.trim().replace("mm", "");
+  ancho.value.value = joya.ancho?.trim().replace("mm", "");
   categoriaDije.value.value = (joya as Dije).categoria;
 
   pesoOro.value.value = joya.pesoOro?.trim().replace("gr", "");

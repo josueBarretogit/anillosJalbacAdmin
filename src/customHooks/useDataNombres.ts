@@ -25,7 +25,7 @@ export async function useDataAnillos(tipoJoya: string) {
   }
 
   function sliceArray(
-    array: Array<Anillo>,
+    array: Array<any>,
     start: number,
     end: number,
   ): Array<Anillo> {
@@ -36,7 +36,14 @@ export async function useDataAnillos(tipoJoya: string) {
 
   let anillosCopy = await getAnillos(tipoJoya);
 
-  dataCopy.setCopy2(anillosCopy as any[]);
+  if (tipoJoya == "nombres") {
+    dataCopy.setCopyNombres(anillosCopy as any[]);
+  } else if (tipoJoya == "solitarios") {
+    dataCopy.setCopySolitarios(anillosCopy as any[]);
+  } else if (tipoJoya == "dijes") {
+    dataCopy.setCopyDijes(anillosCopy as any[]);
+  }
+
   anillosDataTable.value = sliceArray(anillosCopy as Anillo[], 0, page.value);
 
   numPages.value = setNumPages(anillosCopy as Anillo[]);
@@ -51,7 +58,13 @@ export async function useDataAnillos(tipoJoya: string) {
     page.value = index;
     if (searches.searchTerm) {
       anillosDataTable.value = sliceArray(
-        dataCopy.copy as any[],
+        tipoJoya == "nombres"
+          ? dataCopy.copyNombres
+          : tipoJoya == "solitarios"
+          ? dataCopy.copySolitarios
+          : tipoJoya == "dijes"
+          ? dataCopy.copyDijes
+          : [],
         page.value - 1,
         page.value,
       );
@@ -70,7 +83,13 @@ export async function useDataAnillos(tipoJoya: string) {
     isLoading.value = true;
     anillosCopy = await getAnillos(tipoJoya);
 
-    dataCopy.setCopy2(anillosCopy as any[]);
+    if (tipoJoya == "nombres") {
+      dataCopy.setCopyNombres(anillosCopy as any[]);
+    } else if (tipoJoya == "solitarios") {
+      dataCopy.setCopySolitarios(anillosCopy as any[]);
+    } else if (tipoJoya == "dijes") {
+      dataCopy.setCopyDijes(anillosCopy as any[]);
+    }
     isLoading.value = false;
 
     anillosDataTable.value = sliceArray(

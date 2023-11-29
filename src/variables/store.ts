@@ -145,8 +145,17 @@ export const dataCopy = reactive({
   setCopy(data: any[]) {
     this.copy = data;
   },
-  copy2: [0],
-  setCopy2(data: any[]) {
-    this.copy2 = data;
+  copyNombres: [0],
+  setCopyNombres(data: any[]) {
+    this.copyNombres = data;
+  },
+  copySolitarios: [0],
+  setCopySolitarios(data: any[]) {
+    this.copySolitarios = data;
+  },
+
+  copyDijes: [0],
+  setCopyDijes(data: any[]) {
+    this.copyDijes = data;
   },
 });
