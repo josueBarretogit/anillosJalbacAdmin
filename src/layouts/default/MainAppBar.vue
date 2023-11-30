@@ -19,12 +19,11 @@ const AppBarHeight = 64;
         icon="mdi-menu"
       >
       </v-btn>
-      <v-app-bar-title>Jalbac Admin</v-app-bar-title>
+      <v-app-bar-title class="mr-5">Jalbac Admin</v-app-bar-title>
     </template>
 
     <div
       class="searchbar"
-      style="width: 400px"
       v-if="loggedState.isLogged && !drawer.visitedUsuariosView"
     >
       <v-text-field
@@ -32,17 +31,15 @@ const AppBarHeight = 64;
         density="comfortable"
         variant="outlined"
         v-model="searches.searchTerm"
-        prepend-icon="mdi-magnify"
+        prepend-inner-icon="mdi-magnify"
         single-line
         :label="`Buscar ${searches.placeholderSearchBar}`"
         hide-details
-        type="search"
       ></v-text-field>
     </div>
 
     <div
       class="searchbar"
-      style="width: 400px"
       v-if="loggedState.isLogged && drawer.visitedUsuariosView"
     >
       <v-text-field
@@ -50,24 +47,22 @@ const AppBarHeight = 64;
         density="comfortable"
         variant="outlined"
         v-model="searches.searchTermUsuario"
-        prepend-icon="mdi-magnify"
+        prepend-inner-icon="mdi-magnify"
         single-line
         :label="`Buscar usuarios`"
         hide-details
-        type="search"
       ></v-text-field>
     </div>
 
     <div
       v-if="loggedState.isLogged && !drawer.visitedUsuariosView"
-      class="ml-5 mb-1"
+      :class="xs ? 'd-none' : 'ml-5 mb-1'"
     >
       <v-tabs
         v-model="tabs.tabs"
         color="blue"
         show-arrows
         @update:model-value="searches.setPlaceHolderSearchBar(tabs.tabs)"
-        :class="xs ? 'd-none' : ''"
       >
         <v-tab value="nombres">Nombres</v-tab>
         <v-tab value="solitarios">solitarios</v-tab>
@@ -75,7 +70,10 @@ const AppBarHeight = 64;
       </v-tabs>
     </div>
 
-    <ActionButtonsUsuario v-else-if="loggedState.isLogged" />
+    <ActionButtonsUsuario
+      v-else-if="loggedState.isLogged && drawer.visitedUsuariosView"
+      :class="xs ? 'd-none' : 'ml-5'"
+    />
 
     <template v-slot:extension>
       <div
@@ -89,16 +87,18 @@ const AppBarHeight = 64;
         </v-tabs>
       </div>
 
-      <div class="d-flex justify-center w-100">
-        <ActionButtonsUsuario
-          if="loggedState.isLogged  && drawer.visitedUsuariosView"
-        />
+      <div
+        class="d-flex justify-center w-100"
+        v-if="loggedState.isLogged && drawer.visitedUsuariosView"
+      >
+        <ActionButtonsUsuario :class="!xs ? 'd-none' : ''" />
       </div>
     </template>
   </v-app-bar>
 </template>
 <style scoped>
 .searchbar {
+  width: 400px;
   margin-right: 20px;
 }
 </style>
