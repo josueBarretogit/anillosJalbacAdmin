@@ -1,5 +1,29 @@
+import { searchReferencia } from "@/services/anilloApi";
+import { tabs } from "@/variables/store";
 import { toTypedSchema } from "@vee-validate/zod";
 import { z } from "zod";
+
+/*
+ *
+ .refine(
+      async (referencia) => {
+        if (referencia) {
+          console.log(referencia);
+          const responseReferenciaAlreadyExist = await searchReferencia(
+            tabs.tabs,
+            referencia,
+          );
+          return responseReferenciaAlreadyExist;
+        }
+      },
+      { message: "Esta referencia ya existe" },
+    ),
+ * */
+
+const mensajesError = {
+  required_error: "Este campo es requerido",
+  invalid_type_error: "Este campo solo admite numeros",
+};
 
 const validationImage = {
   imagen: z
@@ -9,13 +33,25 @@ const validationImage = {
       (file) => file?.[0]?.type.includes("image/"),
       "Solo se aceptan imagenes",
     ),
+  referencia: z.coerce
+    .number(mensajesError)
+    .int({ message: "El numero tiene que ser entero" })
+    .positive({ message: "El numero tiene que ser entero" })
+    .transform((referencia) => "#" + referencia)
+    .refine(
+      async (referencia) => {
+        if (referencia) {
+          console.log(referencia);
+          const responseReferenciaAlreadyExist = await searchReferencia(
+            tabs.tabs,
+            referencia,
+          );
+          return responseReferenciaAlreadyExist;
+        }
+      },
+      { message: "Esta referencia ya existe" },
+    ),
 };
-
-const mensajesError = {
-  required_error: "Este campo es requerido",
-  invalid_type_error: "Este campo solo admite numeros",
-};
-
 const propiedadesComunes = {
   pesoOro: z.coerce
     .number(mensajesError)

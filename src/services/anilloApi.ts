@@ -13,6 +13,16 @@ const axiosInstance = axios.create({
   withCredentials: true,
 });
 
+const axiosInstanceJson = axios.create({
+  baseURL: "http://localhost:4000/api/",
+  headers: {
+    "Content-Type": "application/json",
+    "Access-Control-Allow-Origin": "*",
+    Authorization: `Bearer ${token}`,
+  },
+  withCredentials: true,
+});
+
 async function createAnillo(
   data: FormData,
   tipo: string,
@@ -125,6 +135,23 @@ async function replaceImage(
   }
 }
 
+async function searchReferencia(
+  tipoJoya: string,
+  referencia: string,
+): Promise<boolean | undefined | AxiosError> {
+  try {
+    const response = await axiosInstanceJson.post(
+      `${tipoJoya}/searchReferencia`,
+      {
+        referencia: referencia,
+      },
+    );
+    return response.data;
+  } catch (error) {
+    return error as AxiosError;
+  }
+}
+
 export {
   getAnillos,
   logIn,
@@ -133,4 +160,5 @@ export {
   createAnillo,
   editarAnillo,
   replaceImage,
+  searchReferencia,
 };
