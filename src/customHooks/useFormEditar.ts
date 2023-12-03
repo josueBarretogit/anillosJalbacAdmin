@@ -1,7 +1,7 @@
 import { editarAnillo } from "@/services/anilloApi";
 import { creacionAnillos, dialogRequestExitoso, tabs } from "@/variables/store";
 import { AxiosError } from "axios";
-import { useField, useForm } from "vee-validate";
+import { configure, useField, useForm } from "vee-validate";
 import { ref } from "vue";
 import { useDisplay } from "vuetify/lib/framework.mjs";
 import {
@@ -31,7 +31,7 @@ export function useFormEditar(
     dialog.value = false;
   }
 
-  const { handleSubmit } = useForm({
+  const { handleSubmit, isValidating } = useForm({
     validationSchema:
       tipoJoya == "nombres"
         ? validationSchemaEditarNombre
@@ -70,7 +70,6 @@ export function useFormEditar(
   pesoPlata.value.value = joya.pesoPlata?.trim().replace("gr", "");
   categoria.value.value = joya.categoria;
   talla.value.value = joya.talla;
-  referencia.value.value = joya.referencia?.trim().replace("#", "");
 
   const submit = handleSubmit(async (values) => {
     const valuesForm = new FormData();
@@ -90,7 +89,7 @@ export function useFormEditar(
     valuesForm.append("pesoOro", values.pesoOro);
     valuesForm.append("pesoPlata", values.pesoPlata);
     valuesForm.append("talla", values.talla);
-    valuesForm.append("referencia", values.referencia);
+    valuesForm.append("referencia", values.referencia || joya.referencia);
 
     console.log(values);
     isLoading.value = true;

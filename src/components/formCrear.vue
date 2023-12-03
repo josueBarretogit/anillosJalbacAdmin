@@ -56,6 +56,7 @@ const {
               :peso-oro="pesoOro"
               :peso-plata="pesoPlata"
             />
+
             <v-row no-gutters justify="center" class="mt-3 mb-3">
               <v-col>
                 <v-file-input

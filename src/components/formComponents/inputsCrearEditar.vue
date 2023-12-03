@@ -61,6 +61,7 @@ const props = defineProps<{
         v-model="referencia.value.value"
         :error-messages="referencia.errorMessage.value"
         label="Referencia"
+        :validate-on="'submit'"
       ></v-text-field>
     </v-col>
   </v-row>

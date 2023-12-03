@@ -39,7 +39,6 @@ export function useFormCrear(tipoJoya: string) {
         ? validationSchemaCrearDije
         : null,
   });
-  console.log("hola" + tipoJoya);
 
   const nombre = useField("nombre");
   const categoria = useField("categoria");

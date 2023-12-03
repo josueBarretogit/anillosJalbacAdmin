@@ -33,6 +33,17 @@ const validationImage = {
       (file) => file?.[0]?.type.includes("image/"),
       "Solo se aceptan imagenes",
     ),
+};
+
+const propiedadesComunes = {
+  pesoOro: z.coerce
+    .number(mensajesError)
+    .positive({ message: "No pongas numeros negativos" })
+    .transform((pesoOro) => pesoOro + " gr"),
+  pesoPlata: z.coerce
+    .number(mensajesError)
+    .positive({ message: "No pongas numeros negativos" })
+    .transform((pesoPlata) => pesoPlata + " gr"),
   referencia: z.coerce
     .number(mensajesError)
     .int({ message: "El numero tiene que ser entero" })
@@ -50,22 +61,8 @@ const validationImage = {
         }
       },
       { message: "Esta referencia ya existe" },
-    ),
-};
-const propiedadesComunes = {
-  pesoOro: z.coerce
-    .number(mensajesError)
-    .positive({ message: "No pongas numeros negativos" })
-    .transform((pesoOro) => pesoOro + " gr"),
-  pesoPlata: z.coerce
-    .number(mensajesError)
-    .positive({ message: "No pongas numeros negativos" })
-    .transform((pesoPlata) => pesoPlata + " gr"),
-  referencia: z.coerce
-    .number(mensajesError)
-    .int({ message: "El numero tiene que ser entero" })
-    .positive({ message: "El numero tiene que ser entero" })
-    .transform((referencia) => "#" + referencia),
+    )
+    .optional(),
 };
 
 const ObjectValidationEditarNombre = z.object({
