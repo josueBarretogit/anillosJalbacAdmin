@@ -18,6 +18,7 @@ async function cerrarSesion() {
     tabs.tabs = "nombres";
   }
 }
+
 function goToUsuariosView() {
   router.push({
     name: "usuarios",

@@ -40,6 +40,8 @@ export function useLogin() {
       usuarioStore.setUsuario(dataLogin.usuario);
 
       loggedState.setToken(token);
+
+      const cookie = document.cookie.replace("refreshToken=", "");
       localStorage.setItem("accessToken", dataLogin.accessToken);
 
       router.push({

@@ -4,6 +4,8 @@ import viewNombres from "@/views/nombresView.vue";
 import defaultLayout from "@/layouts/default/DefaultLayout.vue";
 import loginView from "@/views/LoginView.vue";
 import UsuarioView from "@/views/usuariosView.vue";
+import Cookies from "js-cookie";
+import jwtDecode from "jwt-decode";
 
 const routes = [
   {
@@ -42,6 +44,9 @@ const router = createRouter({
 
 router.beforeEach(async (to, from) => {
   const token = localStorage.getItem("accessToken");
+  const cookie = document.cookie;
+  console.log(cookie || "no hubo cookie");
+
   if (!token && to.name != "Home") {
     return { name: "Home" };
   }

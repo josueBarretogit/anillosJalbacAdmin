@@ -80,7 +80,13 @@ const AppBarHeight = 64;
         class="d-flex justify-center w-100"
         v-if="loggedState.isLogged && !drawer.visitedUsuariosView"
       >
-        <v-tabs v-model="tabs.tabs" color="blue" show-arrows center-active>
+        <v-tabs
+          v-model="tabs.tabs"
+          color="blue"
+          show-arrows
+          center-active
+          @update:model-value="searches.setPlaceHolderSearchBar(tabs.tabs)"
+        >
           <v-tab value="nombres">Nombres</v-tab>
           <v-tab value="solitarios">solitarios</v-tab>
           <v-tab value="dijes">Dijes</v-tab>

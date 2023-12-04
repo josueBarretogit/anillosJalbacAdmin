@@ -4,9 +4,7 @@ import { drawer, tabs } from "@/variables/store";
 
 const router = useRouter();
 function goToHome() {
-  router.push({
-    name: "viewNombres",
-  });
+  router.back();
   tabs.tabs = "nombres";
   drawer.setVisitedUsuariosView(false);
 }

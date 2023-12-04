@@ -5,6 +5,7 @@ const token = localStorage.getItem("accessToken");
 
 const axiosInstance = axios.create({
   baseURL: "http://localhost:4000/api/",
+
   headers: {
     "Content-Type": "multipart/form-data",
     "Access-Control-Allow-Origin": "*",
