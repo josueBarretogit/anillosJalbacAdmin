@@ -1,11 +1,13 @@
 import { ref } from "vue";
-import { deleteAnillo } from "./../services/anilloApi";
+import useAnillosApi from "./../services/anilloApi";
 import { AxiosError } from "axios";
 import { dialogRequestExitoso, tabs } from "./../variables/store";
 
 export function useFormEliminar() {
   const dialogEliminar = ref(false);
   const dialogMensaje = ref(false);
+
+  const { deleteAnillo } = useAnillosApi();
 
   function cerrarFormularioEliminar() {
     dialogRequestExitoso.setIsShow(false);

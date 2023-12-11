@@ -1,81 +1,145 @@
 import type { Usuario, LoginResponse } from "@/interfaces/interfaces";
-import { usuarioStore } from "@/variables/store";
+import { authorization, usuarioStore } from "@/variables/store";
 import axios, { AxiosError } from "axios";
 
-const token = localStorage.getItem("accessToken");
+export default function useUsuarioApi() {
+  const axiosInstance = axios.create({
+    baseURL: "http://localhost:4000/api/usuarios",
+    headers: {
+      "Content-Type": "multipart/form-data",
+      "Access-Control-Allow-Origin": "*",
+      Authorization: `Bearer ${authorization.authorizationToken}`,
+    },
+    withCredentials: true,
+  });
 
-const axiosInstance = axios.create({
-  baseURL: "http://localhost:4000/api/usuarios",
-  headers: {
-    "Content-Type": "multipart/form-data",
-    "Access-Control-Allow-Origin": "*",
-    Authorization: `Bearer ${token}`,
-  },
-  withCredentials: true,
-});
+  async function logIn(
+    correo: string,
+    contrasena: string,
+  ): Promise<LoginResponse | undefined> {
+    try {
+      const response = await axiosInstance.post(`login`, {
+        correo,
+        contrasena,
+      });
 
-async function getUsuarios(): Promise<Usuario[] | undefined> {
-  try {
-    const response = await axiosInstance.get("/");
-    const filteredUsuarios: Usuario[] = response.data.filter(
-      (usuario: Usuario) =>
-        usuario.correo != usuarioStore.UsuarioInterface.correo,
-    );
-    return filteredUsuarios.sort((a: Usuario, b: Usuario) =>
-      a.estado === b.estado ? 0 : a.estado ? -1 : 1,
-    );
-  } catch (error) {
-    console.log(error);
+      return response.data;
+    } catch (error: any) {
+      console.log(error);
+      const err = error as AxiosError;
+      return err.response?.data as LoginResponse;
+    }
   }
-}
 
-async function registrarUsuario(data: FormData): Promise<Usuario | AxiosError> {
-  try {
-    const response = await axiosInstance.post(`/register`, data);
-    return response.data;
-  } catch (error) {
-    console.log(error);
-    const err = error as AxiosError;
-    return err;
+  async function logOut(): Promise<{ response: string } | undefined> {
+    try {
+      const response = await axiosInstance.get("logout");
+      return response.data;
+    } catch (error: any) {
+      const err = error as AxiosError;
+      return err.response?.data as { response: string };
+    }
   }
-}
 
-async function actualizarUsuario(
-  data: FormData,
-  id: number,
-): Promise<Usuario | AxiosError> {
-  try {
-    const response = await axiosInstance.put(`/editar`, data, {
-      params: {
-        id: id,
-      },
-    });
-    return response.data;
-  } catch (error) {
-    console.log(error);
-    const err = error as AxiosError;
-    return err;
+  async function getUsuarios(): Promise<Usuario[] | undefined> {
+    try {
+      const response = await axiosInstance.get("/");
+      const filteredUsuarios: Usuario[] = response.data.filter(
+        (usuario: Usuario) =>
+          usuario.correo != usuarioStore.UsuarioInterface.correo,
+      );
+      return filteredUsuarios.sort((a: Usuario, b: Usuario) =>
+        a.estado === b.estado ? 0 : a.estado ? -1 : 1,
+      );
+    } catch (error) {
+      console.log(error);
+    }
   }
-}
 
-async function toggleEstadoUsuario(id: number): Promise<Usuario | AxiosError> {
-  try {
-    const response = await axiosInstance.patch(`/desactivar`, null, {
-      params: {
-        id: id,
-      },
-    });
-    return response.data;
-  } catch (error) {
-    console.log(error);
-    const err = error as AxiosError;
-    return err;
+  async function registrarUsuario(
+    data: FormData,
+  ): Promise<Usuario | AxiosError> {
+    try {
+      const response = await axiosInstance.post(`/register`, data);
+      return response.data;
+    } catch (error) {
+      console.log(error);
+      const err = error as AxiosError;
+      return err;
+    }
   }
-}
 
-export {
-  getUsuarios,
-  registrarUsuario,
-  actualizarUsuario,
-  toggleEstadoUsuario,
-};
+  async function actualizarUsuario(
+    data: FormData,
+    id: number,
+  ): Promise<Usuario | AxiosError> {
+    try {
+      const response = await axiosInstance.put(`/editar`, data, {
+        params: {
+          id: id,
+        },
+      });
+      return response.data;
+    } catch (error) {
+      console.log(error);
+      const err = error as AxiosError;
+      return err;
+    }
+  }
+
+  async function toggleEstadoUsuario(
+    id: number,
+  ): Promise<Usuario | AxiosError> {
+    try {
+      const response = await axiosInstance.patch(`/desactivar`, null, {
+        params: {
+          id: id,
+        },
+      });
+      return response.data;
+    } catch (error) {
+      console.log(error);
+      const err = error as AxiosError;
+      return err;
+    }
+  }
+
+  async function refreshAuthorizationToken(): Promise<string | AxiosError> {
+    try {
+      const response = await axiosInstance.get(`/refreshAuthorization`);
+      return response.data;
+    } catch (error) {
+      console.log(error);
+      const err = error as AxiosError;
+      return err;
+    }
+  }
+
+  async function getUsuarioBy(searchterm: {
+    correo?: string;
+    rol?: "Administrador" | "Empleado";
+    estado?: boolean;
+  }): Promise<Usuario | AxiosError> {
+    try {
+      const response = await axiosInstance.post("/getBy", searchterm, {
+        headers: {
+          Authorization: `Bearer ${authorization.authorizationToken}`,
+        },
+      });
+      return response.data as Usuario;
+    } catch (error) {
+      return error as AxiosError;
+    }
+  }
+
+  return {
+    getUsuarios,
+    registrarUsuario,
+    actualizarUsuario,
+    toggleEstadoUsuario,
+    refreshAuthorizationToken,
+    logIn,
+    logOut,
+    getUsuarioBy,
+  };
+}

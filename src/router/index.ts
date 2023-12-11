@@ -14,7 +14,7 @@ const routes = [
     children: [
       {
         path: "/login",
-        name: "Home",
+        name: "login",
         component: loginView,
       },
       {
@@ -43,12 +43,10 @@ const router = createRouter({
 });
 
 router.beforeEach(async (to, from) => {
-  const token = localStorage.getItem("accessToken");
-  const cookie = document.cookie;
-  console.log(cookie || "no hubo cookie");
+  const cookie = document.cookie.replace("accessCookie=", "");
 
-  if (!token && to.name != "Home") {
-    return { name: "Home" };
+  if (!cookie && to.name != "login") {
+    return { name: "login" };
   }
 });
 

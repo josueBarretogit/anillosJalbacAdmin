@@ -3,8 +3,6 @@ import { useDisplay } from "vuetify/lib/framework.mjs";
 import { loggedState, tabs, searches } from "./../../variables/store";
 import { drawer } from "./../../variables/store";
 import ActionButtonsUsuario from "@/components/appBarComponents/actionButtonsUsuario.vue";
-import { ref } from "vue";
-import { watch } from "vue";
 const { xs, sm } = useDisplay();
 
 const AppBarHeight = 64;

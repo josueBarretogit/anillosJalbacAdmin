@@ -1,165 +1,143 @@
 import type { Anillo, LoginResponse, Solitario } from "@/interfaces/interfaces";
+import { authorization } from "@/variables/store";
 import axios, { AxiosError } from "axios";
 
-const token = localStorage.getItem("accessToken");
+export default function useAnillosApi() {
+  const axiosInstance = axios.create({
+    baseURL: "http://localhost:4000/api/",
 
-const axiosInstance = axios.create({
-  baseURL: "http://localhost:4000/api/",
+    headers: {
+      "Content-Type": "multipart/form-data",
+      "Access-Control-Allow-Origin": "*",
+      Authorization: `Bearer ${authorization.authorizationToken}`,
+    },
+    withCredentials: true,
+  });
 
-  headers: {
-    "Content-Type": "multipart/form-data",
-    "Access-Control-Allow-Origin": "*",
-    Authorization: `Bearer ${token}`,
-  },
-  withCredentials: true,
-});
+  const axiosInstanceJson = axios.create({
+    baseURL: "http://localhost:4000/api/",
+    headers: {
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
+      hola: "hola",
+      Authorization: `Bearer ${authorization.authorizationToken}`,
+    },
+    withCredentials: true,
+  });
 
-const axiosInstanceJson = axios.create({
-  baseURL: "http://localhost:4000/api/",
-  headers: {
-    "Content-Type": "application/json",
-    "Access-Control-Allow-Origin": "*",
-    Authorization: `Bearer ${token}`,
-  },
-  withCredentials: true,
-});
-
-async function createAnillo(
-  data: FormData,
-  tipo: string,
-): Promise<Anillo | AxiosError> {
-  try {
-    const response = await axiosInstance.post(`${tipo}/create`, data);
-    return response.data;
-  } catch (error) {
-    console.log(error);
-    const err = error as AxiosError;
-    return err;
+  async function createAnillo(
+    data: FormData,
+    tipo: string,
+  ): Promise<Anillo | AxiosError> {
+    try {
+      const response = await axiosInstance.post(`${tipo}/create`, data);
+      return response.data;
+    } catch (error) {
+      console.log(error);
+      const err = error as AxiosError;
+      return err;
+    }
   }
-}
 
-async function editarAnillo(
-  data: FormData,
-  id: number,
-  tipoJoya: string,
-): Promise<Anillo | AxiosError> {
-  try {
-    const response = await axiosInstance.put(`${tipoJoya}/editar`, data, {
-      params: {
-        id: id,
-      },
-    });
-    return response.data;
-  } catch (error) {
-    console.log(error);
-    const err = error as AxiosError;
-    return err;
-  }
-}
-
-async function getAnillos(
-  tipoJoya: string,
-): Promise<Anillo[] | Solitario[] | undefined> {
-  try {
-    const response = await axiosInstance.get(`${tipoJoya}`);
-    return response.data;
-  } catch (error) {
-    console.log(error);
-  }
-}
-
-async function deleteAnillo(
-  id: number,
-  tipoJoya: string,
-): Promise<Anillo | AxiosError> {
-  try {
-    const response = await axiosInstance.delete(`${tipoJoya}/eliminar`, {
-      params: {
-        id: id,
-      },
-    });
-
-    return response.data;
-  } catch (error) {
-    console.log(error);
-    const err = error as AxiosError;
-    return err;
-  }
-}
-async function logIn(
-  correo: string,
-  contrasena: string,
-): Promise<LoginResponse | undefined> {
-  try {
-    const response = await axiosInstance.post(`usuarios/login`, {
-      correo,
-      contrasena,
-    });
-
-    return response.data;
-  } catch (error: any) {
-    console.log(error);
-    const err = error as AxiosError;
-    return err.response?.data as LoginResponse;
-  }
-}
-
-async function logOut(): Promise<{ response: string } | undefined> {
-  try {
-    const response = await axiosInstance.get("usuarios/logout");
-    return response.data;
-  } catch (error: any) {
-    const err = error as AxiosError;
-    return err.response?.data as { response: string };
-  }
-}
-
-async function replaceImage(
-  data: FormData,
-  id: number,
-  tipoJoya: string,
-): Promise<Anillo | AxiosError> {
-  try {
-    const response = await axiosInstance.patch(
-      `${tipoJoya}/replaceImage`,
-      data,
-      {
+  async function editarAnillo(
+    data: FormData,
+    id: number,
+    tipoJoya: string,
+  ): Promise<Anillo | AxiosError> {
+    try {
+      const response = await axiosInstance.put(`${tipoJoya}/editar`, data, {
         params: {
           id: id,
         },
-      },
-    );
-    return response.data;
-  } catch (error) {
-    const err = error as AxiosError;
-    return err;
+      });
+      return response.data;
+    } catch (error) {
+      console.log(error);
+      const err = error as AxiosError;
+      return err;
+    }
   }
-}
 
-async function searchReferencia(
-  tipoJoya: string,
-  referencia: string,
-): Promise<boolean | undefined | AxiosError> {
-  try {
-    const response = await axiosInstanceJson.post(
-      `${tipoJoya}/searchReferencia`,
-      {
-        referencia: referencia,
-      },
-    );
-    return response.data;
-  } catch (error) {
-    return error as AxiosError;
+  async function getAnillos(
+    tipoJoya: string,
+  ): Promise<Anillo[] | Solitario[] | undefined> {
+    try {
+      const response = await axiosInstance.get(`${tipoJoya}`);
+      return response.data;
+    } catch (error) {
+      console.log(error);
+    }
   }
-}
 
-export {
-  getAnillos,
-  logIn,
-  logOut,
-  deleteAnillo,
-  createAnillo,
-  editarAnillo,
-  replaceImage,
-  searchReferencia,
-};
+  async function deleteAnillo(
+    id: number,
+    tipoJoya: string,
+  ): Promise<Anillo | AxiosError> {
+    try {
+      const response = await axiosInstance.delete(`${tipoJoya}/eliminar`, {
+        params: {
+          id: id,
+        },
+      });
+
+      return response.data;
+    } catch (error) {
+      console.log(error);
+      const err = error as AxiosError;
+      return err;
+    }
+  }
+
+  async function replaceImage(
+    data: FormData,
+    id: number,
+    tipoJoya: string,
+  ): Promise<Anillo | AxiosError> {
+    try {
+      const response = await axiosInstance.patch(
+        `${tipoJoya}/replaceImage`,
+        data,
+        {
+          params: {
+            id: id,
+          },
+        },
+      );
+      return response.data;
+    } catch (error) {
+      const err = error as AxiosError;
+      return err;
+    }
+  }
+
+  async function searchReferencia(
+    tipoJoya: string,
+    referencia: string,
+  ): Promise<boolean | undefined | AxiosError> {
+    try {
+      const response = await axiosInstanceJson.post(
+        `${tipoJoya}/searchReferencia`,
+        {
+          referencia: referencia,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${authorization.authorizationToken}`,
+          },
+        },
+      );
+      return response.data;
+    } catch (error) {
+      return error as AxiosError;
+    }
+  }
+
+  return {
+    getAnillos,
+    deleteAnillo,
+    createAnillo,
+    editarAnillo,
+    replaceImage,
+    searchReferencia,
+  };
+}

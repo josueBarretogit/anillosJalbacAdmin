@@ -1,15 +1,17 @@
 import { Anillo, CreateError } from "@/interfaces/interfaces";
-import { createAnillo, replaceImage } from "@/services/anilloApi";
 import { creacionAnillos, imageReplacing, tabs } from "@/variables/store";
 import { AxiosError } from "axios";
 import { ref } from "vue";
 import { dialogRequestExitoso } from "@/variables/store";
+import useAnillosApi from "@/services/anilloApi";
 
 export function useCambiarImagen() {
   const razonError = ref<unknown>("");
 
   const isLoading = ref(false);
   const dialogMensaje = ref(false);
+
+  const { replaceImage } = useAnillosApi();
 
   const imagen = ref<File[]>([]);
 

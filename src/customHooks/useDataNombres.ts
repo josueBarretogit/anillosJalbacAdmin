@@ -1,6 +1,6 @@
 import { filterByTerm } from "@/helpers/helpers";
 import { Anillo } from "@/interfaces/interfaces";
-import { getAnillos } from "@/services/anilloApi";
+import useAnillosApi from "@/services/anilloApi";
 import {
   loggedState,
   creacionAnillos,
@@ -17,6 +17,8 @@ export async function useDataAnillos(tipoJoya: string) {
   const totalItems = ref(6);
   const numPages = ref(1);
   const colKey = ref(0);
+
+  const { getAnillos } = useAnillosApi();
 
   function setNumPages(dataTable: Array<Anillo>): number {
     return Math.ceil(

@@ -15,12 +15,6 @@ import DijesView from "./dijesView.vue";
 import { watch } from "vue";
 import { filterByTerm, updateDatatableOnFilter } from "@/helpers/helpers";
 
-const token = localStorage.getItem("accessToken");
-const userData: { correo: string; rol: string; id: number } = jwtDecode(
-  token as string,
-);
-usuarioStore.setCorreo(userData.correo);
-
 const {
   anillosDataTable,
   colKey,

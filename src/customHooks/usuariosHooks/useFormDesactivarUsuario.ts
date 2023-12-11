@@ -1,11 +1,12 @@
 import { ref } from "vue";
 import { AxiosError } from "axios";
-import { toggleEstadoUsuario } from "@/services/usuariosapi";
+import useUsuarioApi from "@/services/usuariosapi";
 import { dialogRequestExitoso, usuarioStore } from "@/variables/store";
 
 export function useFormDesactivar() {
   const dialogEliminar = ref(false);
   const dialogMensaje = ref(false);
+  const { toggleEstadoUsuario } = useUsuarioApi();
 
   function cerrarFormulario() {
     dialogRequestExitoso.setIsShow(false);

@@ -1,4 +1,4 @@
-import { createAnillo } from "@/services/anilloApi";
+import useAnillosApi from "@/services/anilloApi";
 import { creacionAnillos } from "@/variables/store";
 import { AxiosError } from "axios";
 import { useField, useForm } from "vee-validate";
@@ -18,6 +18,7 @@ export function useFormCrear(tipoJoya: string) {
   const dialog = ref(false);
   const dialogMensaje = ref(false);
 
+  const { createAnillo } = useAnillosApi();
   const razonError = ref<unknown>("");
   const showRazonError = ref(false);
 

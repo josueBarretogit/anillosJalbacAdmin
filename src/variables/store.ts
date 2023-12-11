@@ -1,5 +1,11 @@
 import { Usuario } from "@/interfaces/interfaces";
 import { reactive, ref } from "vue";
+export const authorization = reactive({
+  authorizationToken: "",
+  setAuthorizationToken(token: string) {
+    this.authorizationToken = token;
+  },
+});
 
 export const loggedState = reactive({
   isLogged: false,

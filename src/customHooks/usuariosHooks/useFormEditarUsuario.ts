@@ -4,11 +4,12 @@ import { ref, Ref } from "vue";
 import { useDisplay } from "vuetify/lib/framework.mjs";
 import type { CreateError, Usuario } from "@/interfaces/interfaces";
 import { dialogRequestExitoso, usuarioStore } from "@/variables/store";
-import { actualizarUsuario } from "@/services/usuariosapi";
+import useUsuarioApi from "@/services/usuariosapi";
 import { validationSchemaEditarUsuario } from "../validationSchema/validationSchemaUsuario";
 
 export function useFormEditarUsuario(usuarioToUpdate: Usuario) {
   const { smAndUp } = useDisplay();
+  const { actualizarUsuario } = useUsuarioApi();
 
   const dialog = ref(false);
   const dialogMensaje = ref(false);

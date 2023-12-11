@@ -1,24 +1,9 @@
-import { searchReferencia } from "@/services/anilloApi";
-import { tabs } from "@/variables/store";
+import useAnillosApi from "@/services/anilloApi";
+import { authorization, tabs } from "@/variables/store";
 import { toTypedSchema } from "@vee-validate/zod";
 import { z } from "zod";
 
-/*
- *
- .refine(
-      async (referencia) => {
-        if (referencia) {
-          console.log(referencia);
-          const responseReferenciaAlreadyExist = await searchReferencia(
-            tabs.tabs,
-            referencia,
-          );
-          return responseReferenciaAlreadyExist;
-        }
-      },
-      { message: "Esta referencia ya existe" },
-    ),
- * */
+const { searchReferencia } = useAnillosApi();
 
 const mensajesError = {
   required_error: "Este campo es requerido",
@@ -52,7 +37,6 @@ const propiedadesComunes = {
     .refine(
       async (referencia) => {
         if (referencia) {
-          console.log(referencia);
           const responseReferenciaAlreadyExist = await searchReferencia(
             tabs.tabs,
             referencia,

@@ -55,6 +55,6 @@ export interface Usuario {
 export interface LoginResponse {
   isLogged: boolean;
   usuario: Usuario;
-  accessToken: string;
+  authorizationToken: string;
   response: string;
 }

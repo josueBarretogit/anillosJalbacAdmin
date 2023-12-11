@@ -1,10 +1,12 @@
 <script setup lang="ts">
 import { drawer, loggedState, tabs, usuarioStore } from "@/variables/store";
 
-import { logOut } from "@/services/anilloApi";
 import { useRouter } from "vue-router";
+import useUsuarioApi from "@/services/usuariosapi";
 
 const router = useRouter();
+
+const { logOut } = useUsuarioApi();
 
 async function cerrarSesion() {
   const response = await logOut();
@@ -13,7 +15,7 @@ async function cerrarSesion() {
     localStorage.removeItem("accessToken");
     loggedState.setToFalse();
     router.push({
-      name: "Home",
+      name: "login",
     });
     tabs.tabs = "nombres";
   }

@@ -1,15 +1,17 @@
 import { LoginResponse } from "@/interfaces/interfaces";
-import { logIn } from "@/services/anilloApi";
-import { loggedState, usuarioStore } from "@/variables/store";
+import { authorization, loggedState, usuarioStore } from "@/variables/store";
 import { useForm, useField } from "vee-validate";
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 import { drawer } from "@/variables/store";
 import { validationSchemaLogIn } from "./validationSchema/validationSchemaUsuario";
+import useAnillosApi from "@/services/anilloApi";
+import useUsuarioApi from "@/services/usuariosapi";
 
 export function useLogin() {
   drawer.setDrawer(false);
-  const token = localStorage.getItem("accessToken");
+
+  const { logIn } = useUsuarioApi();
 
   const router = useRouter();
 
@@ -38,11 +40,8 @@ export function useLogin() {
     if (dataLogin?.isLogged) {
       loggedState.setToTrue();
       usuarioStore.setUsuario(dataLogin.usuario);
-
-      loggedState.setToken(token);
-
-      const cookie = document.cookie.replace("refreshToken=", "");
-      localStorage.setItem("accessToken", dataLogin.accessToken);
+      console.log(dataLogin.authorizationToken);
+      authorization.setAuthorizationToken(dataLogin.authorizationToken);
 
       router.push({
         name: "viewNombres",

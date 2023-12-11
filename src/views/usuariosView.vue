@@ -4,16 +4,17 @@ import { watch } from "vue";
 import { ref } from "vue";
 import { useDisplay } from "vuetify/lib/framework.mjs";
 import { drawer, searches, usuarioStore } from "@/variables/store";
-import { getUsuarios } from "@/services/usuariosapi";
 import FormCrearUsuario from "@/components/usuariosComponents/formCrearUsuario.vue";
 import CartaUsuario from "@/components/cartaUsuario.vue";
 import Drawer from "@/components/drawer.vue";
 import { filterByTermUsuario } from "@/helpers/helpers";
+import useUsuarioApi from "@/services/usuariosapi";
 
 const { xs } = useDisplay();
 const isLoading = ref(true);
 const usuarioDataTable = ref<any[]>();
 const colKey = ref(0);
+const { getUsuarios } = useUsuarioApi();
 
 let usuarioDataTableCopy = await getUsuarios();
 usuarioDataTable.value = usuarioDataTableCopy;

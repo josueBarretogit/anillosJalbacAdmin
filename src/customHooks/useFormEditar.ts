@@ -1,4 +1,4 @@
-import { editarAnillo } from "@/services/anilloApi";
+import useAnillosApi from "@/services/anilloApi";
 import { creacionAnillos, dialogRequestExitoso, tabs } from "@/variables/store";
 import { AxiosError } from "axios";
 import { configure, useField, useForm } from "vee-validate";
@@ -15,6 +15,7 @@ export function useFormEditar(
   joya: Anillo & Solitario & Dije,
   tipoJoya: string,
 ) {
+  const { editarAnillo } = useAnillosApi();
   const { smAndUp } = useDisplay();
 
   const dialog = ref(false);
