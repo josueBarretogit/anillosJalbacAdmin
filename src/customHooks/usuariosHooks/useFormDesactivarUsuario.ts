@@ -6,6 +6,7 @@ import { dialogRequestExitoso, usuarioStore } from "@/variables/store";
 export function useFormDesactivar() {
   const dialogEliminar = ref(false);
   const dialogMensaje = ref(false);
+
   const { toggleEstadoUsuario } = useUsuarioApi();
 
   function cerrarFormulario() {
@@ -18,14 +19,12 @@ export function useFormDesactivar() {
   }
 
   async function activarODesactivar(id: number) {
-    console.log(id);
-    dialogMensaje.value = true;
     const response = await toggleEstadoUsuario(id);
     if (!(response instanceof AxiosError)) {
       dialogRequestExitoso.setFallo(false);
       dialogRequestExitoso.setIsShow(true);
+      dialogMensaje.value = true;
       dialogEliminar.value = false;
-      usuarioStore.setIsRegistered(usuarioStore.isRegistered + 1);
     } else {
       dialogRequestExitoso.setMensajeError(response.response?.data as string);
       dialogRequestExitoso.setFallo(true);

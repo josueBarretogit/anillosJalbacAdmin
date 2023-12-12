@@ -10,17 +10,6 @@ const messages = {
 };
 
 const propiedadesComunes = {
-  correo: z.string(messages).email({ message: "Escribe un correo" }),
-
-  contrasena: z.string(messages).min(7, { message: "Minimo de caracteres 7" }),
-};
-
-const ObjectValidationLogIn = z.object(propiedadesComunes);
-const validationSchemaLogIn = toTypedSchema(ObjectValidationLogIn);
-
-const ObjectValidationCrearUsuario = z.object({
-  rol: z.string(messages),
-  ...propiedadesComunes,
   correo: z
     .string(messages)
     .email({ message: "Escribe un correo" })
@@ -28,13 +17,27 @@ const ObjectValidationCrearUsuario = z.object({
       async (correo: string) => {
         const correoAlreadyExist = await getUsuarioBy({ correo: correo });
         console.log(correoAlreadyExist);
-        if (!(correoAlreadyExist instanceof AxiosError)) return false;
-        return true;
+        if (!correoAlreadyExist) return true;
+        return false;
       },
       {
         message: "Este correo ya existe",
       },
     ),
+  contrasena: z.string(messages).min(7, { message: "Minimo de caracteres 7" }),
+  rol: z.string(messages),
+};
+
+const ObjectValidationLogIn = z.object({
+  correo: z.string(messages).email({
+    message: "Escribe un correo",
+  }),
+  contrasena: propiedadesComunes.contrasena,
+});
+const validationSchemaLogIn = toTypedSchema(ObjectValidationLogIn);
+
+const ObjectValidationCrearUsuario = z.object({
+  ...propiedadesComunes,
 });
 
 const validationSchemaCrearUsuario = toTypedSchema(
@@ -43,7 +46,7 @@ const validationSchemaCrearUsuario = toTypedSchema(
 
 const ObjectValidationEditarUsuario = z.object({
   rol: z.string(messages),
-  correo: propiedadesComunes.correo,
+  correo: propiedadesComunes.correo.optional(),
   contrasena: propiedadesComunes.contrasena.optional(),
 });
 

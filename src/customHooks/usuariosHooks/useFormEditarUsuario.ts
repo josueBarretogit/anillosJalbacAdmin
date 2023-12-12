@@ -33,7 +33,6 @@ export function useFormEditarUsuario(usuarioToUpdate: Usuario) {
   const contrasena = useField("contrasena");
   const rol = useField("rol");
 
-  correo.value.value = usuarioToUpdate.correo;
   rol.value.value = usuarioToUpdate.rol;
 
   const roles = ref(["Administrador", "Empleado"]);
@@ -44,7 +43,9 @@ export function useFormEditarUsuario(usuarioToUpdate: Usuario) {
     if (values.contrasena) {
       valuesForm.append("contrasena", values.contrasena);
     }
-    valuesForm.append("correo", values.correo);
+    if (values.correo) {
+      valuesForm.append("correo", values.correo);
+    }
     valuesForm.append("rol", values.rol);
 
     console.log(values);

@@ -14,10 +14,13 @@ async function redirectIfUserHasLogged() {
     const refreshedToken = await refreshAuthorizationToken();
     authorization.setAuthorizationToken(refreshedToken as string);
 
-    const userData: { correo: string; rol: string; id: number } = jwtDecode(
-      refreshedToken as string,
-    );
+    const userData: {
+      correo: string;
+      rol: "Empleado" | "Administrador";
+      id: number;
+    } = jwtDecode(refreshedToken as string);
     usuarioStore.setCorreo(userData.correo);
+    usuarioStore.setRol(userData.rol);
     router.push({ name: "viewNombres" });
   }
 }

@@ -65,4 +65,13 @@ const colorDesactivar = "red";
       </v-card-actions>
     </v-card>
   </v-dialog>
+
+  <DialogMensajeRequest
+    v-if="dialogMensaje"
+    :mensaje="`Usuario ${
+      lowerCasedMensaje == 'activar' ? 'activado' : 'desactivado'
+    } exitosamente`"
+    :fallo="dialogRequestExitoso.fallo"
+    :mensaje-error="`${dialogRequestExitoso.mensajeError}`"
+  />
 </template>

@@ -122,6 +122,10 @@ export const usuarioStore = reactive({
     this.UsuarioInterface.correo = value;
   },
 
+  setRol(value: "Administrador" | "Empleado") {
+    this.UsuarioInterface.rol = value;
+  },
+
   isRegistered: 0,
   setIsRegistered(value: number) {
     this.isRegistered = value;
