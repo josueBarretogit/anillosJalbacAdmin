@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import { useLogin } from "./../customHooks/useLogin";
-import { useRouter } from "vue-router";
 
 const { submit, correo, contrasena, showAlert, isLoading, razonError } =
   useLogin();

@@ -48,8 +48,6 @@ export function useFormEditarUsuario(usuarioToUpdate: Usuario) {
     }
     valuesForm.append("rol", values.rol);
 
-    console.log(values);
-
     isLoading.value = true;
     const response: Usuario | AxiosError = await actualizarUsuario(
       valuesForm,

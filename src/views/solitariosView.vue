@@ -19,7 +19,6 @@ const {
   numPages,
   page,
   updatePage,
-  anillosCopy,
   totalItems,
   setNumPages,
 } = await useDataAnillos(tabs.tabs);
@@ -77,7 +76,7 @@ watch(
       >
         <carta
           :class="!xs ? 'ml-5 mr-5' : ''"
-          v-bind:anillo="solitario as Solitario"
+          v-bind:anillo="solitario as any"
           :key="solitario.id"
           tipo="solitarios"
         />

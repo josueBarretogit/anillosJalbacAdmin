@@ -45,8 +45,6 @@ export function useCambiarImagen() {
         creacionAnillos.setIsCreatedDije(creacionAnillos.isCreatedDije + 1);
       }
     } else {
-      console.log("hubo un error");
-
       dialogRequestExitoso.setFallo(true);
       dialogRequestExitoso.setIsShow(true);
       imageReplacing.setFalloReplace(true);

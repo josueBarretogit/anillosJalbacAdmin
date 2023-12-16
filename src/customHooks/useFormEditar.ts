@@ -32,7 +32,7 @@ export function useFormEditar(
     dialog.value = false;
   }
 
-  const { handleSubmit, isValidating } = useForm({
+  const { handleSubmit } = useForm({
     validationSchema:
       tipoJoya == "nombres"
         ? validationSchemaEditarNombre
@@ -72,7 +72,7 @@ export function useFormEditar(
   categoria.value.value = joya.categoria;
   talla.value.value = joya.talla;
 
-  const submit = handleSubmit(async (values) => {
+  const submit = handleSubmit(async (values: any) => {
     const valuesForm = new FormData();
 
     if (tipoJoya == "nombres") {
@@ -92,7 +92,6 @@ export function useFormEditar(
     valuesForm.append("talla", values.talla);
     valuesForm.append("referencia", values.referencia || joya.referencia);
 
-    console.log(values);
     isLoading.value = true;
     const response = await editarAnillo(valuesForm, joya.id, tabs.tabs);
 

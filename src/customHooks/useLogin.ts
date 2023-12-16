@@ -35,12 +35,10 @@ export function useLogin() {
       values.contrasena,
     );
 
-    console.log(dataLogin);
     isLoading.value = false;
     if (dataLogin?.isLogged) {
       loggedState.setToTrue();
       usuarioStore.setUsuario(dataLogin.usuario);
-      console.log(dataLogin.authorizationToken);
       authorization.setAuthorizationToken(dataLogin.authorizationToken);
 
       router.push({

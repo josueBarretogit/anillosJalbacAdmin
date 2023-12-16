@@ -10,7 +10,6 @@ import { dialogRequestExitoso } from "@/variables/store";
 import { useDisplay } from "vuetify/lib/framework.mjs";
 import Drawer from "@/components/drawer.vue";
 import { drawer } from "@/variables/store";
-import jwtDecode from "jwt-decode";
 import DijesView from "./dijesView.vue";
 import { watch } from "vue";
 import { filterByTerm, updateDatatableOnFilter } from "@/helpers/helpers";
@@ -22,7 +21,6 @@ const {
   page,
   updatePage,
   totalItems,
-  anillosCopy,
   setNumPages,
 } = await useDataAnillos(tabs.tabs);
 

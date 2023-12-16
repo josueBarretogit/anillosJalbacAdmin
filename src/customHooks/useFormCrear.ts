@@ -56,7 +56,7 @@ export function useFormCrear(tipoJoya: string) {
   const referencia = useField("referencia");
   const imagen = useField<File[]>("imagen");
 
-  const submit = handleSubmit(async (values) => {
+  const submit = handleSubmit(async (values: any) => {
     const valuesForm = new FormData();
 
     if (tipoJoya == "nombres") {
@@ -77,8 +77,6 @@ export function useFormCrear(tipoJoya: string) {
     valuesForm.append("referencia", values.referencia);
     valuesForm.append("image", values.imagen[0]);
 
-    console.log(values);
-
     isLoading.value = true;
     const response: Anillo | AxiosError = await createAnillo(
       valuesForm,
@@ -93,12 +91,10 @@ export function useFormCrear(tipoJoya: string) {
 
       if (tipoJoya == "nombres") {
         creacionAnillos.setIsCreated(creacionAnillos.isCreated + 1);
-        console.log("created nombre");
       } else if (tipoJoya == "solitarios") {
         creacionAnillos.setIsCreatedSolitario(
           creacionAnillos.isCreatedSolitario + 1,
         );
-        console.log("created solitario");
       } else if (tipoJoya == "dijes") {
         creacionAnillos.setIsCreatedDije(creacionAnillos.isCreatedDije + 1);
       }

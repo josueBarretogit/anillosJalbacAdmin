@@ -3,7 +3,7 @@ import type { Usuario } from "@/interfaces/interfaces";
 import { watch } from "vue";
 import { ref } from "vue";
 import { useDisplay } from "vuetify/lib/framework.mjs";
-import { drawer, searches, usuarioStore } from "@/variables/store";
+import { searches, usuarioStore } from "@/variables/store";
 import FormCrearUsuario from "@/components/usuariosComponents/formCrearUsuario.vue";
 import CartaUsuario from "@/components/cartaUsuario.vue";
 import Drawer from "@/components/drawer.vue";

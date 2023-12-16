@@ -35,7 +35,6 @@ export const creacionAnillos = reactive({
   isCreated: 0,
   setIsCreated(created: number) {
     this.isCreated = created;
-    console.log(this.isCreated);
   },
 
   isCreatedSolitario: 0,
@@ -97,7 +96,6 @@ export const drawer = reactive({
   },
   drawer: false,
   setDrawer(value: boolean) {
-    console.log(this.drawer);
     this.drawer = value;
   },
 });
@@ -114,7 +112,6 @@ export const usuarioStore = reactive({
   UsuarioInterface,
 
   setUsuario(usuario: Usuario) {
-    console.log(usuario);
     this.UsuarioInterface = usuario;
   },
 

@@ -4,7 +4,7 @@ import axios, { AxiosError } from "axios";
 
 export default function useAnillosApi() {
   const axiosInstance = axios.create({
-    baseURL: "http://localhost:4000/api/",
+    baseURL: import.meta.env.VITE_API_ROUTE,
 
     headers: {
       "Content-Type": "multipart/form-data",
@@ -15,7 +15,7 @@ export default function useAnillosApi() {
   });
 
   const axiosInstanceJson = axios.create({
-    baseURL: "http://localhost:4000/api/",
+    baseURL: import.meta.env.VITE_API_ROUTE,
     headers: {
       "Content-Type": "application/json",
       "Access-Control-Allow-Origin": "*",
@@ -33,7 +33,6 @@ export default function useAnillosApi() {
       const response = await axiosInstance.post(`${tipo}/create`, data);
       return response.data;
     } catch (error) {
-      console.log(error);
       const err = error as AxiosError;
       return err;
     }
@@ -52,7 +51,6 @@ export default function useAnillosApi() {
       });
       return response.data;
     } catch (error) {
-      console.log(error);
       const err = error as AxiosError;
       return err;
     }
@@ -64,9 +62,7 @@ export default function useAnillosApi() {
     try {
       const response = await axiosInstance.get(`${tipoJoya}`);
       return response.data;
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   }
 
   async function deleteAnillo(
@@ -82,7 +78,6 @@ export default function useAnillosApi() {
 
       return response.data;
     } catch (error) {
-      console.log(error);
       const err = error as AxiosError;
       return err;
     }

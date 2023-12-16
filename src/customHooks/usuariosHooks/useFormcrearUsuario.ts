@@ -43,8 +43,6 @@ export function useFormCrearUsuario() {
     valuesForm.append("contrasena", values.contrasena);
     valuesForm.append("rol", values.rol);
 
-    console.log(values);
-
     isLoading.value = true;
     const response: Usuario | AxiosError = await registrarUsuario(valuesForm);
     isLoading.value = false;

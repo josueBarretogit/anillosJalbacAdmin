@@ -4,7 +4,7 @@ import axios, { AxiosError } from "axios";
 
 export default function useUsuarioApi() {
   const axiosInstance = axios.create({
-    baseURL: "http://localhost:4000/api/usuarios",
+    baseURL: `${import.meta.env.VITE_API_ROUTE}usuarios`,
     headers: {
       "Content-Type": "multipart/form-data",
       "Access-Control-Allow-Origin": "*",
@@ -25,7 +25,6 @@ export default function useUsuarioApi() {
 
       return response.data;
     } catch (error: any) {
-      console.log(error);
       const err = error as AxiosError;
       return err.response?.data as LoginResponse;
     }
@@ -51,9 +50,7 @@ export default function useUsuarioApi() {
       return filteredUsuarios.sort((a: Usuario, b: Usuario) =>
         a.estado === b.estado ? 0 : a.estado ? -1 : 1,
       );
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   }
 
   async function registrarUsuario(
@@ -63,7 +60,6 @@ export default function useUsuarioApi() {
       const response = await axiosInstance.post(`/register`, data);
       return response.data;
     } catch (error) {
-      console.log(error);
       const err = error as AxiosError;
       return err;
     }
@@ -81,7 +77,6 @@ export default function useUsuarioApi() {
       });
       return response.data;
     } catch (error) {
-      console.log(error);
       const err = error as AxiosError;
       return err;
     }
@@ -98,20 +93,20 @@ export default function useUsuarioApi() {
       });
       return response.data;
     } catch (error) {
-      console.log(error);
       const err = error as AxiosError;
       return err;
     }
   }
 
-  async function refreshAuthorizationToken(): Promise<string | AxiosError> {
+  async function refreshAuthorizationToken(): Promise<
+    string | number | undefined
+  > {
     try {
       const response = await axiosInstance.get(`/refreshAuthorization`);
       return response.data;
     } catch (error) {
-      console.log(error);
       const err = error as AxiosError;
-      return err;
+      return err.status;
     }
   }
 

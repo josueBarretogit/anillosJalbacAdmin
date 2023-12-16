@@ -15,7 +15,6 @@ const {
   page,
   updatePage,
   totalItems,
-  anillosCopy,
   setNumPages,
 } = await useDataAnillos(tabs.tabs);
 
