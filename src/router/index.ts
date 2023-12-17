@@ -1,10 +1,5 @@
 // Composables
 import { createRouter, createWebHistory } from "vue-router";
-import viewNombres from "@/views/nombresView.vue";
-import defaultLayout from "@/layouts/default/DefaultLayout.vue";
-import loginView from "@/views/LoginView.vue";
-import UsuarioView from "@/views/usuariosView.vue";
-import Cookies from "js-cookie";
 import jwtDecode from "jwt-decode";
 import useUsuarioApi from "@/services/usuariosapi";
 import {
@@ -16,29 +11,29 @@ import {
 
 const routes = [
   {
-    path: "/",
-    component: defaultLayout,
+    path: "/anillosJalbacAdmin",
+    component: () => import("@/layouts/default/DefaultLayout.vue"),
     children: [
       {
-        path: "/login",
+        path: "login",
         name: "login",
-        component: loginView,
+        component: () => import("@/views/LoginView.vue"),
       },
       {
-        path: "/viewNombres",
+        path: "viewNombres",
         name: "viewNombres",
 
-        component: viewNombres,
+        component: () => import("@/views/nombresView.vue"),
 
         meta: {
           requiresAuth: true,
         },
       },
       {
-        path: "/usuarios",
+        path: "usuarios",
         name: "usuarios",
 
-        component: UsuarioView,
+        component: () => import("@/views/usuariosView.vue"),
       },
     ],
   },
