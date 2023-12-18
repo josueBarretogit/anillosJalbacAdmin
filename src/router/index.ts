@@ -11,7 +11,7 @@ import {
 
 const routes = [
   {
-    path: "/anillosJalbacAdmin",
+    path: "/",
     component: () => import("@/layouts/default/DefaultLayout.vue"),
     children: [
       {
